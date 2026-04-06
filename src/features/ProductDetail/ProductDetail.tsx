@@ -2,11 +2,18 @@ import { Divider } from "@mui/material";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useParams } from "react-router-dom";
+import { AppContext } from "../../context/AppContext/AppContext";
+import { useContext } from "react";
 
-// TODO: Refactor and fix UI
+// TODO: Refactor, update handleAdd function and fix UI
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
+   const { cartCount, updateCart } = useContext(AppContext);
+
+   const handleAdd = () => {
+      updateCart(cartCount + 1);
+   };
 
    return (
       <main style={{ padding: "2rem", maxWidth: "1000px", margin: "0 auto" }}>
@@ -88,6 +95,7 @@ const ProductDetail = () => {
                         event.currentTarget as HTMLButtonElement
                      ).style.backgroundColor = "#2563EB";
                   }}
+                  onClick={handleAdd}
                >
                   Add To Cart
                </button>
