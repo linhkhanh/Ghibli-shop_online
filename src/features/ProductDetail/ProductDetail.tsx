@@ -4,14 +4,17 @@ import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext/AppContext";
 import { useContext } from "react";
+import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
 // TODO: Refactor, update handleAdd function and fix UI
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
    const { cartCount, updateCart } = useContext(AppContext);
+   const { showSnackbar } = useSnackbar();
 
    const handleAdd = () => {
+      showSnackbar("Add to cart successfully!", "success");
       updateCart(cartCount + 1);
    };
 
