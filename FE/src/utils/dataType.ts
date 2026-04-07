@@ -37,6 +37,7 @@ export interface CartItem extends ItemInfo {
 export interface OrderItem extends ItemInfo {
    id: string;
    orderId: string;
+   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
 }
 
 export interface Order {

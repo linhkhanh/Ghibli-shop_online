@@ -454,6 +454,7 @@ export const mockOrderItems: OrderItem[] = [
       discount: 10,
       imageUrl:
          "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage208903327_2nd.jpg?strip=all&lossy=1&ssl=1",
+      status: "pending",
    },
    {
       id: "order-item-2",
@@ -465,6 +466,7 @@ export const mockOrderItems: OrderItem[] = [
       discount: 0,
       imageUrl:
          "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage120813380_2nd.jpg?strip=all&lossy=1&ssl=1",
+      status: "processing",
    },
    {
       id: "order-item-3",
@@ -475,6 +477,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 3,
       discount: 15,
       imageUrl: "https://i.ebayimg.com/images/g/GNcAAOSw7MNiYT6T/s-l1200.jpg",
+      status: "delivered",
    },
    {
       id: "order-item-4",
@@ -485,6 +488,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 1,
       discount: 0,
       imageUrl: "https://example.com/princess_mononoke.jpg",
+      status: "pending",
    },
    {
       id: "order-item-5",
@@ -495,6 +499,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 2,
       discount: 20,
       imageUrl: "https://example.com/howls_moving_castle.jpg",
+      status: "pending",
    },
    {
       id: "order-item-6",
@@ -505,6 +510,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 1,
       discount: 0,
       imageUrl: "https://example.com/kikis_delivery_service.jpg",
+      status: "processing",
    },
    {
       id: "order-item-7",
@@ -515,6 +521,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 3,
       discount: 5,
       imageUrl: "https://example.com/ponyo.jpg",
+      status: "delivered",
    },
    {
       id: "order-item-8",
@@ -525,6 +532,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 1,
       discount: 0,
       imageUrl: "https://example.com/the_wind_rises.jpg",
+      status: "pending",
    },
    {
       id: "order-item-9",
@@ -535,6 +543,7 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 1,
       discount: 10,
       imageUrl: "https://example.com/castle_in_the_sky.jpg",
+      status: "pending",
    },
    {
       id: "order-item-10",
@@ -545,5 +554,6 @@ export const mockOrderItems: OrderItem[] = [
       quantity: 1,
       discount: 5,
       imageUrl: "https://example.com/nausicaa.jpg",
+      status: "processing",
    },
 ];
