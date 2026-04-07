@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
+import { Link } from "react-router-dom";
 
 const CartTable = () => {
    const itemsInCart = useCartDetail();
@@ -101,7 +102,11 @@ const CartTable = () => {
                                        objectFit: "cover",
                                     }}
                                  />
-                                 <Typography variant="body1">
+                                 <Typography
+                                    variant="body1"
+                                    component={Link}
+                                    to={"/product-detail/" + item.productId}
+                                 >
                                     {item.title}
                                  </Typography>
                               </Box>
