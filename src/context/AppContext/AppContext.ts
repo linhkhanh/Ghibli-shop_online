@@ -1,12 +1,11 @@
 import { createContext } from "react";
-import type { CartItem } from "../../utils/datatType";
 
 export type AppContextType = {
-   cartItems: CartItem[];
-   updateCart: (items: CartItem[]) => void;
+   cartCount: number;
+   updateCart: (cartCount: number) => void;
 };
 
 export const AppContext = createContext<AppContextType>({
-   cartItems: [],
+   cartCount: 0,
    updateCart: () => {},
 });

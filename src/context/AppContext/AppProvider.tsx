@@ -1,6 +1,7 @@
-import { useEffect, useState, type ReactNode, type FC } from "react";
+import { useState, type ReactNode, type FC } from "react";
 import { AppContext, type AppContextType } from "./AppContext";
 import type { CartItem } from "../../utils/datatType";
+import { mockCartItems } from "../../utils/mockData";
 
 type AppProviderProps = {
    children: ReactNode;
@@ -8,40 +9,19 @@ type AppProviderProps = {
 
 // TODO: remove this func when connecting database
 const getStoredCartItems = (): CartItem[] => {
-   if (typeof window === "undefined") return [];
-   const stored = window.localStorage.getItem("cartItems");
-   if (!stored) return [];
-
-   try {
-      const parsed = JSON.parse(stored);
-      if (!Array.isArray(parsed)) return [];
-      return parsed.map((item) => ({
-         productId: item.productId,
-         price: item.price,
-         discount: item.discount,
-         title: item.title,
-      }));
-   } catch {
-      return [];
-   }
+   return mockCartItems;
 };
 
 export const AppProvider: FC<AppProviderProps> = ({ children }) => {
    const initialCartItems = getStoredCartItems();
-   const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
+   const [cartCount, setCartCount] = useState<number>(initialCartItems.length);
 
-   useEffect(() => {
-      if (typeof window === "undefined") return;
-      window.localStorage.setItem("cartItems", JSON.stringify(cartItems));
-   }, [cartItems]);
-
-   const updateCart = (items: CartItem[]) => {
-      setCartItems(items);
-      window.localStorage.setItem("cartItems", JSON.stringify(items));
+   const updateCart = (cartCount: number) => {
+      setCartCount(cartCount);
    };
 
    const value: AppContextType = {
-      cartItems,
+      cartCount: cartCount,
       updateCart,
    };
 

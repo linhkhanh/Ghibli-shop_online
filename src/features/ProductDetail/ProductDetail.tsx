@@ -10,20 +10,13 @@ import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
-   const { cartItems, updateCart } = useContext(AppContext);
+   const { cartCount, updateCart } = useContext(AppContext);
    const { showSnackbar } = useSnackbar();
 
+   // TODO: Call API here (send request {productId)})
    const handleAdd = () => {
       showSnackbar("Add to cart successfully!", "success");
-      updateCart([
-         ...cartItems,
-         {
-            productId: productId || "",
-            price: productInfo.price,
-            discount: productInfo.discount,
-            title: productInfo.title,
-         },
-      ]);
+      updateCart(cartCount + 1);
    };
 
    return (

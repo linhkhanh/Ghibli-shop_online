@@ -21,13 +21,6 @@ export interface ProductsByCategory {
 }
 
 export interface CartItem {
-   productId: string;
-   price: number;
-   discount?: number;
-   title: string;
-}
-
-export interface NewCartItem {
    id: string;
    cartId: string;
    quantity: number;

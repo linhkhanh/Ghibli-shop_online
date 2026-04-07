@@ -7,16 +7,16 @@ import { AppContext } from "../../context/AppContext/AppContext";
 import { Link } from "react-router-dom";
 
 const CartBtn = () => {
-   const { cartItems } = useContext(AppContext);
+   const { cartCount } = useContext(AppContext);
 
    return (
       <Tooltip title="Click to see your cart">
          <Link to="/member/cart">
             <IconButton>
-               {cartItems.length == 0 ? (
+               {cartCount == 0 ? (
                   <ShoppingCartOutlined />
                ) : (
-                  <Badge badgeContent={cartItems.length} color="error">
+                  <Badge badgeContent={cartCount} color="error">
                      <ShoppingCartOutlined />
                   </Badge>
                )}

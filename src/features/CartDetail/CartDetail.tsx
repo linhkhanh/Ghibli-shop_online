@@ -1,5 +1,6 @@
 import {
    Box,
+   Button,
    Paper,
    Table,
    TableBody,
@@ -12,11 +13,14 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
+import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
 const CartDetail = () => {
    const itemsInCart = useCartDetail();
    const [cartItems, setCartItems] = useState(itemsInCart);
+   const { showSnackbar } = useSnackbar();
 
+   // TODO: call API here (send request {productId, newQuantity})
    const handleQuantityChange = (id: string, newQuantity: number) => {
       if (newQuantity < 1) return;
       setCartItems((items) =>
@@ -24,6 +28,13 @@ const CartDetail = () => {
             item.id === id ? { ...item, quantity: newQuantity } : item,
          ),
       );
+      showSnackbar("Add to cart successfully!", "success");
+   };
+
+   // TODO: Call API here (send request {productId, newQuantity: 0}
+   const handleRemoveItem = (id: string) => {
+      setCartItems((items) => items.filter((item) => item.id !== id));
+      showSnackbar("Item removed from cart!", "info");
    };
 
    const calculateTotal = () => {
@@ -57,6 +68,9 @@ const CartDetail = () => {
                      </TableCell>
                      <TableCell align="right" sx={{ fontWeight: 700 }}>
                         Discount
+                     </TableCell>
+                     <TableCell align="center" sx={{ fontWeight: 700 }}>
+                        Action
                      </TableCell>
                   </TableRow>
                </TableHead>
@@ -102,11 +116,21 @@ const CartDetail = () => {
                         <TableCell align="right">
                            {item.discount.toFixed(2)}%
                         </TableCell>
+                        <TableCell align="center">
+                           <Button
+                              variant="outlined"
+                              color="error"
+                              size="small"
+                              onClick={() => handleRemoveItem(item.id)}
+                           >
+                              Remove
+                           </Button>
+                        </TableCell>
                      </TableRow>
                   ))}
                   <TableRow sx={{ backgroundColor: "#f9f9f9" }}>
                      <TableCell
-                        colSpan={4}
+                        colSpan={5}
                         sx={{ fontWeight: 700, fontSize: 16 }}
                      >
                         Total Price

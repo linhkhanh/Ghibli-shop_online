@@ -18,22 +18,16 @@ interface ProductCardProps {
 
 export default function ProductCard(props: ProductCardProps) {
    const { id, title, image, price, discount = 0 } = props.productDetail;
-   const { cartItems, updateCart } = useContext(AppContext);
+   const { cartCount, updateCart } = useContext(AppContext);
    const { showSnackbar } = useSnackbar();
    const getProductLink = () => {
       return "/product-detail" + "/" + id;
    };
+
+   // TODO: Call API here (send request {productId})
    const handleAdd = () => {
       showSnackbar("Add to cart successfully!", "success");
-      updateCart([
-         ...cartItems,
-         {
-            productId: id,
-            price,
-            discount,
-            title,
-         },
-      ]);
+      updateCart(cartCount + 1);
    };
    return (
       <Card

@@ -2,7 +2,7 @@ import {
    type MovieCategory,
    type ProductItem,
    type ProductsByCategory,
-   type NewCartItem,
+   type CartItem,
 } from "./datatType";
 
 export const MoviesList: MovieCategory[] = [
@@ -313,7 +313,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
    },
 ];
 
-export const mockCartItems: NewCartItem[] = [
+export const mockCartItems: CartItem[] = [
    {
       id: "cart-item-1",
       cartId: "cart-1",

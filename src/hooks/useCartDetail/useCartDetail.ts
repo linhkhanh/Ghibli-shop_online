@@ -1,7 +1,8 @@
-import type { NewCartItem } from "../../utils/datatType";
+import type { CartItem } from "../../utils/datatType";
 import { mockCartItems } from "../../utils/mockData";
 
-const useCartDetail = (): NewCartItem[] => {
+// TODO: call API here
+const useCartDetail = (): CartItem[] => {
    return mockCartItems;
 };
 
