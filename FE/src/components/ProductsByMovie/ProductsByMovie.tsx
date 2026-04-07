@@ -1,7 +1,7 @@
 import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 import { Box, IconButton, Typography, Grid, Divider } from "@mui/material";
 import { useRef } from "react";
-import type { ProductsByCategory } from "../../utils/datatType";
+import type { ProductsByCategory } from "../../utils/dataType";
 import ProductCard from "../ProductCard/ProductCard";
 
 interface ProductsByMovieProps {

@@ -5,7 +5,7 @@ import {
    type CartItem,
    type Order,
    type OrderItem,
-} from "./datatType";
+} from "./dataType";
 
 export const MoviesList: MovieCategory[] = [
    {

@@ -1,6 +1,6 @@
 import { useState, type ReactNode, type FC } from "react";
 import { AppContext, type AppContextType } from "./AppContext";
-import type { CartItem } from "../../utils/datatType";
+import type { CartItem } from "../../utils/dataType";
 import { mockCartItems } from "../../utils/mockData";
 
 type AppProviderProps = {

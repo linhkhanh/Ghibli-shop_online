@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import useOrdersList from "../../hooks/useOrdersList/useOrdersList";
-import type { Order } from "../../utils/datatType";
+import type { Order } from "../../utils/dataType";
 import { Link } from "react-router-dom";
 
 const OrdersList = () => {

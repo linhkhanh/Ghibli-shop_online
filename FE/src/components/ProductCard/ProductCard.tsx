@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import type { ProductItem } from "../../utils/datatType";
+import type { ProductItem } from "../../utils/dataType";
 import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
