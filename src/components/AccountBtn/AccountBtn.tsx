@@ -2,7 +2,7 @@ import { IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "View Orders", "Logout"];
 
 const AccountBtn = () => {
    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

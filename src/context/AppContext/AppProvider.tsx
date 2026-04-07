@@ -7,7 +7,7 @@ type AppProviderProps = {
    children: ReactNode;
 };
 
-// TODO: remove this func when connecting database
+// TODO: Get real data from call API here
 const getStoredCartItems = (): CartItem[] => {
    return mockCartItems;
 };

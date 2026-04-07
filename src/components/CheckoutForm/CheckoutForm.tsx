@@ -36,7 +36,6 @@ const CheckoutForm = () => {
    const {
       control,
       handleSubmit,
-      reset,
       formState: { errors },
    } = useForm<CheckoutFormData>({
       defaultValues,
@@ -45,12 +44,11 @@ const CheckoutForm = () => {
    const { updateCart } = useContext(AppContext);
 
    // TODO: Handle checkout logic, e.g., API call, clear cart
-   // Update CartTable by refresh page
    const onSubmit = (data: CheckoutFormData) => {
       console.log("Checkout data:", data);
       showSnackbar("Checkout successful!", "success");
-      updateCart(0);
-      reset(defaultValues);
+      updateCart(0); // TODO: remove this line when fetching real data
+      window.location.reload();
    };
 
    return (

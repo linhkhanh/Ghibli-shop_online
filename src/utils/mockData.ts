@@ -3,6 +3,7 @@ import {
    type ProductItem,
    type ProductsByCategory,
    type CartItem,
+   type Order,
 } from "./datatType";
 
 export const MoviesList: MovieCategory[] = [
@@ -365,5 +366,78 @@ export const mockCartItems: CartItem[] = [
       price: 39.99,
       discount: 20,
       imageUrl: "https://example.com/howls_moving_castle.jpg",
+   },
+];
+
+export const mockOrdersList: Order[] = [
+   {
+      id: "order-1",
+      userId: "user-1",
+      totalAmount: 59.98,
+      status: "delivered",
+      createdAt: "2024-01-15T10:30:00Z",
+   },
+   {
+      id: "order-2",
+      userId: "user-2",
+      totalAmount: 24.99,
+      status: "shipped",
+      createdAt: "2024-02-20T14:45:00Z",
+   },
+   {
+      id: "order-3",
+      userId: "user-3",
+      totalAmount: 79.97,
+      status: "processing",
+      createdAt: "2024-03-10T09:15:00Z",
+   },
+   {
+      id: "order-4",
+      userId: "user-1",
+      totalAmount: 14.99,
+      status: "pending",
+      createdAt: "2024-04-05T16:20:00Z",
+   },
+   {
+      id: "order-5",
+      userId: "user-4",
+      totalAmount: 49.98,
+      status: "delivered",
+      createdAt: "2024-05-12T11:00:00Z",
+   },
+   {
+      id: "order-6",
+      userId: "user-2",
+      totalAmount: 34.99,
+      status: "cancelled",
+      createdAt: "2024-06-18T13:30:00Z",
+   },
+   {
+      id: "order-7",
+      userId: "user-5",
+      totalAmount: 99.95,
+      status: "shipped",
+      createdAt: "2024-07-22T08:45:00Z",
+   },
+   {
+      id: "order-8",
+      userId: "user-3",
+      totalAmount: 19.99,
+      status: "processing",
+      createdAt: "2024-08-30T17:10:00Z",
+   },
+   {
+      id: "order-9",
+      userId: "user-1",
+      totalAmount: 64.97,
+      status: "delivered",
+      createdAt: "2024-09-14T12:25:00Z",
+   },
+   {
+      id: "order-10",
+      userId: "user-4",
+      totalAmount: 29.99,
+      status: "pending",
+      createdAt: "2024-10-01T15:50:00Z",
    },
 ];

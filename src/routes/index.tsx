@@ -6,6 +6,7 @@ import LandingPage from "../features/LandingPage/LandingPage";
 import ProductDetail from "../features/ProductDetail/ProductDetail";
 import ContactPage from "../features/ContactPage/ContactPage";
 import CartViewAndCheckout from "../features/CartViewAndCheckout/CartViewAndCheckout";
+import OrdersList from "../features/OrdersList/OrdersList";
 
 export const router = createBrowserRouter([
    {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
          {
             path: "member/cart",
             element: <CartViewAndCheckout />,
+         },
+         {
+            path: "member/orders",
+            element: <OrdersList />,
          },
       ],
    },
