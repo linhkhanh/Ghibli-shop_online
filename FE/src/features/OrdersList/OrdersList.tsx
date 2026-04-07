@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import useOrdersList from "../../hooks/useOrdersList/useOrdersList";
 import type { Order } from "../../utils/datatType";
+import { Link } from "react-router-dom";
 
 const OrdersList = () => {
    const [page, setPage] = useState(0);
@@ -69,7 +70,11 @@ const OrdersList = () => {
                   {paginatedOrders.map((order) => (
                      <TableRow key={order.id}>
                         <TableCell>{order.orderDate}</TableCell>
-                        <TableCell>{order.id}</TableCell>
+                        <TableCell>
+                           <Link to={"/member-order-detail/" + order.id}>
+                              {order.id}
+                           </Link>
+                        </TableCell>
                         <TableCell>
                            <Chip
                               label={order.status}

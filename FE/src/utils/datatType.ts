@@ -20,9 +20,7 @@ export interface ProductsByCategory {
    products: ProductItem[];
 }
 
-export interface CartItem {
-   id: string;
-   cartId: string;
+export interface ItemInfo {
    quantity: number;
    productId: string;
    title: string;
@@ -31,15 +29,14 @@ export interface CartItem {
    imageUrl: string;
 }
 
-export interface OrderItem {
+export interface CartItem extends ItemInfo {
+   id: string;
+   cartId: string;
+}
+
+export interface OrderItem extends ItemInfo {
    id: string;
    orderId: string;
-   productId: string;
-   title: string;
-   price: number;
-   quantity: number;
-   discount: number;
-   imageUrl: string;
 }
 
 export interface Order {

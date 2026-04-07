@@ -1,8 +1,35 @@
-import { IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material";
+import {
+   Button,
+   IconButton,
+   Menu,
+   MenuItem,
+   Tooltip,
+   Typography,
+} from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
+import { Link } from "react-router-dom";
 
-const settings = ["Profile", "View Orders", "Logout"];
+interface SettingItem {
+   title: string;
+   action?: () => void;
+   linkTo?: string;
+}
+
+const settings: SettingItem[] = [
+   {
+      title: "Account",
+      linkTo: "/",
+   },
+   {
+      title: "View Orders",
+      linkTo: "/member/orders",
+   },
+   {
+      title: "Logout",
+      action: () => {},
+   },
+];
 
 const AccountBtn = () => {
    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -39,10 +66,23 @@ const AccountBtn = () => {
             onClose={handleCloseUserMenu}
          >
             {settings.map((setting) => (
-               <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                     {setting}
-                  </Typography>
+               <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
+                  {setting.linkTo ? (
+                     <Typography
+                        sx={{ textAlign: "center" }}
+                        component={Link}
+                        to={setting.linkTo}
+                     >
+                        {setting.title}
+                     </Typography>
+                  ) : (
+                     <Typography
+                        sx={{ textAlign: "center" }}
+                        component={Button}
+                     >
+                        {setting.title}
+                     </Typography>
+                  )}
                </MenuItem>
             ))}
          </Menu>
