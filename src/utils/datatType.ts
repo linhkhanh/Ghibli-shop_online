@@ -1,5 +1,5 @@
 export interface ProductItem {
-   id: number;
+   id: string;
    title: string;
    price: number;
    description: string;
@@ -18,4 +18,22 @@ export interface MovieCategory {
 export interface ProductsByCategory {
    movie: MovieCategory;
    products: ProductItem[];
+}
+
+export interface CartItem {
+   productId: string;
+   price: number;
+   discount?: number;
+   title: string;
+}
+
+export interface NewCartItem {
+   id: string;
+   cartId: string;
+   quantity: number;
+   productId: string;
+   title: string;
+   price: number;
+   discount: number;
+   imageUrl: string;
 }

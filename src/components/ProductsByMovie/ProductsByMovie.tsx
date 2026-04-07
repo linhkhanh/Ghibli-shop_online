@@ -29,7 +29,7 @@ const ProductsListByMovie = ({ productsListByMovie }: ProductsByMovieProps) => {
          >
             {productsListByMovie.movie.name}
          </Typography>
-         <Grid container spacing={2}>
+         <Grid container spacing={8}>
             <Grid size={2}>
                <img
                   src={productsListByMovie.movie.img}

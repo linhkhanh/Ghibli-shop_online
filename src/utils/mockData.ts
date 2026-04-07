@@ -2,6 +2,7 @@ import {
    type MovieCategory,
    type ProductItem,
    type ProductsByCategory,
+   type NewCartItem,
 } from "./datatType";
 
 export const MoviesList: MovieCategory[] = [
@@ -55,7 +56,7 @@ export const MoviesList: MovieCategory[] = [
 
 export const mockProducts: ProductItem[] = [
    {
-      id: 1,
+      id: "1",
       title: "Totoro Plush Toy",
       price: 29.99,
       description: "A soft and cuddly Totoro plush toy.",
@@ -65,7 +66,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 2,
+      id: "2",
       title: "Spirited Away Art Book",
       price: 19.99,
       description: "A beautiful art book featuring scenes from Spirited Away.",
@@ -74,7 +75,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 3,
+      id: "3",
       title: "My Neighbor Totoro T-Shirt",
       price: 24.99,
       description: "A stylish T-shirt with a Totoro design.",
@@ -84,7 +85,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 4,
+      id: "4",
       title: "Princess Mononoke Poster",
       price: 14.99,
       description: "A high-quality poster of Princess Mononoke.",
@@ -93,7 +94,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 5,
+      id: "5",
       title: "Howl's Moving Castle Figurine",
       price: 39.99,
       description: "A detailed figurine of Howl's Moving Castle.",
@@ -103,7 +104,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 6,
+      id: "6",
       title: "Kiki's Delivery Service Tote Bag",
       price: 19.99,
       description: "A cute tote bag featuring Kiki's Delivery Service.",
@@ -112,7 +113,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 7,
+      id: "7",
       title: "Ponyo Plush Toy",
       price: 29.99,
       description: "A soft and cuddly Ponyo plush toy.",
@@ -121,7 +122,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 8,
+      id: "8",
       title: "The Wind Rises Art Print",
       price: 24.99,
       description: "A beautiful art print of The Wind Rises.",
@@ -130,7 +131,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 9,
+      id: "9",
       title: "Castle in the Sky Model Kit",
       price: 49.99,
       description: "A model kit of the iconic Castle in the Sky.",
@@ -139,7 +140,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 10,
+      id: "10",
       title: "Grave of the Fireflies Soundtrack",
       price: 14.99,
       description: "The original soundtrack of Grave of the Fireflies.",
@@ -149,7 +150,7 @@ export const mockProducts: ProductItem[] = [
       stock: 0,
    },
    {
-      id: 11,
+      id: "11",
       title: "Nausicaä of the Valley of the Wind Art Book",
       price: 19.99,
       description:
@@ -165,7 +166,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
       movie: MoviesList[0],
       products: [
          {
-            id: 1,
+            id: "1",
             title: "Totoro Plush Toy",
             price: 29.99,
             description: "A soft and cuddly Totoro plush toy.",
@@ -175,7 +176,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 2,
+            id: "2",
             title: "My Neighbor Totoro T-Shirt",
             price: 24.99,
             description: "A stylish T-shirt with a Totoro design.",
@@ -185,7 +186,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 11,
+            id: "11",
             title: "Totoro Keychain",
             price: 9.99,
             description: "A cute Totoro keychain to carry with you.",
@@ -194,7 +195,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 12,
+            id: "12",
             title: "Totoro Mug",
             price: 14.99,
             description: "A ceramic mug featuring Totoro.",
@@ -204,7 +205,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 13,
+            id: "13",
             title: "Totoro Wall Art",
             price: 19.99,
             description: "A beautiful wall art piece featuring Totoro.",
@@ -213,7 +214,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 14,
+            id: "14",
             title: "Totoro Backpack",
             price: 39.99,
             description: "A stylish backpack with a Totoro design.",
@@ -228,7 +229,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
       movie: MoviesList[4],
       products: [
          {
-            id: 3,
+            id: "3",
             title: "Kiki's Delivery Service Tote Bag",
             price: 19.99,
             description: "A cute tote bag featuring Kiki's Delivery Service.",
@@ -237,7 +238,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 4,
+            id: "4",
             title: "Kiki's Delivery Service Poster",
             price: 14.99,
             description: "A high-quality poster of Kiki's Delivery Service.",
@@ -246,7 +247,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 15,
+            id: "15",
             title: "Kiki's Delivery Service Figurine",
             price: 29.99,
             description: "A detailed figurine of Kiki and Jiji.",
@@ -256,7 +257,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 16,
+            id: "16",
             title: "Kiki's Delivery Service Hoodie",
             price: 49.99,
             description: "A cozy hoodie with a Kiki's Delivery Service design.",
@@ -271,7 +272,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
       movie: MoviesList[8],
       products: [
          {
-            id: 5,
+            id: "5",
             title: "Ponyo Plush Toy",
             price: 14.99,
             description: "A soft and cuddly Ponyo plush toy.",
@@ -280,7 +281,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 26,
+            id: "26",
             title: "Ponyo T-Shirt",
             price: 19.99,
             description: "A stylish T-shirt with a Ponyo design.",
@@ -290,7 +291,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 27,
+            id: "27",
             title: "Ponyo Mug",
             price: 14.99,
             description: "A ceramic mug featuring Ponyo.",
@@ -299,7 +300,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
          {
-            id: 28,
+            id: "28",
             title: "Ponyo Wall Art",
             price: 19.99,
             description: "A beautiful wall art piece featuring Ponyo.",
@@ -309,5 +310,60 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             stock: 0,
          },
       ],
+   },
+];
+
+export const mockCartItems: NewCartItem[] = [
+   {
+      id: "cart-item-1",
+      cartId: "cart-1",
+      quantity: 2,
+      productId: "1",
+      title: "Totoro Plush Toy",
+      price: 29.99,
+      discount: 10,
+      imageUrl:
+         "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage208903327_2nd.jpg?strip=all&lossy=1&ssl=1",
+   },
+   {
+      id: "cart-item-2",
+      cartId: "cart-1",
+      quantity: 1,
+      productId: "2",
+      title: "Spirited Away Art Book",
+      price: 19.99,
+      discount: 0,
+      imageUrl:
+         "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage120813380_2nd.jpg?strip=all&lossy=1&ssl=1",
+   },
+   {
+      id: "cart-item-3",
+      cartId: "cart-1",
+      quantity: 3,
+      productId: "3",
+      title: "My Neighbor Totoro T-Shirt",
+      price: 24.99,
+      discount: 15,
+      imageUrl: "https://i.ebayimg.com/images/g/GNcAAOSw7MNiYT6T/s-l1200.jpg",
+   },
+   {
+      id: "cart-item-4",
+      cartId: "cart-2",
+      quantity: 1,
+      productId: "4",
+      title: "Princess Mononoke Poster",
+      price: 14.99,
+      discount: 0,
+      imageUrl: "https://example.com/princess_mononoke.jpg",
+   },
+   {
+      id: "cart-item-5",
+      cartId: "cart-2",
+      quantity: 1,
+      productId: "5",
+      title: "Howl's Moving Castle Figurine",
+      price: 39.99,
+      discount: 20,
+      imageUrl: "https://example.com/howls_moving_castle.jpg",
    },
 ];
