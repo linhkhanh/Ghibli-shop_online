@@ -7,7 +7,7 @@ import {
    type OrderItem,
 } from "./dataType";
 
-export const MoviesList: MovieCategory[] = [
+export const moviesList: MovieCategory[] = [
    {
       id: "1",
       name: "My Neighbor Totoro",
@@ -165,7 +165,7 @@ export const mockProducts: ProductItem[] = [
 
 export const mockProductsByMovie: ProductsByCategory[] = [
    {
-      movie: MoviesList[0],
+      movie: moviesList[0],
       products: [
          {
             id: "1",
@@ -228,7 +228,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
       ],
    },
    {
-      movie: MoviesList[4],
+      movie: moviesList[4],
       products: [
          {
             id: "3",
@@ -271,7 +271,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
       ],
    },
    {
-      movie: MoviesList[8],
+      movie: moviesList[8],
       products: [
          {
             id: "5",

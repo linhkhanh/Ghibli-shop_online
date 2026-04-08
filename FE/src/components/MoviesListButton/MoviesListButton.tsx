@@ -2,7 +2,7 @@ import { type MouseEvent, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { MoviesList } from "../../utils/mockData";
+import { moviesList } from "../../utils/mockData";
 
 export default function MoviesListButton() {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -40,7 +40,7 @@ export default function MoviesListButton() {
                },
             }}
          >
-            {MoviesList.map((movie) => (
+            {moviesList.map((movie) => (
                <MenuItem key={movie.id} onClick={handleClose}>
                   {movie.name}
                </MenuItem>

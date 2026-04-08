@@ -27,7 +27,6 @@ function NavBar() {
             <Toolbar disableGutters>
                <ShopNameLink />
                <ResponsiveAppBar />
-
                <NavMenu />
 
                <Box display="flex" alignItems="center" gap={2}>
