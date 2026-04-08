@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext/AppContext";
 import { useContext } from "react";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
+import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 
 // TODO: Refactor, update handleAdd function and fix UI
 const ProductDetail = () => {
@@ -106,6 +107,8 @@ const ProductDetail = () => {
             </div>
          </div>
 
+         <Divider sx={{ margin: "3rem 0" }} />
+         <RelatedProducts />
          <Divider sx={{ margin: "3rem 0" }} />
          <OtherMovies />
       </main>
