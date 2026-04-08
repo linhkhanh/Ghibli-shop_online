@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
-import { Link } from "react-router-dom";
+import StyledLink from "../../components/StyledLink/StyledLink";
 
 const CartTable = () => {
    const itemsInCart = useCartDetail();
@@ -102,13 +102,13 @@ const CartTable = () => {
                                        objectFit: "cover",
                                     }}
                                  />
-                                 <Typography
-                                    variant="body1"
-                                    component={Link}
-                                    to={"/product-detail/" + item.productId}
+                                 <StyledLink
+                                    path={"/product-detail/" + item.productId}
                                  >
-                                    {item.title}
-                                 </Typography>
+                                    <Typography variant="body1">
+                                       {item.title}
+                                    </Typography>
+                                 </StyledLink>
                               </Box>
                            </TableCell>
                            <TableCell align="center">

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
-import { Link } from "react-router-dom";
+import StyledLink from "../StyledLink/StyledLink";
 
 interface SettingItem {
    title: string;
@@ -68,13 +68,11 @@ const AccountBtn = () => {
             {settings.map((setting) => (
                <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
                   {setting.linkTo ? (
-                     <Typography
-                        sx={{ textAlign: "center" }}
-                        component={Link}
-                        to={setting.linkTo}
-                     >
-                        {setting.title}
-                     </Typography>
+                     <StyledLink path={setting.linkTo}>
+                        <Typography sx={{ textAlign: "center" }}>
+                           {setting.title}
+                        </Typography>
+                     </StyledLink>
                   ) : (
                      <Typography
                         sx={{ textAlign: "center" }}

@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import type { ProductItem } from "../../utils/dataType";
 import { Box } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext/AppContext";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
+import StyledLink from "../StyledLink/StyledLink";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -42,11 +42,11 @@ export default function ProductCard(props: ProductCardProps) {
       >
          <CardMedia sx={{ height: 200 }} image={image} title={title} />
          <CardContent>
-            <Link to={getProductLink()}>
+            <StyledLink path={getProductLink()}>
                <Typography gutterBottom variant="h5">
                   {title}
                </Typography>
-            </Link>
+            </StyledLink>
             <Box display="flex" flexDirection="row">
                <Box>
                   <Typography

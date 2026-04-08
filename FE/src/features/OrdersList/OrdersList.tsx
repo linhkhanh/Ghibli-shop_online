@@ -14,7 +14,7 @@ import {
 import { useState } from "react";
 import useOrdersList from "../../hooks/useOrdersList/useOrdersList";
 import type { Order } from "../../utils/dataType";
-import { Link } from "react-router-dom";
+import StyledLink from "../../components/StyledLink/StyledLink";
 
 const OrdersList = () => {
    const [page, setPage] = useState(0);
@@ -71,9 +71,11 @@ const OrdersList = () => {
                      <TableRow key={order.id}>
                         <TableCell>{order.orderDate}</TableCell>
                         <TableCell>
-                           <Link to={"/member-order-detail/" + order.id}>
+                           <StyledLink
+                              path={"/member-order-detail/" + order.id}
+                           >
                               {order.id}
-                           </Link>
+                           </StyledLink>
                         </TableCell>
                         <TableCell>
                            <Chip

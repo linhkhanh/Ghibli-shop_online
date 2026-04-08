@@ -1,12 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Logo from "../Logo/Logo";
-import { Link } from "react-router-dom";
 import type { SxProps, Theme } from "@mui/material/styles";
-
-const linkStyle: React.CSSProperties = {
-   textDecoration: "none",
-   color: "inherit",
-};
+import StyledLink from "../StyledLink/StyledLink";
 
 const shopNameStyle: SxProps<Theme> = {
    mr: 2,
@@ -21,14 +16,14 @@ const shopNameStyle: SxProps<Theme> = {
 
 const ShopNameLink = () => {
    return (
-      <Link to="/" style={linkStyle}>
+      <StyledLink path="/">
          <Box display="flex" alignItems="center">
             <Logo />
             <Typography variant="h6" noWrap sx={shopNameStyle}>
                MyGhibli
             </Typography>
          </Box>
-      </Link>
+      </StyledLink>
    );
 };
 
