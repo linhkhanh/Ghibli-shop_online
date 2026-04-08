@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { moviesList } from "../../utils/mockData";
+import StyledLink from "../StyledLink/StyledLink";
 
 export default function MoviesListButton() {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -10,6 +11,7 @@ export default function MoviesListButton() {
    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
    };
+
    const handleClose = () => {
       setAnchorEl(null);
    };
@@ -42,7 +44,9 @@ export default function MoviesListButton() {
          >
             {moviesList.map((movie) => (
                <MenuItem key={movie.id} onClick={handleClose}>
-                  {movie.name}
+                  <StyledLink path={"products-by-movie/" + movie.id}>
+                     {movie.name}
+                  </StyledLink>
                </MenuItem>
             ))}
          </Menu>

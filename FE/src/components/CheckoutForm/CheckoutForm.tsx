@@ -48,7 +48,6 @@ const CheckoutForm = () => {
       console.log("Checkout data:", data);
       showSnackbar("Checkout successful!", "success");
       updateCart(0); // TODO: remove this line when fetching real data
-      window.location.reload();
    };
 
    return (

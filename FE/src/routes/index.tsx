@@ -8,6 +8,7 @@ import ContactPage from "../features/ContactPage/ContactPage";
 import CartViewAndCheckout from "../features/CartViewAndCheckout/CartViewAndCheckout";
 import OrdersList from "../features/OrdersList/OrdersList";
 import OrderDetail from "../features/OrderDetail/OrderDetail";
+import ProductsByMovie from "../features/ProductsByMovie/ProductsByMovie";
 
 export const router = createBrowserRouter([
    {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
          {
             path: "member-order-detail/:orderId",
             element: <OrderDetail />,
+         },
+         {
+            path: "products-by-movie/:movieId",
+            element: <ProductsByMovie />,
          },
       ],
    },
