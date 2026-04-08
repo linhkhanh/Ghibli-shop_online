@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
+import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext/AppContext";
@@ -107,9 +107,7 @@ const ProductDetail = () => {
          </div>
 
          <Divider sx={{ margin: "3rem 0" }} />
-
-         <h2 style={{ margin: "0 0 1.5rem" }}>Related Products</h2>
-         <RelatedProducts />
+         <OtherMovies />
       </main>
    );
 };
