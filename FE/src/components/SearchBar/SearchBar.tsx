@@ -1,6 +1,8 @@
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
    position: "relative",
@@ -45,16 +47,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const SearchBar = () => {
+   const navigate = useNavigate();
+   const { register, handleSubmit, reset } = useForm<{ search: string }>();
+
+   // TODO: Call API here to get search results and pass them to the search results page
+   const onSubmit = (data: { search: string }) => {
+      console.log("Search value:", data.search);
+      reset(); // Clear the input after submission
+      return navigate(`/search/${encodeURIComponent(data.search)}`); // Redirect to search results page with query parameter
+   };
+
    return (
-      <Search>
-         <SearchIconWrapper>
-            <SearchIcon />
-         </SearchIconWrapper>
-         <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-         />
-      </Search>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+         <Search>
+            <SearchIconWrapper>
+               <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+               placeholder="Search…"
+               inputProps={{ "aria-label": "search" }}
+               {...register("search")}
+            />
+         </Search>
+      </form>
    );
 };
 

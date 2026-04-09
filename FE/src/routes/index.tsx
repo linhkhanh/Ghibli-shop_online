@@ -9,6 +9,7 @@ import CartViewAndCheckout from "../features/CartViewAndCheckout/CartViewAndChec
 import OrdersList from "../features/OrdersList/OrdersList";
 import OrderDetail from "../features/OrderDetail/OrderDetail";
 import ProductsByMovie from "../features/ProductsByMovie/ProductsByMovie";
+import SearchedProductsList from "../features/SearchedProductsList/SearchedProductsList";
 
 export const router = createBrowserRouter([
    {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
          {
             path: "products-by-movie/:movieId",
             element: <ProductsByMovie />,
+         },
+         {
+            path: "search/:keyword",
+            element: <SearchedProductsList />,
          },
       ],
    },
