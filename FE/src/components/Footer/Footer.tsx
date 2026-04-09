@@ -1,92 +1,115 @@
-import { Box } from "@mui/material";
+import { Box, Typography, Link, Stack } from "@mui/material";
 
 const Footer = () => {
    return (
       <footer>
          <Box
-            display={"flex"}
-            flexDirection={{ xs: "column", md: "row" }}
-            justifyContent="space-between"
-            alignItems={{ xs: "center", md: "flex-start" }}
-            gap={8}
             sx={{
-               backgroundColor: "#2E8B57",
-               color: "#FFFFFF",
-               padding: "40px 20px",
+               backgroundColor: "#1976d2",
+               color: "#fff",
+               px: 3,
+               py: 5,
             }}
          >
-            {/* Column 1: Shop Name & Description */}
-            <div className="flex flex-col space-y-4">
-               <h2 className="text-2xl font-bold text-[#FFD700] uppercase tracking-wider">
-                  Ghibli Magic Shop
-               </h2>
-               <p className="text-gray-300 text-sm leading-relaxed">
-                  Mang phép màu từ những bộ phim hoạt hình huyền thoại đến với
-                  không gian sống của bạn. Chúng tôi cung cấp các sản phẩm chính
-                  hãng lấy cảm hứng từ Studio Ghibli.
-               </p>
-            </div>
+            <Stack
+               direction={{ xs: "column", md: "row" }}
+               spacing={8}
+               justifyContent="space-between"
+               alignItems={{ xs: "center", md: "flex-start" }}
+               maxWidth={1200}
+               mx="auto"
+            >
+               {/* Shop Name & Description */}
+               <Box>
+                  <Typography
+                     variant="h5"
+                     sx={{
+                        color: "#FFD700",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                        letterSpacing: 2,
+                     }}
+                     gutterBottom
+                  >
+                     Ghibli Magic Shop
+                  </Typography>
+                  <Typography
+                     variant="body2"
+                     sx={{ color: "#e3f2fd", maxWidth: 320 }}
+                  >
+                     Mang phép màu từ những bộ phim hoạt hình huyền thoại đến
+                     với không gian sống của bạn. Chúng tôi cung cấp các sản
+                     phẩm chính hãng lấy cảm hứng từ Studio Ghibli.
+                  </Typography>
+               </Box>
 
-            {/* Column 2: Shop Info (Links) */}
-            <div className="flex flex-col space-y-4">
-               <h3 className="text-lg font-semibold text-[#ADFF2F]">
-                  Thông Tin Cửa Hàng
-               </h3>
-               <ul className="space-y-2 text-sm text-gray-300">
-                  <li>
-                     <a href="/about" className="hover:text-white transition">
+               {/* Shop Info Links */}
+               <Box>
+                  <Typography
+                     variant="subtitle1"
+                     sx={{ color: "#ADFF2F", fontWeight: 600 }}
+                     gutterBottom
+                  >
+                     Thông Tin Cửa Hàng
+                  </Typography>
+                  <Stack spacing={1}>
+                     <Link href="/about" underline="hover" color="#e3f2fd">
                         Giới thiệu
-                     </a>
-                  </li>
-                  <li>
-                     <a href="/policy" className="hover:text-white transition">
+                     </Link>
+                     <Link href="/policy" underline="hover" color="#e3f2fd">
                         Chính sách bảo mật
-                     </a>
-                  </li>
-                  <li>
-                     <a
-                        href="/shipping"
-                        className="hover:text-white transition"
-                     >
+                     </Link>
+                     <Link href="/shipping" underline="hover" color="#e3f2fd">
                         Giao hàng & Đổi trả
-                     </a>
-                  </li>
-                  <li>
-                     <a href="/contact" className="hover:text-white transition">
+                     </Link>
+                     <Link href="/contact" underline="hover" color="#e3f2fd">
                         Liên hệ hỗ trợ
-                     </a>
-                  </li>
-               </ul>
-            </div>
+                     </Link>
+                  </Stack>
+               </Box>
 
-            {/* Column 3: Shop Location & Contact */}
-            <div className="flex flex-col space-y-4">
-               <h3 className="text-lg font-semibold text-[#ADFF2F]">
-                  Vị Trí & Liên Hệ
-               </h3>
-               <div className="text-sm text-gray-300 space-y-3">
-                  <p className="flex items-start">
-                     <span className="mr-2">📍</span>
-                     123 Đường Phép Màu, Quận Hoàn Kiếm, Hà Nội, Việt Nam
-                  </p>
-                  <p className="flex items-center">
-                     <span className="mr-2">📞</span>
-                     +84 (0) 9xx xxx xxx
-                  </p>
-                  <p className="flex items-center">
-                     <span className="mr-2">✉️</span>
-                     support@ghiblimagic.com
-                  </p>
-               </div>
-            </div>
+               {/* Shop Address & Contact */}
+               <Box>
+                  <Typography
+                     variant="subtitle1"
+                     sx={{ color: "#ADFF2F", fontWeight: 600 }}
+                     gutterBottom
+                  >
+                     Vị Trí & Liên Hệ
+                  </Typography>
+                  <Stack spacing={1} sx={{ color: "#e3f2fd" }}>
+                     <Box display="flex" alignItems="flex-start">
+                        <span style={{ marginRight: 8 }}>📍</span>
+                        123 Đường Phép Màu, Quận Hoàn Kiếm, Hà Nội, Việt Nam
+                     </Box>
+                     <Box display="flex" alignItems="center">
+                        <span style={{ marginRight: 8 }}>📞</span>
+                        +84 (0) 9xx xxx xxx
+                     </Box>
+                     <Box display="flex" alignItems="center">
+                        <span style={{ marginRight: 8 }}>✉️</span>
+                        support@ghiblimagic.com
+                     </Box>
+                  </Stack>
+               </Box>
+            </Stack>
          </Box>
-
-         {/* Bottom Copyright Bar */}
-         <Box className="max-w-6xl mx-auto mt-12 pt-8 border-t border-gray-700 text-center text-xs text-gray-400">
-            <p>
+         <Box
+            sx={{
+               maxWidth: 1200,
+               mx: "auto",
+               mt: 4,
+               pt: 3,
+               borderTop: "1px solid #90caf9",
+               textAlign: "center",
+               color: "#bdbdbd",
+               fontSize: 13,
+            }}
+         >
+            <Typography>
                © 2026 Ghibli Magic Shop. All rights reserved. Designed with ❤️
                for Ghibli fans.
-            </p>
+            </Typography>
          </Box>
       </footer>
    );
