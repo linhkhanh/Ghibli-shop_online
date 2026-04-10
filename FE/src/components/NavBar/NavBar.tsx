@@ -1,7 +1,4 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
+import { AppBar, Box, Container, Toolbar, Button } from "@mui/material";
 import ShopNameLink from "../ShopNameLink/ShopNameLink";
 import ResponsiveAppBar from "../ResponsiveAppBar/ResponsiveAppBar";
 import NavMenu from "../NavMenu/NavMenu";
@@ -9,10 +6,10 @@ import SearchBar from "../SearchBar/SearchBar";
 import AccountBtn from "../AccountBtn/AccountBtn";
 import CartBtn from "../CartBtn/CartBtn";
 import LoginBtn from "../LoginBtn/LoginBtn";
-import { useState } from "react";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 function NavBar() {
-   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+   const { user } = useAuthentication();
    return (
       <AppBar
          position="sticky"
@@ -30,11 +27,16 @@ function NavBar() {
 
                <Box display="flex" alignItems="center" gap={2}>
                   <SearchBar />
-                  {isLoggedIn ? (
+                  {user?.role === "admin" && (
+                     <Button variant="contained" color="primary" sx={{ ml: 1 }}>
+                        Create
+                     </Button>
+                  )}
+                  {user ? (
                      <AccountBtn />
                   ) : (
                      <>
-                        <LoginBtn switchToAccount={() => setIsLoggedIn(true)} />
+                        <LoginBtn />
                      </>
                   )}
                   <CartBtn />

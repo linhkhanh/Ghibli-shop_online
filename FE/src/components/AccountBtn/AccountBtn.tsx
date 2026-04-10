@@ -9,10 +9,10 @@ import {
 import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
 import StyledLink from "../StyledLink/StyledLink";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 interface SettingItem {
    title: string;
-   action?: () => void;
    linkTo?: string;
 }
 
@@ -27,12 +27,12 @@ const settings: SettingItem[] = [
    },
    {
       title: "Logout",
-      action: () => {},
    },
 ];
 
 const AccountBtn = () => {
    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+   const { updateUser } = useAuthentication();
 
    const handleCloseUserMenu = () => {
       setAnchorElUser(null);
@@ -77,6 +77,7 @@ const AccountBtn = () => {
                      <Typography
                         sx={{ textAlign: "center" }}
                         component={Button}
+                        onClick={() => updateUser(null)}
                      >
                         {setting.title}
                      </Typography>

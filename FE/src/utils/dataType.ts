@@ -51,6 +51,7 @@ export interface Order {
 export interface User {
    id: string;
    name: string;
+   role: "customer" | "admin";
    email: string;
    phone?: string;
    address?: string;

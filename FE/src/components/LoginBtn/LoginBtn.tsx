@@ -15,13 +15,7 @@ const modalStyle = {
    outline: "none",
 };
 
-interface LoginBtnProps {
-   switchToAccount: () => void;
-}
-
-const LoginBtn = (props: LoginBtnProps) => {
-   const { switchToAccount } = props;
-
+const LoginBtn = () => {
    const [currentForm, setCurrentForm] = useState<"login" | "register">(
       "login",
    );
@@ -34,7 +28,6 @@ const LoginBtn = (props: LoginBtnProps) => {
 
    const handleLogin = () => {
       setOpen(false);
-      switchToAccount();
    };
 
    return (

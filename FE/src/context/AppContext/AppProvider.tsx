@@ -1,22 +1,24 @@
 import { useState, type ReactNode, type FC } from "react";
 import { AppContext, type AppContextType } from "./AppContext";
 import type { CartItem, User } from "../../utils/dataType";
-import { mockCartItems, mockUser } from "../../utils/mockData";
+import { mockCartItems } from "../../utils/mockData";
 
 type AppProviderProps = {
    children: ReactNode;
 };
 
-interface UserInfo extends User {
+interface UserCartInfo {
+   user: User | null;
    cartItems: CartItem[];
 }
 
 // TODO: Get real data from call API here
+// get UserInfo here
 // Get CartItems by userId
 // without userId, get cartItems from localStorage or set to empty array
-const getUserInfoAndCart = (): UserInfo => {
+const getUserInfoAndCart = (): UserCartInfo => {
    return {
-      ...mockUser,
+      user: null,
       cartItems: mockCartItems,
    };
 };
@@ -27,13 +29,13 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
    const [cartCount, setCartCount] = useState<number>(
       initialUserInfo.cartItems.length,
    );
-   const [user, setUser] = useState<User>(initialUserInfo);
+   const [user, setUser] = useState<User | null>(initialUserInfo.user);
 
    const updateCart = (cartCount: number) => {
       setCartCount(cartCount);
    };
 
-   const updateUser = (user: User) => {
+   const updateUser = (user: User | null) => {
       setUser(user);
    };
 
