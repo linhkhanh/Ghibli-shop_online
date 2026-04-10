@@ -50,6 +50,7 @@ const LoginForm = (props: LoginFormProps) => {
          data.password === FAKE_USER.password
       ) {
          alert("Login successful!");
+         //  call API to get user info and cart items here, then update context
          updateUser(mockUser);
          reset();
          closeModal();

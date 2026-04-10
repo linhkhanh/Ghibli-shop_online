@@ -12,6 +12,8 @@ interface UserInfo extends User {
 }
 
 // TODO: Get real data from call API here
+// Get CartItems by userId
+// without userId, get cartItems from localStorage or set to empty array
 const getUserInfoAndCart = (): UserInfo => {
    return {
       ...mockUser,

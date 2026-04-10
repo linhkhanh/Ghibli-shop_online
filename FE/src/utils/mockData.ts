@@ -58,6 +58,7 @@ export const moviesList: MovieCategory[] = [
 ];
 
 export const mockProducts: ProductItem[] = [
+   // 10 original items
    {
       id: "1",
       title: "Totoro Plush Toy",
@@ -152,16 +153,20 @@ export const mockProducts: ProductItem[] = [
       movieId: "9",
       stock: 0,
    },
-   {
-      id: "11",
-      title: "Nausicaä of the Valley of the Wind Art Book",
-      price: 19.99,
-      description:
-         "An art book featuring scenes from Nausicaä of the Valley of the Wind.",
-      image: "https://example.com/nausicaa.jpg",
-      movieId: "10",
-      stock: 0,
-   },
+   // 40 more generated items
+   ...Array.from({ length: 40 }, (_, i) => {
+      const n = i + 11;
+      return {
+         id: n.toString(),
+         title: `Ghibli Product #${n}`,
+         price: 10 + (n % 10) * 5 + (n % 3) * 2.5,
+         description: `This is a unique Ghibli product number ${n}.`,
+         image: `https://placehold.co/280x200?text=Ghibli+${n}`,
+         discount: n % 4 === 0 ? 10 : n % 5 === 0 ? 15 : undefined,
+         movieId: ((n % 10) + 1).toString(),
+         stock: n % 7,
+      };
+   }),
 ];
 
 export const mockProductsByMovie: ProductsByCategory[] = [
