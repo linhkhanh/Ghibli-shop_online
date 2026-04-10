@@ -29,10 +29,10 @@ const RegisterForm = (props: RegisterFormProps) => {
       reset,
    } = useForm<RegisterFormInputs>();
 
-   const onSubmit = (data: RegisterFormInputs) => {
+   //    TODO: Call API here to register user and handle registration logic
+   const onRegister = (data: RegisterFormInputs) => {
       console.log("Registration data:", data);
       setRegisterSuccess("");
-      // Simulate registration logic
       setRegisterSuccess("Registration successful! You can now log in.");
       reset();
    };
@@ -40,7 +40,7 @@ const RegisterForm = (props: RegisterFormProps) => {
    return (
       <Box
          component="form"
-         onSubmit={handleSubmit(onSubmit)}
+         onSubmit={handleSubmit(onRegister)}
          sx={{
             maxWidth: 400,
             mx: "auto",
@@ -56,7 +56,7 @@ const RegisterForm = (props: RegisterFormProps) => {
          <Stack spacing={3}>
             <TextField
                label="Name"
-               fullWidth
+               sx={{ width: 320 }}
                {...register("name", {
                   required: "Name is required",
                   minLength: {
@@ -70,7 +70,7 @@ const RegisterForm = (props: RegisterFormProps) => {
             <TextField
                label="Email"
                type="email"
-               fullWidth
+               sx={{ width: 320 }}
                {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -84,7 +84,7 @@ const RegisterForm = (props: RegisterFormProps) => {
             <TextField
                label="Password"
                type="password"
-               fullWidth
+               sx={{ width: 320 }}
                {...register("password", {
                   required: "Password is required",
                   minLength: {

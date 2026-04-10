@@ -78,7 +78,9 @@ const LoginForm = (props: LoginFormProps) => {
             <TextField
                label="Email"
                type="email"
-               fullWidth
+               sx={{
+                  width: "320px",
+               }}
                {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -92,7 +94,9 @@ const LoginForm = (props: LoginFormProps) => {
             <TextField
                label="Password"
                type="password"
-               fullWidth
+               sx={{
+                  width: "320px",
+               }}
                {...register("password", {
                   required: "Password is required",
                   minLength: {
