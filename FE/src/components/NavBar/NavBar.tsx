@@ -9,7 +9,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import AccountBtn from "../AccountBtn/AccountBtn";
 import CartBtn from "../CartBtn/CartBtn";
 import LoginBtn from "../LoginBtn/LoginBtn";
-import RegisterBtn from "../RegisterBtn/RegisterBtn";
 import { useState } from "react";
 
 function NavBar() {
@@ -36,7 +35,6 @@ function NavBar() {
                   ) : (
                      <>
                         <LoginBtn handleLogin={() => setIsLoggedIn(true)} />
-                        <RegisterBtn />
                      </>
                   )}
                   <CartBtn />

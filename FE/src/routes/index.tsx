@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
             element: <ProductsByMovie />,
          },
          {
-            path: "search/:keyword",
+            path: "search",
             element: <SearchedProductsList />,
          },
       ],

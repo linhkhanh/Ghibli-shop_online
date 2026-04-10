@@ -1,19 +1,34 @@
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useSearchedProductsList from "../../hooks/useSearchedProductsList/useSearchProductsList";
-import { useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const SearchedProductsList = () => {
-   const searchKeyword = useParams().keyword;
+   const [searchParams] = useSearchParams();
+   const query = searchParams.get("q");
    const productsList = useSearchedProductsList({
-      keyword: searchKeyword || "",
+      keyword: query || "",
    });
 
    return (
       <Box sx={{ maxWidth: 1200, mx: "auto", py: 4 }}>
-         <Typography variant="h5" sx={{ mb: 3, fontWeight: "bold" }}>
-            Searched Products
-         </Typography>
+         <Box
+            sx={{
+               backgroundColor: "#1976d2",
+               borderRadius: 2,
+               mb: 3,
+               px: 3,
+               py: 2,
+               display: "inline-block",
+            }}
+         >
+            <Typography
+               variant="h5"
+               sx={{ color: "#fff", fontWeight: "bold", m: 0 }}
+            >
+               Search Results: {query}
+            </Typography>
+         </Box>
          <Box
             sx={{
                display: "grid",

@@ -51,14 +51,17 @@ const SearchBar = () => {
    const { register, handleSubmit, reset } = useForm<{ search: string }>();
 
    // TODO: Call API here to get search results and pass them to the search results page
-   const onSubmit = (data: { search: string }) => {
+   const handleSearch = (data: { search: string }) => {
       console.log("Search value:", data.search);
       reset(); // Clear the input after submission
-      return navigate(`/search/${encodeURIComponent(data.search)}`); // Redirect to search results page with query parameter
+      if (!data.search.trim()) {
+         return; // Do not navigate if the search query is empty
+      }
+      return navigate(`/search?q=${encodeURIComponent(data.search.trim())}`);
    };
 
    return (
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+      <form onSubmit={handleSubmit(handleSearch)} style={{ width: "100%" }}>
          <Search>
             <SearchIconWrapper>
                <SearchIcon />
