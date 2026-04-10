@@ -5,6 +5,7 @@ import {
    type CartItem,
    type Order,
    type OrderItem,
+   type User,
 } from "./dataType";
 
 export const moviesList: MovieCategory[] = [
@@ -557,3 +558,11 @@ export const mockOrderItems: OrderItem[] = [
       status: "processing",
    },
 ];
+
+export const mockUser: User = {
+   id: "user-1",
+   name: "New User",
+   email: "user@example.com",
+   phone: "123-456-7890",
+   address: "123 Main St, City, Country",
+};

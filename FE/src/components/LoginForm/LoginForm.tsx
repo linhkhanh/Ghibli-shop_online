@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import { mockUser } from "../../utils/mockData";
 
 interface LoginFormInputs {
    email: string;
@@ -22,10 +24,12 @@ const FAKE_USER = {
 
 interface LoginFormProps {
    handleCurrentForm: () => void;
+   handleLogin: () => void;
 }
 
 const LoginForm = (props: LoginFormProps) => {
-   const { handleCurrentForm } = props;
+   const { handleCurrentForm, handleLogin: closeModal } = props;
+   const { updateUser } = useAuthentication();
    const [authError, setAuthError] = useState("");
    const {
       register,
@@ -34,16 +38,21 @@ const LoginForm = (props: LoginFormProps) => {
       reset,
    } = useForm<LoginFormInputs>();
 
-   const onSubmit = (data: LoginFormInputs) => {
+   //    TODO: Call API here to authenticate user and handle login logic
+   const onLogin = (data: LoginFormInputs) => {
+      // fake call API, replace with real API call later
+      // use try catch block to handle error if call API fails
+      // setAuthError to display error message if login fails
+      // updateUser to update user info in context if login successful
       setAuthError("");
-      // Simulate authentication
       if (
          data.email === FAKE_USER.email &&
          data.password === FAKE_USER.password
       ) {
-         // Success: redirect or show success message
          alert("Login successful!");
+         updateUser(mockUser);
          reset();
+         closeModal();
       } else {
          setAuthError("Invalid email or password.");
       }
@@ -52,7 +61,7 @@ const LoginForm = (props: LoginFormProps) => {
    return (
       <Box
          component="form"
-         onSubmit={handleSubmit(onSubmit)}
+         onSubmit={handleSubmit(onLogin)}
          sx={{
             maxWidth: 400,
             mx: "auto",

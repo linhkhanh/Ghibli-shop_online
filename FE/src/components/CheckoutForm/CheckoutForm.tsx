@@ -11,8 +11,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext/AppContext";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 interface CheckoutFormData {
    firstName: string;
@@ -41,7 +40,7 @@ const CheckoutForm = () => {
       defaultValues,
    });
    const { showSnackbar } = useSnackbar();
-   const { updateCart } = useContext(AppContext);
+   const { updateCart } = useAuthentication();
 
    // TODO: Handle checkout logic, e.g., API call, clear cart
    const onSubmit = (data: CheckoutFormData) => {

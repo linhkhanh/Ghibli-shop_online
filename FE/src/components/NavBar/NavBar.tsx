@@ -34,7 +34,7 @@ function NavBar() {
                      <AccountBtn />
                   ) : (
                      <>
-                        <LoginBtn handleLogin={() => setIsLoggedIn(true)} />
+                        <LoginBtn switchToAccount={() => setIsLoggedIn(true)} />
                      </>
                   )}
                   <CartBtn />

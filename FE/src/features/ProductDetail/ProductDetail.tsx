@@ -2,16 +2,15 @@ import { Divider } from "@mui/material";
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useParams } from "react-router-dom";
-import { AppContext } from "../../context/AppContext/AppContext";
-import { useContext } from "react";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 // TODO: Refactor, update handleAdd function and fix UI
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
-   const { cartCount, updateCart } = useContext(AppContext);
+   const { cartCount, updateCart } = useAuthentication();
    const { showSnackbar } = useSnackbar();
 
    // TODO: Call API here (send request {productId)})

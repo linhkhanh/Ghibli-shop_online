@@ -7,10 +7,9 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import type { ProductItem } from "../../utils/dataType";
 import { Box } from "@mui/material";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext/AppContext";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../StyledLink/StyledLink";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -18,7 +17,7 @@ interface ProductCardProps {
 
 export default function ProductCard(props: ProductCardProps) {
    const { id, title, image, price, discount = 0 } = props.productDetail;
-   const { cartCount, updateCart } = useContext(AppContext);
+   const { cartCount, updateCart } = useAuthentication();
    const { showSnackbar } = useSnackbar();
    const getProductLink = () => {
       return "/product-detail" + "/" + id;

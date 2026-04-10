@@ -47,3 +47,11 @@ export interface Order {
    status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
    createdAt: string;
 }
+
+export interface User {
+   id: string;
+   name: string;
+   email: string;
+   phone?: string;
+   address?: string;
+}

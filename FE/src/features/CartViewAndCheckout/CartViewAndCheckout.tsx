@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
 import CartTable from "../CartTable/CartTable";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
-import { useContext } from "react";
-import { AppContext } from "../../context/AppContext/AppContext";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 const CartViewAndCheckout = () => {
-   const { cartCount } = useContext(AppContext);
+   const { cartCount } = useAuthentication();
    return (
       <Box display="flex" flexDirection="row" flexWrap="wrap" px={15} py={5}>
          <CartTable />

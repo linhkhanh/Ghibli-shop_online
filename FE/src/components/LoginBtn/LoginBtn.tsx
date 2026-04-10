@@ -16,11 +16,11 @@ const modalStyle = {
 };
 
 interface LoginBtnProps {
-   handleLogin: () => void;
+   switchToAccount: () => void;
 }
 
 const LoginBtn = (props: LoginBtnProps) => {
-   const { handleLogin } = props;
+   const { switchToAccount } = props;
 
    const [currentForm, setCurrentForm] = useState<"login" | "register">(
       "login",
@@ -30,7 +30,11 @@ const LoginBtn = (props: LoginBtnProps) => {
    const handleOpen = () => setOpen(true);
    const handleClose = () => {
       setOpen(false);
-      handleLogin();
+   };
+
+   const handleLogin = () => {
+      setOpen(false);
+      switchToAccount();
    };
 
    return (
@@ -43,6 +47,7 @@ const LoginBtn = (props: LoginBtnProps) => {
                {currentForm === "login" ? (
                   <LoginForm
                      handleCurrentForm={() => setCurrentForm("register")}
+                     handleLogin={handleLogin}
                   />
                ) : (
                   <RegisterForm
