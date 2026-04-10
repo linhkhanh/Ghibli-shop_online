@@ -570,5 +570,5 @@ export const mockUser: User = {
    email: "user@example.com",
    phone: "123-456-7890",
    address: "123 Main St, City, Country",
-   role: "customer",
+   role: "admin",
 };
