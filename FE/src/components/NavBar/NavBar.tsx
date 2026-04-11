@@ -1,4 +1,4 @@
-import { AppBar, Box, Container, Toolbar, Button } from "@mui/material";
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import ShopNameLink from "../ShopNameLink/ShopNameLink";
 import ResponsiveAppBar from "../ResponsiveAppBar/ResponsiveAppBar";
 import NavMenu from "../NavMenu/NavMenu";
@@ -7,6 +7,7 @@ import AccountBtn from "../AccountBtn/AccountBtn";
 import CartBtn from "../CartBtn/CartBtn";
 import LoginBtn from "../LoginBtn/LoginBtn";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import CreateProduct from "../../features/CreateProduct/CreateProduct";
 
 function NavBar() {
    const { user } = useAuthentication();
@@ -27,11 +28,7 @@ function NavBar() {
 
                <Box display="flex" alignItems="center" gap={2}>
                   <SearchBar />
-                  {user?.role === "admin" && (
-                     <Button variant="contained" color="primary" sx={{ ml: 1 }}>
-                        Create
-                     </Button>
-                  )}
+                  {user?.role === "admin" && <CreateProduct />}
                   {user ? (
                      <AccountBtn />
                   ) : (
