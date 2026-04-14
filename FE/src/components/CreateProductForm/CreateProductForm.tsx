@@ -15,6 +15,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { moviesList } from "../../utils/mockData";
+import uploadImage from "../../utils/uploadImg";
 
 interface CreateProductInputs {
    title: string;
@@ -42,7 +43,8 @@ const CreateProductForm = () => {
       defaultValues: { images: [], movieId: "" },
    });
 
-   const onCreate = (data: CreateProductInputs) => {
+   //    TODO: Call API here
+   const onCreate = async (data: CreateProductInputs) => {
       if (!data.images || data.images.length === 0) {
          setError("images", {
             type: "manual",
@@ -51,7 +53,10 @@ const CreateProductForm = () => {
          return;
       }
       setSubmitSuccess("");
+      const imageFiles = data.images;
+      const imgUrl = await uploadImage({ imageFile: imageFiles[0] }); // For simplicity, only upload the first image here. You can extend this to upload multiple images if needed.
       console.log("Product data:", data);
+      console.log("Uploaded image URL:", imgUrl.uploadedImage);
       setSubmitSuccess("Product created successfully!");
       reset();
    };
@@ -101,7 +106,6 @@ const CreateProductForm = () => {
             URL.createObjectURL(file),
          );
          setImagePreviews(urls);
-         // Cleanup
          return () => {
             urls.forEach((url) => URL.revokeObjectURL(url));
          };
