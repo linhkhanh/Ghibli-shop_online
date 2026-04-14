@@ -39,7 +39,7 @@ export default function ProductCard(props: ProductCardProps) {
             flexShrink: 0,
          }}
       >
-         <CardMedia sx={{ height: 200 }} image={image} title={title} />
+         <CardMedia sx={{ height: 200 }} image={image[0]} title={title} />
          <CardContent>
             <StyledLink path={getProductLink()}>
                <Typography gutterBottom variant="h5">
