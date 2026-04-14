@@ -19,7 +19,7 @@ interface LoginFormInputs {
 
 const FAKE_USER = {
    email: "user@example.com",
-   password: "password123",
+   password: "123456",
 };
 
 interface LoginFormProps {

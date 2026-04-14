@@ -56,3 +56,13 @@ export interface User {
    phone?: string;
    address?: string;
 }
+
+export interface ProductData {
+   title: string;
+   description: string;
+   price: number;
+   stock: number;
+   discount?: number;
+   movieId: string;
+   images: File[];
+}

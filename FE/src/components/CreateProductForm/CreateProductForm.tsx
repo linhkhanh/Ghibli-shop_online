@@ -15,20 +15,13 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { moviesList } from "../../utils/mockData";
-import uploadImage from "../../utils/uploadImg";
-
-interface CreateProductInputs {
-   title: string;
-   description: string;
-   price: number;
-   stock: number;
-   discount?: number;
-   movieId: string;
-   images: File[];
-}
+import type { ProductData } from "../../utils/dataType";
+import useCreateProduct from "../../hooks/useCreateProduct/useCreateProduct";
+import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
 const CreateProductForm = () => {
-   const [submitSuccess, setSubmitSuccess] = useState("");
+   const { createProduct } = useCreateProduct();
+
    const {
       register,
       handleSubmit,
@@ -39,12 +32,13 @@ const CreateProductForm = () => {
       watch,
       setError,
       clearErrors,
-   } = useForm<CreateProductInputs>({
+   } = useForm<ProductData>({
       defaultValues: { images: [], movieId: "" },
    });
 
-   //    TODO: Call API here
-   const onCreate = async (data: CreateProductInputs) => {
+   const { showSnackbar } = useSnackbar();
+
+   const onCreate = async (data: ProductData) => {
       if (!data.images || data.images.length === 0) {
          setError("images", {
             type: "manual",
@@ -52,13 +46,21 @@ const CreateProductForm = () => {
          });
          return;
       }
-      setSubmitSuccess("");
-      const imageFiles = data.images;
-      const imgUrl = await uploadImage({ imageFile: imageFiles[0] }); // For simplicity, only upload the first image here. You can extend this to upload multiple images if needed.
+
       console.log("Product data:", data);
-      console.log("Uploaded image URL:", imgUrl.uploadedImage);
-      setSubmitSuccess("Product created successfully!");
-      reset();
+
+      try {
+         const { error } = await createProduct(data);
+         if (error) {
+            showSnackbar(error, "error");
+         } else {
+            showSnackbar("Product created successfully!", "success");
+         }
+      } catch (error) {
+         console.error("Error creating product:", error);
+      } finally {
+         reset();
+      }
    };
 
    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -306,11 +308,7 @@ const CreateProductForm = () => {
                         </FormControl>
                      </Box>
                   </Box>
-                  {submitSuccess && (
-                     <Typography color="success.main" textAlign="center">
-                        {submitSuccess}
-                     </Typography>
-                  )}
+
                   <Button
                      type="submit"
                      variant="contained"
