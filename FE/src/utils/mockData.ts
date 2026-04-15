@@ -62,10 +62,15 @@ export const mockProducts: ProductItem[] = [
    {
       id: "1",
       title: "Totoro Plush Toy",
-      price: 29.99,
+      price: 200,
       description: "A soft and cuddly Totoro plush toy.",
       images: [
          "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage208903327_2nd.jpg?strip=all&lossy=1&ssl=1",
+         "https://enez76gwp29.exactdn.com/wp-content/uploads/2017/05/Se36ce5da8869443795b0c7a2ec384c96P.jpg_960x960q75.jpg_.jpg?strip=all&lossy=1&ssl=1",
+         "https://enez76gwp29.exactdn.com/wp-content/uploads/2017/05/S4b363cbfb7e84c58b0d3f086ad80da62Z.jpg_960x960q75.jpg_.jpg?strip=all&lossy=1&ssl=1",
+         "https://enez76gwp29.exactdn.com/wp-content/uploads/2025/10/10759862882506206639_2048.jpeg?strip=all&lossy=1&ssl=1",
+         "https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/107/posts/109117/final_image/40_Totoro_final.jpg",
+         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVFuQDVcnj9T2CyIfNcarRDNMVFUJqSt9KQ&s",
       ],
       discount: 10,
       movieId: "1",

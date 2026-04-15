@@ -1,4 +1,13 @@
-import { Divider } from "@mui/material";
+import {
+   Divider,
+   Box,
+   Typography,
+   Button,
+   Tabs,
+   Tab,
+   Paper,
+   Grid,
+} from "@mui/material";
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useParams } from "react-router-dom";
@@ -6,111 +15,180 @@ import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
-// TODO: Refactor, update handleAdd function and fix UI
+import React from "react";
+
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
    const { cartCount, updateCart } = useAuthentication();
    const { showSnackbar } = useSnackbar();
+   const [tabIndex, setTabIndex] = React.useState(0);
 
-   // TODO: Call API here (send request {productId)})
+   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+      setTabIndex(newValue);
+   };
+
    const handleAdd = () => {
       showSnackbar("Add to cart successfully!", "success");
       updateCart(cartCount + 1);
    };
 
    return (
-      <main style={{ padding: "2rem", maxWidth: "1000px", margin: "0 auto" }}>
-         <div
-            style={{
-               display: "grid",
-               gridTemplateColumns: "minmax(0, 1fr)",
-               gap: "2rem",
-            }}
-         >
-            <div
-               style={{
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  boxShadow: "0 20px 50px rgba(0,0,0,0.12)",
-               }}
-            >
-               <img
-                  src={productInfo.images}
-                  alt={productInfo.title}
-                  style={{
-                     width: "100%",
-                     display: "block",
-                     objectFit: "cover",
-                     height: "420px",
+      <Box component="main" sx={{ p: 4, maxWidth: 1000, mx: "auto" }}>
+         <Grid container spacing={4}>
+            <Grid size={8}>
+               <Paper
+                  elevation={3}
+                  sx={{
+                     borderRadius: 3,
+                     overflow: "hidden",
+                     p: 2,
+                     display: "flex",
+                     flexDirection: "row",
+                     alignItems: "flex-start",
+                     height: 420,
                   }}
-               />
-            </div>
-
-            <div
-               style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-               }}
-            >
-               <div>
-                  <h1 style={{ margin: "0 0 1rem", fontSize: "2.5rem" }}>
-                     {productInfo.title}
-                  </h1>
-                  <p
-                     style={{
-                        margin: "0 0 1.5rem",
-                        color: "#555",
-                        lineHeight: 1.8,
-                        fontSize: "1rem",
+               >
+                  <Tabs
+                     orientation="vertical"
+                     value={tabIndex}
+                     onChange={handleTabChange}
+                     variant="scrollable"
+                     scrollButtons="auto"
+                     aria-label="product images tabs"
+                     sx={{
+                        borderRight: 1,
+                        borderColor: "divider",
+                        minWidth: 100,
+                        height: 420,
                      }}
                   >
-                     {productInfo.description}
-                  </p>
-                  <p
-                     style={{ margin: 0, fontSize: "1.25rem", fontWeight: 700 }}
-                  >
-                     {productInfo.price}
-                  </p>
-               </div>
-
-               <button
-                  type="button"
-                  style={{
-                     marginTop: "2rem",
-                     padding: "1rem 1.5rem",
-                     borderRadius: "9999px",
-                     border: "none",
-                     backgroundColor: "#2563EB",
-                     color: "white",
-                     fontSize: "1rem",
-                     fontWeight: 600,
-                     cursor: "pointer",
-                     transition: "background-color 0.2s ease",
+                     {productInfo.images.map((img: string, idx: number) => (
+                        <Tab
+                           key={idx}
+                           label={
+                              <img
+                                 src={img}
+                                 width={50}
+                                 height="auto"
+                                 alt={`Product Image ${idx + 1}`}
+                              />
+                           }
+                           id={`product-image-tab-${idx}`}
+                           aria-controls={`product-image-panel-${idx}`}
+                        />
+                     ))}
+                  </Tabs>
+                  {productInfo.images.map((img: string, idx: number) => (
+                     <Box
+                        key={idx}
+                        role="tabpanel"
+                        hidden={tabIndex !== idx}
+                        id={`product-image-panel-${idx}`}
+                        aria-labelledby={`product-image-tab-${idx}`}
+                        sx={{
+                           width: "auto",
+                           height: 420,
+                           display: tabIndex === idx ? "flex" : "none",
+                           alignItems: "center",
+                           justifyContent: "center",
+                        }}
+                     >
+                        <Box
+                           component="img"
+                           src={img}
+                           alt={productInfo.title}
+                           sx={{
+                              width: "100%",
+                              height: 400,
+                              objectFit: "cover",
+                              borderRadius: 2,
+                              pl: 5,
+                           }}
+                        />
+                     </Box>
+                  ))}
+               </Paper>
+            </Grid>
+            <Grid size={4}>
+               <Box
+                  sx={{
+                     display: "flex",
+                     flexDirection: "column",
+                     justifyContent: "space-between",
                   }}
-                  onMouseOver={(event) => {
-                     (
-                        event.currentTarget as HTMLButtonElement
-                     ).style.backgroundColor = "#1D4ED8";
-                  }}
-                  onMouseOut={(event) => {
-                     (
-                        event.currentTarget as HTMLButtonElement
-                     ).style.backgroundColor = "#2563EB";
-                  }}
-                  onClick={handleAdd}
                >
-                  Add To Cart
-               </button>
-            </div>
-         </div>
-
-         <Divider sx={{ margin: "3rem 0" }} />
+                  <Box>
+                     <Typography variant="h4" component="h1" gutterBottom>
+                        {productInfo.title}
+                     </Typography>
+                     <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{ mb: 2 }}
+                     >
+                        {productInfo.description}
+                     </Typography>
+                     {/* Price Section */}
+                     <Box sx={{ mb: 2 }}>
+                        {productInfo.discount ? (
+                           <>
+                              <Typography
+                                 variant="body1"
+                                 color="text.secondary"
+                                 sx={{ textDecoration: "line-through" }}
+                              >
+                                 ${productInfo.price.toFixed(2)}
+                              </Typography>
+                              <Typography
+                                 variant="h5"
+                                 color="primary"
+                                 fontWeight={700}
+                              >
+                                 $
+                                 {(
+                                    productInfo.price -
+                                    (productInfo.price * productInfo.discount) /
+                                       100
+                                 ).toFixed(2)}{" "}
+                                 <Typography
+                                    component="span"
+                                    variant="body2"
+                                    color="error"
+                                    sx={{ ml: 1 }}
+                                 >
+                                    {Math.round(productInfo.discount)}% OFF
+                                 </Typography>
+                              </Typography>
+                           </>
+                        ) : (
+                           <Typography
+                              variant="h5"
+                              color="primary"
+                              fontWeight={700}
+                           >
+                              ${productInfo.price.toFixed(2)}
+                           </Typography>
+                        )}
+                     </Box>
+                  </Box>
+                  <Button
+                     variant="contained"
+                     color="primary"
+                     size="large"
+                     sx={{ mt: 4, borderRadius: 9999, fontWeight: 600 }}
+                     onClick={handleAdd}
+                  >
+                     Add To Cart
+                  </Button>
+               </Box>
+            </Grid>
+         </Grid>
+         <Divider sx={{ my: 6 }} />
          <RelatedProducts />
-         <Divider sx={{ margin: "3rem 0" }} />
+         <Divider sx={{ my: 6 }} />
          <OtherMovies />
-      </main>
+      </Box>
    );
 };
 
