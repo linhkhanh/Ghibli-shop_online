@@ -64,5 +64,5 @@ export interface ProductData {
    stock: number;
    discount?: number;
    movieId: string;
-   images: File[];
+   images: (File | string)[]; // Can be File objects for new uploads or URLs for existing images
 }

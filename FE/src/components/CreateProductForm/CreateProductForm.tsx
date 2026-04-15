@@ -19,7 +19,19 @@ import type { ProductData } from "../../utils/dataType";
 import useCreateProduct from "../../hooks/useCreateProduct/useCreateProduct";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
-const CreateProductForm = () => {
+interface CreateProductFormProps {
+   defaultValues?: ProductData;
+   title: string;
+}
+
+const CreateProductForm = (props: CreateProductFormProps) => {
+   const {
+      defaultValues = {
+         images: [],
+         movieId: "",
+      },
+      title,
+   } = props;
    const { createProduct } = useCreateProduct();
 
    const {
@@ -33,7 +45,7 @@ const CreateProductForm = () => {
       setError,
       clearErrors,
    } = useForm<ProductData>({
-      defaultValues: { images: [], movieId: "" },
+      defaultValues,
    });
 
    const { showSnackbar } = useSnackbar();
@@ -84,7 +96,12 @@ const CreateProductForm = () => {
                ? selectedImages
                : [];
          // Avoid duplicate files by name and size
-         const mergedFiles = [...prevFiles];
+         const mergedFiles = prevFiles.filter((file) => file instanceof File);
+
+         const uploadedFiles = prevFiles.filter(
+            (file) => typeof file === "string",
+         );
+
          validFiles.forEach((file) => {
             if (
                !mergedFiles.some(
@@ -94,7 +111,7 @@ const CreateProductForm = () => {
                mergedFiles.push(file);
             }
          });
-         setValue("images", mergedFiles);
+         setValue("images", [...uploadedFiles, ...mergedFiles]);
       }
    };
 
@@ -104,12 +121,16 @@ const CreateProductForm = () => {
 
    useEffect(() => {
       if (selectedImages && selectedImages.length > 0) {
-         const urls = selectedImages.map((file: File) =>
-            URL.createObjectURL(file),
+         const urls = selectedImages.map((file: File | string) =>
+            file instanceof File ? URL.createObjectURL(file) : file,
          );
          setImagePreviews(urls);
          return () => {
-            urls.forEach((url) => URL.revokeObjectURL(url));
+            urls.forEach((url) => {
+               if (url.startsWith("blob:")) {
+                  URL.revokeObjectURL(url);
+               }
+            });
          };
       } else {
          setImagePreviews([]);
@@ -120,7 +141,7 @@ const CreateProductForm = () => {
    const handleRemoveImage = (idxToRemove: number) => {
       if (selectedImages && selectedImages.length > 0) {
          const newImages = selectedImages.filter(
-            (_: File, idx: number) => idx !== idxToRemove,
+            (_: File | string, idx: number) => idx !== idxToRemove,
          );
          setValue("images", newImages);
       }
@@ -140,7 +161,7 @@ const CreateProductForm = () => {
          }}
       >
          <Typography variant="h5" fontWeight="bold" mb={3} textAlign="center">
-            Create Product
+            {title}
          </Typography>
          <Grid container spacing={4} alignItems="flex-start">
             <Grid size={4}>
@@ -174,27 +195,37 @@ const CreateProductForm = () => {
                         {selectedImages.length} image(s) selected
                      </Typography>
                      <Stack direction="column" mt={2} flexWrap="wrap">
-                        {selectedImages.map((file: File, idx: number) => (
-                           <Box key={idx} position="relative" padding={0.5}>
-                              <Chip
-                                 label={file.name}
-                                 onDelete={() => handleRemoveImage(idx)}
-                                 avatar={
-                                    <img
-                                       src={imagePreviews[idx]}
-                                       alt={file.name}
-                                       style={{
-                                          width: 32,
-                                          height: 32,
-                                          objectFit: "cover",
-                                          borderRadius: 4,
-                                       }}
-                                    />
-                                 }
-                                 sx={{ maxWidth: 200, p: 1 }}
-                              />
-                           </Box>
-                        ))}
+                        {selectedImages.map(
+                           (file: File | string, idx: number) => (
+                              <Box key={idx} position="relative" padding={0.5}>
+                                 <Chip
+                                    label={
+                                       file instanceof File
+                                          ? file.name
+                                          : "Existing Image"
+                                    }
+                                    onDelete={() => handleRemoveImage(idx)}
+                                    avatar={
+                                       <img
+                                          src={imagePreviews[idx]}
+                                          alt={
+                                             file instanceof File
+                                                ? file.name
+                                                : "Existing Image"
+                                          }
+                                          style={{
+                                             width: 32,
+                                             height: 32,
+                                             objectFit: "cover",
+                                             borderRadius: 4,
+                                          }}
+                                       />
+                                    }
+                                    sx={{ maxWidth: 200, p: 1 }}
+                                 />
+                              </Box>
+                           ),
+                        )}
                      </Stack>
                   </Box>
                )}
@@ -315,7 +346,7 @@ const CreateProductForm = () => {
                      color="primary"
                      fullWidth
                   >
-                     Create Product
+                     Submit
                   </Button>
                </Stack>
             </Grid>
