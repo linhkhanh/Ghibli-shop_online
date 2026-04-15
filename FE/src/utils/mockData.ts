@@ -64,7 +64,7 @@ export const mockProducts: ProductItem[] = [
       title: "Totoro Plush Toy",
       price: 29.99,
       description: "A soft and cuddly Totoro plush toy.",
-      image: [
+      images: [
          "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage208903327_2nd.jpg?strip=all&lossy=1&ssl=1",
       ],
       discount: 10,
@@ -76,7 +76,7 @@ export const mockProducts: ProductItem[] = [
       title: "Spirited Away Art Book",
       price: 19.99,
       description: "A beautiful art book featuring scenes from Spirited Away.",
-      image: [
+      images: [
          "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage120813380_2nd.jpg?strip=all&lossy=1&ssl=1",
       ],
       movieId: "2",
@@ -87,7 +87,7 @@ export const mockProducts: ProductItem[] = [
       title: "My Neighbor Totoro T-Shirt",
       price: 24.99,
       description: "A stylish T-shirt with a Totoro design.",
-      image: ["https://i.ebayimg.com/images/g/GNcAAOSw7MNiYT6T/s-l1200.jpg"],
+      images: ["https://i.ebayimg.com/images/g/GNcAAOSw7MNiYT6T/s-l1200.jpg"],
       discount: 15,
       movieId: "1",
       stock: 0,
@@ -97,7 +97,7 @@ export const mockProducts: ProductItem[] = [
       title: "Princess Mononoke Poster",
       price: 14.99,
       description: "A high-quality poster of Princess Mononoke.",
-      image: ["https://example.com/princess_mononoke.jpg"],
+      images: ["https://example.com/princess_mononoke.jpg"],
       movieId: "3",
       stock: 0,
    },
@@ -106,7 +106,7 @@ export const mockProducts: ProductItem[] = [
       title: "Howl's Moving Castle Figurine",
       price: 39.99,
       description: "A detailed figurine of Howl's Moving Castle.",
-      image: ["https://example.com/howls_moving_castle.jpg"],
+      images: ["https://example.com/howls_moving_castle.jpg"],
       discount: 20,
       movieId: "4",
       stock: 0,
@@ -116,7 +116,7 @@ export const mockProducts: ProductItem[] = [
       title: "Kiki's Delivery Service Tote Bag",
       price: 19.99,
       description: "A cute tote bag featuring Kiki's Delivery Service.",
-      image: ["https://example.com/kikis_delivery_service.jpg"],
+      images: ["https://example.com/kikis_delivery_service.jpg"],
       movieId: "5",
       stock: 0,
    },
@@ -125,7 +125,7 @@ export const mockProducts: ProductItem[] = [
       title: "Ponyo Plush Toy",
       price: 29.99,
       description: "A soft and cuddly Ponyo plush toy.",
-      image: ["https://example.com/ponyo.jpg"],
+      images: ["https://example.com/ponyo.jpg"],
       movieId: "6",
       stock: 0,
    },
@@ -134,7 +134,7 @@ export const mockProducts: ProductItem[] = [
       title: "The Wind Rises Art Print",
       price: 24.99,
       description: "A beautiful art print of The Wind Rises.",
-      image: ["https://example.com/the_wind_rises.jpg"],
+      images: ["https://example.com/the_wind_rises.jpg"],
       movieId: "7",
       stock: 0,
    },
@@ -143,7 +143,7 @@ export const mockProducts: ProductItem[] = [
       title: "Castle in the Sky Model Kit",
       price: 49.99,
       description: "A model kit of the iconic Castle in the Sky.",
-      image: ["https://example.com/castle_in_the_sky.jpg"],
+      images: ["https://example.com/castle_in_the_sky.jpg"],
       movieId: "8",
       stock: 0,
    },
@@ -152,7 +152,7 @@ export const mockProducts: ProductItem[] = [
       title: "Grave of the Fireflies Soundtrack",
       price: 14.99,
       description: "The original soundtrack of Grave of the Fireflies.",
-      image: ["https://example.com/grave_of_the_fireflies.jpg"],
+      images: ["https://example.com/grave_of_the_fireflies.jpg"],
       discount: 5,
       movieId: "9",
       stock: 0,
@@ -165,7 +165,7 @@ export const mockProducts: ProductItem[] = [
          title: `Ghibli Product #${n}`,
          price: 10 + (n % 10) * 5 + (n % 3) * 2.5,
          description: `This is a unique Ghibli product number ${n}.`,
-         image: [`https://placehold.co/280x200?text=Ghibli+${n}`],
+         images: [`https://placehold.co/280x200?text=Ghibli+${n}`],
          discount: n % 4 === 0 ? 10 : n % 5 === 0 ? 15 : undefined,
          movieId: ((n % 10) + 1).toString(),
          stock: n % 7,
@@ -182,7 +182,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Totoro Plush Toy",
             price: 29.99,
             description: "A soft and cuddly Totoro plush toy.",
-            image: [
+            images: [
                "https://enez76gwp29.exactdn.com/wp-content/uploads/2020/04/productimage208903327_2nd.jpg?strip=all&lossy=1&ssl=1",
             ],
             discount: 10,
@@ -194,7 +194,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "My Neighbor Totoro T-Shirt",
             price: 24.99,
             description: "A stylish T-shirt with a Totoro design.",
-            image: [
+            images: [
                "https://www.japan-experience.com/sites/default/files/styles/scale_crop_480x250/public/legacy/japan_experience/1497286956997.jpg.webp?h=ddb1ad0c&itok=BAVNd_Zu",
             ],
             discount: 15,
@@ -206,7 +206,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Totoro Keychain",
             price: 9.99,
             description: "A cute Totoro keychain to carry with you.",
-            image: [
+            images: [
                "https://images2.minutemediacdn.com/image/upload/c_fill,w_1200,ar_1:1,f_auto,q_auto,g_auto/shape/cover/sport/539787-c-1988-studio-ghibli-1-99691298d234359b7ea9eccc5925b9f3.jpg",
             ],
             movieId: "1",
@@ -217,7 +217,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Totoro Mug",
             price: 14.99,
             description: "A ceramic mug featuring Totoro.",
-            image: ["https://i.redd.it/ovfk3xy2o4q51.jpg"],
+            images: ["https://i.redd.it/ovfk3xy2o4q51.jpg"],
             discount: 5,
             movieId: "1",
             stock: 0,
@@ -227,7 +227,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Totoro Wall Art",
             price: 19.99,
             description: "A beautiful wall art piece featuring Totoro.",
-            image: [
+            images: [
                "https://m.media-amazon.com/images/I/91400JsaK4L._AC_UF1000,1000_QL80_.jpg",
             ],
             movieId: "1",
@@ -238,7 +238,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Totoro Backpack",
             price: 39.99,
             description: "A stylish backpack with a Totoro design.",
-            image: [
+            images: [
                "https://fictionmachine.com/wp-content/uploads/2015/04/totoro_head-e1601954323644.jpg?w=1024",
             ],
             discount: 20,
@@ -255,7 +255,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Kiki's Delivery Service Tote Bag",
             price: 19.99,
             description: "A cute tote bag featuring Kiki's Delivery Service.",
-            image: [
+            images: [
                "https://beam-images.warnermediacdn.com/BEAM_LWM_DELIVERABLES/b7788922-e4c4-42f8-918b-304a7a187f38/14865e51bde602ccf212e279d42a30974ccb791e.jpg?host=wbd-images.prod-vod.h264.io&partner=beamcom&w=500",
             ],
             movieId: "5",
@@ -266,7 +266,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Kiki's Delivery Service Poster",
             price: 14.99,
             description: "A high-quality poster of Kiki's Delivery Service.",
-            image: [
+            images: [
                "https://static0.cbrimages.com/wordpress/wp-content/uploads/2019/08/kiki.jpg",
             ],
             movieId: "5",
@@ -277,7 +277,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Kiki's Delivery Service Figurine",
             price: 29.99,
             description: "A detailed figurine of Kiki and Jiji.",
-            image: [
+            images: [
                "https://static.wikia.nocookie.net/studio-ghibli/images/b/b4/Jiji.jpg/revision/latest?cb=20210218143145",
             ],
             discount: 10,
@@ -289,7 +289,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Kiki's Delivery Service Hoodie",
             price: 49.99,
             description: "A cozy hoodie with a Kiki's Delivery Service design.",
-            image: [
+            images: [
                "https://i.guim.co.uk/img/media/70c3d88f9b85c23dca04051db41edf6c101de4a9/102_0_2000_1200/master/2000.jpg?width=700&quality=85&auto=format&fit=max&s=457387fd4068cc2812361031751a2b10",
             ],
             discount: 15,
@@ -306,7 +306,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Ponyo Plush Toy",
             price: 14.99,
             description: "A soft and cuddly Ponyo plush toy.",
-            image: ["https://d23.com/app/uploads/2015/07/ponyo-1180x600.jpg"],
+            images: ["https://d23.com/app/uploads/2015/07/ponyo-1180x600.jpg"],
             movieId: "9",
             stock: 0,
          },
@@ -315,7 +315,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Ponyo T-Shirt",
             price: 19.99,
             description: "A stylish T-shirt with a Ponyo design.",
-            image: [
+            images: [
                "https://images.fathomevents.com/image/upload/w_2000,dpr_2,f_auto,q_auto/v1743550040/Events/2025/2013/1920x1080_Ponyo_Hero%20Image.jpg.jpg",
             ],
             discount: 10,
@@ -327,7 +327,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Ponyo Mug",
             price: 14.99,
             description: "A ceramic mug featuring Ponyo.",
-            image: [
+            images: [
                "https://corndogchats.com/wp-content/uploads/2016/04/ponyo-color-9.jpg?w=1200",
             ],
             movieId: "9",
@@ -338,7 +338,7 @@ export const mockProductsByMovie: ProductsByCategory[] = [
             title: "Ponyo Wall Art",
             price: 19.99,
             description: "A beautiful wall art piece featuring Ponyo.",
-            image: [
+            images: [
                "https://images.amcnetworks.com/ifccenter.com/wp-content/uploads/2019/12/ponyo_photo_02.jpg",
             ],
             discount: 5,

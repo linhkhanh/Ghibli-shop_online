@@ -9,12 +9,14 @@ const useCreateProduct = () => {
       let loading: boolean = true;
       let error: string | null = null;
 
-      const imageList = productData.images.map(async (file, index) => {
+      const imageList = productData.images.map(async (imgItem, index) => {
+         if (typeof imgItem === "string") return imgItem;
+
          const {
             uploadedImage,
             loading: uploadLoading,
             error: uploadError,
-         } = await uploadImage({ imageFile: file });
+         } = await uploadImage({ imageFile: imgItem });
 
          if (uploadError) {
             console.error(`Error uploading image ${index + 1}:`, uploadError);

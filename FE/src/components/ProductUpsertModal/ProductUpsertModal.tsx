@@ -1,5 +1,5 @@
 import { Modal, Box } from "@mui/material";
-import CreateProductForm from "../../components/CreateProductForm/CreateProductForm";
+import ProductUpsertForm from "../ProductUpsertForm/ProductUpsertForm";
 import type { ProductData } from "../../utils/dataType";
 
 const modalStyle = {
@@ -16,21 +16,26 @@ const modalStyle = {
    overflowY: "auto",
 };
 
-interface CreateProductModalProps {
+interface ProductUpsertModalProps {
    open: boolean;
    handleClose: () => void;
    title: string;
    defaultValues?: ProductData;
 }
-const CreateProductModal = (props: CreateProductModalProps) => {
+
+const ProductUpsertModal = (props: ProductUpsertModalProps) => {
    const { open, handleClose, title, defaultValues } = props;
    return (
       <Modal open={open} onClose={handleClose}>
          <Box sx={modalStyle}>
-            <CreateProductForm title={title} defaultValues={defaultValues} />
+            <ProductUpsertForm
+               title={title}
+               defaultValues={defaultValues}
+               handleSubmit={handleClose}
+            />
          </Box>
       </Modal>
    );
 };
 
-export default CreateProductModal;
+export default ProductUpsertModal;

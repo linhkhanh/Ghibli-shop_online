@@ -12,7 +12,7 @@ import { Box } from "@mui/material";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../StyledLink/StyledLink";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
-import CreateProductModal from "../CreateProductModal/CreateProductModal";
+import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
 
 interface ProductCardProps {
@@ -20,7 +20,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard(props: ProductCardProps) {
-   const { id, title, image, price, discount = 0 } = props.productDetail;
+   const { productDetail } = props;
+   const { id, title, images: image, price, discount = 0 } = productDetail;
    const { cartCount, updateCart, user } = useAuthentication();
    const { showSnackbar } = useSnackbar();
    const [open, setOpen] = useState(false);
@@ -113,10 +114,11 @@ export default function ProductCard(props: ProductCardProps) {
                </>
             )}
          </CardContent>
-         <CreateProductModal
+         <ProductUpsertModal
             open={open}
             handleClose={handleClose}
             title="Edit Product"
+            defaultValues={productDetail}
          />
       </Card>
    );

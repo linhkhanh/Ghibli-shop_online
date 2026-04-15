@@ -3,7 +3,7 @@ export interface ProductItem {
    title: string;
    price: number;
    description: string;
-   image: string[];
+   images: string[];
    movieId: string;
    discount?: number;
    stock: number;

@@ -36,7 +36,7 @@ const ProductDetail = () => {
                }}
             >
                <img
-                  src={productInfo.image}
+                  src={productInfo.images}
                   alt={productInfo.title}
                   style={{
                      width: "100%",

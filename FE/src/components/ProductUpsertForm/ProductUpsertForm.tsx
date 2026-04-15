@@ -15,22 +15,24 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
 import { moviesList } from "../../utils/mockData";
-import type { ProductData } from "../../utils/dataType";
+import type { ProductData, ProductItem } from "../../utils/dataType";
 import useCreateProduct from "../../hooks/useCreateProduct/useCreateProduct";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
-interface CreateProductFormProps {
-   defaultValues?: ProductData;
+interface ProductUpsertFormProps {
+   defaultValues?: ProductData | ProductItem;
    title: string;
+   handleSubmit: () => void;
 }
 
-const CreateProductForm = (props: CreateProductFormProps) => {
+const ProductUpsertForm = (props: ProductUpsertFormProps) => {
    const {
       defaultValues = {
          images: [],
          movieId: "",
       },
       title,
+      handleSubmit: closeModal,
    } = props;
    const { createProduct } = useCreateProduct();
 
@@ -39,7 +41,6 @@ const CreateProductForm = (props: CreateProductFormProps) => {
       handleSubmit,
       control,
       formState: { errors },
-      reset,
       setValue,
       watch,
       setError,
@@ -50,7 +51,7 @@ const CreateProductForm = (props: CreateProductFormProps) => {
 
    const { showSnackbar } = useSnackbar();
 
-   const onCreate = async (data: ProductData) => {
+   const onUpSert = async (data: ProductData) => {
       if (!data.images || data.images.length === 0) {
          setError("images", {
             type: "manual",
@@ -66,12 +67,12 @@ const CreateProductForm = (props: CreateProductFormProps) => {
          if (error) {
             showSnackbar(error, "error");
          } else {
-            showSnackbar("Product created successfully!", "success");
+            showSnackbar("Product submitted successfully!", "success");
          }
       } catch (error) {
-         console.error("Error creating product:", error);
+         console.error("Error submitting product:", error);
       } finally {
-         reset();
+         closeModal();
       }
    };
 
@@ -150,7 +151,7 @@ const CreateProductForm = (props: CreateProductFormProps) => {
    return (
       <Box
          component="form"
-         onSubmit={handleSubmit(onCreate)}
+         onSubmit={handleSubmit(onUpSert)}
          sx={{
             mx: "auto",
             p: 4,
@@ -355,4 +356,4 @@ const CreateProductForm = (props: CreateProductFormProps) => {
    );
 };
 
-export default CreateProductForm;
+export default ProductUpsertForm;
