@@ -1,6 +1,7 @@
 import { Modal, Box } from "@mui/material";
 import ProductUpsertForm from "../ProductUpsertForm/ProductUpsertForm";
 import type { ProductData } from "../../utils/dataType";
+import { useNavigate } from "react-router-dom";
 
 const modalStyle = {
    position: "absolute" as const,
@@ -25,13 +26,18 @@ interface ProductUpsertModalProps {
 
 const ProductUpsertModal = (props: ProductUpsertModalProps) => {
    const { open, handleClose, title, defaultValues } = props;
+   const navigate = useNavigate();
+
    return (
       <Modal open={open} onClose={handleClose}>
          <Box sx={modalStyle}>
             <ProductUpsertForm
                title={title}
                defaultValues={defaultValues}
-               handleSubmit={handleClose}
+               handleSubmit={() => {
+                  handleClose();
+                  navigate("/products");
+               }}
             />
          </Box>
       </Modal>
