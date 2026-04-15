@@ -21,7 +21,7 @@ import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
 interface ProductUpsertFormProps {
    defaultValues?: ProductData | ProductItem;
-   title: string;
+   title: "Edit Product" | "Create Product";
    handleSubmit: () => void;
 }
 
@@ -45,14 +45,14 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       watch,
       setError,
       clearErrors,
-   } = useForm<ProductData>({
+   } = useForm<ProductData | ProductItem>({
       defaultValues,
    });
 
    const { showSnackbar } = useSnackbar();
 
-   const onUpSert = async (data: ProductData) => {
-      if (!data.images || data.images.length === 0) {
+   const onUpSert = async (inputProData: ProductData | ProductItem) => {
+      if (!inputProData.images || inputProData.images.length === 0) {
          setError("images", {
             type: "manual",
             message: "At least one image is required.",
@@ -60,17 +60,24 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
          return;
       }
 
-      console.log("Product data:", data);
+      console.log("Product data:", inputProData);
+
+      if (title === "Edit Product") {
+         inputProData = {
+            ...inputProData,
+            id: (defaultValues as ProductItem).id,
+         };
+      }
 
       try {
-         const { error } = await createProduct(data);
+         const { error } = await createProduct(inputProData);
          if (error) {
             showSnackbar(error, "error");
          } else {
             showSnackbar("Product submitted successfully!", "success");
          }
       } catch (error) {
-         console.error("Error submitting product:", error);
+         showSnackbar(`Error submitting product. ${error}`, "error");
       } finally {
          closeModal();
       }

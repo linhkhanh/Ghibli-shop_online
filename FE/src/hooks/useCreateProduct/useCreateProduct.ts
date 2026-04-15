@@ -1,10 +1,10 @@
 import uploadImage from "../../services/uploadImage/uploadImage";
-import type { ProductData } from "../../utils/dataType";
+import type { ProductData, ProductItem } from "../../utils/dataType";
 
 const useCreateProduct = () => {
    //    TODO: Call API to create product here, return loading state and error state if needed
    const createProduct = async (
-      productData: ProductData,
+      productData: ProductData | ProductItem,
    ): Promise<{ loading: boolean; error: string | null }> => {
       let loading: boolean = true;
       let error: string | null = null;

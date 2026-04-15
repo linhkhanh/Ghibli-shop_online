@@ -19,7 +19,7 @@ const modalStyle = {
 interface ProductUpsertModalProps {
    open: boolean;
    handleClose: () => void;
-   title: string;
+   title: "Edit Product" | "Create Product";
    defaultValues?: ProductData;
 }
 
