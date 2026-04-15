@@ -18,6 +18,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useState, type SyntheticEvent } from "react";
 import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpsertModal";
+import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 
 const ProductDetail = () => {
    const { productId } = useParams();
@@ -27,8 +28,12 @@ const ProductDetail = () => {
    const [tabIndex, setTabIndex] = useState(0);
 
    const [open, setOpen] = useState(false);
+
+   const { deleteProduct, isDeleting } = useDeleteProduct();
+
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
+
    const handleTabChange = (event: SyntheticEvent, newValue: number) => {
       setTabIndex(newValue);
    };
@@ -200,7 +205,7 @@ const ProductDetail = () => {
                            variant="outlined"
                            color="error"
                            startIcon={<DeleteIcon />}
-                           // onClick={handleDelete}
+                           onClick={() => deleteProduct(productInfo.id)}
                            sx={{ ml: 1 }}
                         >
                            Delete
