@@ -14,17 +14,22 @@ import { useParams } from "react-router-dom";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
-
-import React from "react";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { useState, type SyntheticEvent } from "react";
+import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpsertModal";
 
 const ProductDetail = () => {
    const { productId } = useParams();
    const productInfo = useProductDetail(productId || "");
-   const { cartCount, updateCart } = useAuthentication();
+   const { cartCount, updateCart, user } = useAuthentication();
    const { showSnackbar } = useSnackbar();
-   const [tabIndex, setTabIndex] = React.useState(0);
+   const [tabIndex, setTabIndex] = useState(0);
 
-   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+   const [open, setOpen] = useState(false);
+   const handleOpen = () => setOpen(true);
+   const handleClose = () => setOpen(false);
+   const handleTabChange = (event: SyntheticEvent, newValue: number) => {
       setTabIndex(newValue);
    };
 
@@ -91,7 +96,7 @@ const ProductDetail = () => {
                            height: 420,
                            display: tabIndex === idx ? "flex" : "none",
                            alignItems: "center",
-                           justifyContent: "center",
+                           justifyContent: "space-around",
                         }}
                      >
                         <Box
@@ -99,7 +104,7 @@ const ProductDetail = () => {
                            src={img}
                            alt={productInfo.title}
                            sx={{
-                              width: "100%",
+                              width: "auto",
                               height: 400,
                               objectFit: "cover",
                               borderRadius: 2,
@@ -172,15 +177,36 @@ const ProductDetail = () => {
                         )}
                      </Box>
                   </Box>
-                  <Button
-                     variant="contained"
-                     color="primary"
-                     size="large"
-                     sx={{ mt: 4, borderRadius: 9999, fontWeight: 600 }}
-                     onClick={handleAdd}
-                  >
-                     Add To Cart
-                  </Button>
+                  {!(user?.role == "admin") ? (
+                     <Button
+                        variant="contained"
+                        startIcon={<AddShoppingCartIcon />}
+                        onClick={handleAdd}
+                     >
+                        Add
+                     </Button>
+                  ) : (
+                     <Box>
+                        <Button
+                           variant="outlined"
+                           color="primary"
+                           startIcon={<EditIcon />}
+                           onClick={handleOpen}
+                           sx={{ ml: 1 }}
+                        >
+                           Edit
+                        </Button>
+                        <Button
+                           variant="outlined"
+                           color="error"
+                           startIcon={<DeleteIcon />}
+                           // onClick={handleDelete}
+                           sx={{ ml: 1 }}
+                        >
+                           Delete
+                        </Button>
+                     </Box>
+                  )}
                </Box>
             </Grid>
          </Grid>
@@ -188,6 +214,13 @@ const ProductDetail = () => {
          <RelatedProducts />
          <Divider sx={{ my: 6 }} />
          <OtherMovies />
+
+         <ProductUpsertModal
+            open={open}
+            handleClose={handleClose}
+            title="Edit Product"
+            defaultValues={productInfo}
+         />
       </Box>
    );
 };
