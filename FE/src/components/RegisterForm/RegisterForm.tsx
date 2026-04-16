@@ -1,40 +1,36 @@
-import {
-   Box,
-   Button,
-   TextField,
-   Typography,
-   Stack,
-   Alert,
-   Link,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, Stack, Link } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import useRegister from "../../hooks/useRegister/useRegister";
 
 interface RegisterFormInputs {
    name: string;
    email: string;
    password: string;
+   confirmedPassword: string;
 }
 
 interface RegisterFormProps {
    handleCurrentForm: () => void;
+   closeModal: () => void;
 }
 const RegisterForm = (props: RegisterFormProps) => {
-   const { handleCurrentForm } = props;
-   const [registerSuccess, setRegisterSuccess] = useState("");
+   const { handleCurrentForm, closeModal } = props;
    const {
       register,
       handleSubmit,
       formState: { errors },
-      reset,
    } = useForm<RegisterFormInputs>();
 
-   //    TODO: Call API here to register user and handle registration logic
-   const onRegister = (data: RegisterFormInputs) => {
-      console.log("Registration data:", data);
-      setRegisterSuccess("");
-      setRegisterSuccess("Registration successful! You can now log in.");
-      reset();
+   const { createUser } = useRegister();
+
+   const onRegister = async (data: RegisterFormInputs) => {
+      if (data.password !== data.confirmedPassword) {
+         // Set error for confirmPassword
+         alert("Passwords do not match");
+         return;
+      }
+      await createUser(data);
+      closeModal();
    };
 
    return (
@@ -95,9 +91,18 @@ const RegisterForm = (props: RegisterFormProps) => {
                error={!!errors.password}
                helperText={errors.password?.message}
             />
-            {registerSuccess && (
-               <Alert severity="success">{registerSuccess}</Alert>
-            )}
+            <TextField
+               label="Confirm Password"
+               type="password"
+               sx={{ width: 320 }}
+               {...register("confirmedPassword", {
+                  required: "Please confirm your password",
+                  validate: (value, formValues) =>
+                     value === formValues.password || "Passwords do not match",
+               })}
+               error={!!errors.confirmedPassword}
+               helperText={errors.confirmedPassword?.message}
+            />
             <Button type="submit" variant="contained" color="primary" fullWidth>
                Register
             </Button>

@@ -1,7 +1,8 @@
-import { useState, type ReactNode, type FC } from "react";
+import { useState, type ReactNode, type FC, useEffect } from "react";
 import { AppContext, type AppContextType } from "./AppContext";
 import type { CartItem, User } from "../../utils/dataType";
 import { mockCartItems } from "../../utils/mockData";
+import api from "../../services/api/axios";
 
 type AppProviderProps = {
    children: ReactNode;
@@ -45,6 +46,12 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
       user,
       updateUser,
    };
+
+   useEffect(() => {
+      api.get("/user") // A default Laravel route
+         .then((res) => console.log("Connected to Backend!", res.data))
+         .catch((err) => console.log("Connection failed", err));
+   }, []);
 
    return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

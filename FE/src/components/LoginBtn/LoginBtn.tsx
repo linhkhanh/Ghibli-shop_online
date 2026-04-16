@@ -26,10 +26,6 @@ const LoginBtn = () => {
       setOpen(false);
    };
 
-   const handleLogin = () => {
-      setOpen(false);
-   };
-
    return (
       <>
          <Button variant="contained" onClick={handleOpen}>
@@ -40,11 +36,12 @@ const LoginBtn = () => {
                {currentForm === "login" ? (
                   <LoginForm
                      handleCurrentForm={() => setCurrentForm("register")}
-                     handleLogin={handleLogin}
+                     handleLogin={handleClose}
                   />
                ) : (
                   <RegisterForm
                      handleCurrentForm={() => setCurrentForm("login")}
+                     closeModal={handleClose}
                   />
                )}
             </Box>
