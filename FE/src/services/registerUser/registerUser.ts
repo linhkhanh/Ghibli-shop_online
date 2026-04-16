@@ -13,7 +13,6 @@ export const registerUser = async (
 ): Promise<RegisterResponse> => {
    try {
       const response = await api.post("/register", payload);
-      // Save the token so the user stays logged in
       localStorage.setItem("token", response.data.access_token);
       return {
          success: true,
