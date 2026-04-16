@@ -25,7 +25,6 @@ const RegisterForm = (props: RegisterFormProps) => {
 
    const onRegister = async (data: RegisterFormInputs) => {
       if (data.password !== data.confirmedPassword) {
-         // Set error for confirmPassword
          alert("Passwords do not match");
          return;
       }

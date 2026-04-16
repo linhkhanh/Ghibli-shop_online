@@ -51,10 +51,12 @@ export interface Order {
 export interface User {
    id: string;
    name: string;
-   role: "user" | "admin";
    email: string;
-   phone?: string;
+   role: string;
    address?: string;
+   phone?: string;
+   created_at: string;
+   updated_at: string;
 }
 
 export interface ProductData {
@@ -65,4 +67,10 @@ export interface ProductData {
    discount?: number;
    movieId: string;
    images: (File | string)[]; // Can be File objects for new uploads or URLs for existing images
+}
+
+export interface RegisterResponse {
+   success: boolean;
+   message: string;
+   user: User;
 }

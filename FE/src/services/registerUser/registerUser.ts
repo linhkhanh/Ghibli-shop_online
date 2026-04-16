@@ -1,3 +1,4 @@
+import type { RegisterResponse } from "../../utils/dataType";
 import api from "../api/axios";
 
 export interface RegisterPayload {
@@ -5,21 +6,6 @@ export interface RegisterPayload {
    email: string;
    password: string;
    password_confirmation: string;
-}
-
-export interface RegisterResponse {
-   success: boolean;
-   message: string;
-   user?: {
-      id: string;
-      name: string;
-      email: string;
-      role: string;
-      address: string;
-      phone: string;
-      created_at: string;
-      updated_at: string;
-   };
 }
 
 export const registerUser = async (

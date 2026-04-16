@@ -1,4 +1,5 @@
 import { registerUser } from "../../services/registerUser/registerUser";
+import { useAuthentication } from "../useAuthentication/useAuthentication";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
 
 interface UserPayload {
@@ -10,6 +11,7 @@ interface UserPayload {
 
 const useRegister = () => {
    const { showSnackbar } = useSnackbar();
+   const { updateUser } = useAuthentication();
 
    const createUser = async (payload: UserPayload) => {
       try {
@@ -18,11 +20,8 @@ const useRegister = () => {
             password_confirmation: payload.confirmedPassword,
          });
 
-         if (response.success) {
-            showSnackbar("Registration successful!", "success");
-         } else {
-            showSnackbar(response.message || "Registration failed", "error");
-         }
+         showSnackbar("Registration successful!", "success");
+         updateUser(response.user);
       } catch (error: Error | unknown) {
          showSnackbar(
             `An unexpected error occurred during registration ${error instanceof Error ? error.message : ""}`,
