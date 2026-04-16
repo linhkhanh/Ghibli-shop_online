@@ -48,8 +48,11 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
    };
 
    useEffect(() => {
-      api.get("/user") // A default Laravel route
-         .then((res) => console.log("Connected to Backend!", res.data))
+      api.get("/user")
+         .then((res) => {
+            console.log("User info from API:", res.data);
+            setUser(res.data);
+         })
          .catch((err) => console.log("Connection failed", err));
    }, []);
 

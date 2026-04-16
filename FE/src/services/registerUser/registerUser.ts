@@ -29,7 +29,6 @@ export const registerUser = async (
       const response = await api.post("/register", payload);
       // Save the token so the user stays logged in
       localStorage.setItem("token", response.data.access_token);
-      console.log("User Data:", response.data.user);
       return {
          success: true,
          message: "Registration successful",
