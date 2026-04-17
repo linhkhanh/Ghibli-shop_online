@@ -20,3 +20,5 @@ class MovieController extends Controller
         ], 200);
     }
 }
+
+// $movies = Movie::withCount('products')->get();

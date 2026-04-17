@@ -19,4 +19,9 @@ class Product extends Model
     {
         return $this->belongsTo(Movie::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
 }
