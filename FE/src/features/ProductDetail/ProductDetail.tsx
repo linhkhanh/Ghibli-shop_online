@@ -16,14 +16,25 @@ import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpsertModal";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
+import type { ProductItem } from "../../utils/dataType";
 
 const ProductDetail = () => {
    const { productId } = useParams();
-   const productInfo = useProductDetail(productId || "");
+   const { getProductById } = useProductDetail();
    const { cartCount, updateCart, user } = useAuthentication();
+   const [productInfo, setProductInfo] = useState<ProductItem>({
+      id: 0,
+      title: "",
+      description: "",
+      price: 0,
+      discount: 0,
+      images: [],
+      movieId: 0,
+      stock: 0,
+   });
    const { showSnackbar } = useSnackbar();
    const [tabIndex, setTabIndex] = useState(0);
 
@@ -42,6 +53,16 @@ const ProductDetail = () => {
       showSnackbar("Add to cart successfully!", "success");
       updateCart(cartCount + 1);
    };
+
+   useEffect(() => {
+      const fetchProduct = async () => {
+         const productData = await getProductById(Number(productId));
+         if (productData) {
+            setProductInfo(productData);
+         }
+      };
+      fetchProduct();
+   }, [productId]);
 
    return (
       <Box component="main" sx={{ p: 4, maxWidth: 1000, mx: "auto" }}>
@@ -148,7 +169,7 @@ const ProductDetail = () => {
                                  color="text.secondary"
                                  sx={{ textDecoration: "line-through" }}
                               >
-                                 ${productInfo.price.toFixed(2)}
+                                 ${productInfo.price}
                               </Typography>
                               <Typography
                                  variant="h5"

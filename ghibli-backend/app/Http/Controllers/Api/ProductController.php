@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -72,4 +73,31 @@ class ProductController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        // 1. Find the product by ID
+        // 2. Eager load 'images' (all images, not just the latest)
+        $product = Product::with(['images'])->find($id);
+
+        // 3. Handle cases where the product ID doesn't exist
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found'
+            ], 404);
+        }
+
+        // 4. (Optional) Check if stock is 0 for non-admins
+        if ($product->stock <= 0 && (!Auth::check() || Auth::user()->role !== 'admin')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This product is currently out of stock.'
+            ], 403);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data'    => $product
+        ], 200);
+    }
 }

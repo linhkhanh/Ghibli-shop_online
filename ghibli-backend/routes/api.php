@@ -13,6 +13,7 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,
 
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

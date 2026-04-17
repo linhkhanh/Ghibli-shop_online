@@ -7,7 +7,7 @@ const useDeleteProduct = () => {
    const [error, setError] = useState<string | null>(null);
    const { showSnackbar } = useSnackbar();
 
-   const deleteProduct = async (productId: string) => {
+   const deleteProduct = async (productId: number) => {
       setIsDeleting(true);
       setError(null);
       try {
