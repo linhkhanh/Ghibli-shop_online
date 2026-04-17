@@ -13,6 +13,7 @@ import StyledLink from "../StyledLink/StyledLink";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
+import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -26,6 +27,7 @@ export default function ProductCard(props: ProductCardProps) {
    const [open, setOpen] = useState(false);
    const handleEdit = () => setOpen(true);
    const handleClose = () => setOpen(false);
+   const { deleteProductById } = useDeleteProduct();
 
    // TODO: Call API here (send request {productId})
    const handleAdd = () => {
@@ -33,10 +35,9 @@ export default function ProductCard(props: ProductCardProps) {
       updateCart(cartCount + 1);
    };
 
-   // Placeholder handlers for Edit and Delete
-
-   const handleDelete = () => {
-      showSnackbar("Delete product (admin only)", "warning");
+   const handleDelete = async () => {
+      await deleteProductById(id);
+      window.location.reload();
    };
 
    const isAdmin = user?.role === "admin";

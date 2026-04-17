@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
@@ -36,11 +36,12 @@ const ProductDetail = () => {
       stock: 0,
    });
    const { showSnackbar } = useSnackbar();
+   const navigate = useNavigate();
    const [tabIndex, setTabIndex] = useState(0);
 
    const [open, setOpen] = useState(false);
 
-   const { deleteProduct, isDeleting } = useDeleteProduct();
+   const { deleteProductById } = useDeleteProduct();
 
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -52,6 +53,11 @@ const ProductDetail = () => {
    const handleAdd = () => {
       showSnackbar("Add to cart successfully!", "success");
       updateCart(cartCount + 1);
+   };
+
+   const handleDelete = async () => {
+      await deleteProductById(productInfo.id);
+      navigate("/products");
    };
 
    useEffect(() => {
@@ -226,7 +232,7 @@ const ProductDetail = () => {
                            variant="outlined"
                            color="error"
                            startIcon={<DeleteIcon />}
-                           onClick={() => deleteProduct(productInfo.id)}
+                           onClick={handleDelete}
                            sx={{ ml: 1 }}
                         >
                            Delete
