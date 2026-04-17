@@ -1,16 +1,16 @@
 export interface ProductItem {
-   id: string;
+   id: number;
    title: string;
    price: number;
    description: string;
    images: string[];
-   movieId: string;
+   movieId: number;
    discount?: number;
    stock: number;
 }
 
 export interface MovieCategory {
-   id: string;
+   id: number;
    title: string;
    img: string;
 }
@@ -22,7 +22,7 @@ export interface ProductsByCategory {
 
 export interface ItemInfo {
    quantity: number;
-   productId: string;
+   productId: number;
    title: string;
    price: number;
    discount: number;
@@ -30,8 +30,8 @@ export interface ItemInfo {
 }
 
 export interface CartItem extends ItemInfo {
-   id: string;
-   cartId: string;
+   id: number;
+   cartId: number;
 }
 
 export interface OrderItem extends ItemInfo {
@@ -65,7 +65,7 @@ export interface ProductData {
    price: number;
    stock: number;
    discount?: number;
-   movieId: string;
+   movieId: number;
    images: (File | string)[]; // Can be File objects for new uploads or URLs for existing images
 }
 

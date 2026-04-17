@@ -29,12 +29,11 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
    const {
       defaultValues = {
          images: [],
-         movieId: "",
       },
       title,
       handleSubmit: closeModal,
    } = props;
-   const { createProduct } = useCreateProduct();
+   const { createNewProduct } = useCreateProduct();
 
    const {
       register,
@@ -70,12 +69,8 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       }
 
       try {
-         const { error } = await createProduct(inputProData);
-         if (error) {
-            showSnackbar(error, "error");
-         } else {
-            showSnackbar("Product submitted successfully!", "success");
-         }
+         await createNewProduct(inputProData);
+         showSnackbar("Product submitted successfully!", "success");
       } catch (error) {
          showSnackbar(`Error submitting product. ${error}`, "error");
       } finally {
