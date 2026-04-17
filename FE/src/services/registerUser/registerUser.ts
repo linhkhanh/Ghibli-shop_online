@@ -16,12 +16,12 @@ export const registerUser = async (
       localStorage.setItem("token", response.data.access_token);
       return {
          success: true,
-         message: "Registration successful",
+         message: "Registration successful!",
          user: response.data.user,
       };
    } catch (error: unknown) {
       throw new Error(
-         `Registration failed: ${JSON.stringify(error.response?.data.errors)}`,
+         `Registration failed: ${JSON.stringify(error instanceof Error ? error.message : "")}`,
       );
    }
 };

@@ -24,7 +24,7 @@ const useRegister = () => {
          updateUser(response.user);
       } catch (error: Error | unknown) {
          showSnackbar(
-            `An unexpected error occurred during registration ${error instanceof Error ? error.message : ""}`,
+            `${error instanceof Error ? error.message : ""}`,
             "error",
          );
       }

@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+// Limits to 5 attempts per minute to prevent brute-force attacks
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1'); 
+
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
