@@ -14,10 +14,14 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
-import { moviesList } from "../../utils/mockData";
-import type { ProductData, ProductItem } from "../../utils/dataType";
+import type {
+   MovieCategory,
+   ProductData,
+   ProductItem,
+} from "../../utils/dataType";
 import useCreateProduct from "../../hooks/useCreateProduct/useCreateProduct";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
+import useGetMovies from "../../hooks/useGetMovies/useGetMovies";
+import useUpdateProduct from "../../hooks/useUpdateProduct/useUpdateProduct";
 
 interface ProductUpsertFormProps {
    defaultValues?: ProductData | ProductItem;
@@ -34,6 +38,10 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       handleSubmit: closeModal,
    } = props;
    const { createNewProduct } = useCreateProduct();
+   const { editProduct } = useUpdateProduct();
+   const { getListMovies } = useGetMovies();
+
+   const [moviesList, setMoviesList] = useState<MovieCategory[]>([]);
 
    const {
       register,
@@ -48,8 +56,6 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       defaultValues,
    });
 
-   const { showSnackbar } = useSnackbar();
-
    const onUpSert = async (inputProData: ProductData | ProductItem) => {
       if (!inputProData.images || inputProData.images.length === 0) {
          setError("images", {
@@ -59,23 +65,16 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
          return;
       }
 
-      console.log("Product data:", inputProData);
-
       if (title === "Edit Product") {
-         inputProData = {
+         await editProduct({
             ...inputProData,
             id: (defaultValues as ProductItem).id,
-         };
-      }
-
-      try {
+         });
+      } else {
          await createNewProduct(inputProData);
-         showSnackbar("Product submitted successfully!", "success");
-      } catch (error) {
-         showSnackbar(`Error submitting product. ${error}`, "error");
-      } finally {
-         closeModal();
       }
+      closeModal();
+      window.location.reload();
    };
 
    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -149,6 +148,14 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
          setValue("images", newImages);
       }
    };
+
+   useEffect(() => {
+      const fetchMovies = async () => {
+         const movies = await getListMovies();
+         setMoviesList(movies);
+      };
+      fetchMovies();
+   }, []);
 
    return (
       <Box

@@ -15,7 +15,8 @@ const useProductsList = () => {
                title: product.title,
                price: product.price,
                description: product.description,
-               images: [product.latest_image.image],
+               // eslint-disable-next-line @typescript-eslint/no-explicit-any
+               images: product.images.map((img: any) => img.image),
                movieId: product.movie_id,
                discount: product.discount,
                stock: product.stock,

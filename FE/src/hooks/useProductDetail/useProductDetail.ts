@@ -16,7 +16,7 @@ const useProductDetail = () => {
             price: product.price,
             discount: product.discount,
             images,
-            movieId: product.movieId,
+            movieId: product.movie_id,
             stock: product.stock,
          };
       } catch (error) {

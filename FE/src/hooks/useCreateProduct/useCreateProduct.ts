@@ -49,6 +49,7 @@ const useCreateProduct = () => {
             movie_id: productData.movieId,
             images: resolvedImages as string[],
          });
+         showSnackbar("Product created successfully!", "success");
       } catch (err: unknown) {
          showSnackbar(
             err instanceof Error ? err.message : "Failed to create product",

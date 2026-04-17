@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         // We load only the single latest image instead of the whole collection
-        $products = Product::with(['latestImage'])
+        $products = Product::with(['images'])
         ->where('stock', '>', 0)
         ->get();
 
@@ -99,5 +99,64 @@ class ProductController extends Controller
             'success' => true,
             'data'    => $product
         ], 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+
+        // 1. Validation
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'movie_id'    => 'required|exists:movies,id',
+            'price'       => 'required|numeric|min:0',
+            'stock'       => 'required|integer|min:0',
+            'discount'    => 'nullable|numeric|min:0',
+            'images'      => 'nullable|array',
+            'images.*'    => 'string',
+        ]);
+
+        try {
+            return DB::transaction(function () use ($validated, $product) {
+
+                // 2. Update Product basic info
+                $product->update([
+                    'title'       => $validated['title'],
+                    'description' => $validated['description'],
+                    'movie_id'    => $validated['movie_id'],
+                    'price'       => $validated['price'],
+                    'stock'       => $validated['stock'],
+                    'discount'    => $validated['discount'] ?? 0,
+                ]);
+
+                // 3. Handle Images (If provided in the request)
+                if (isset($validated['images'])) {
+                    $product->images()->delete(); 
+
+                    foreach ($validated['images'] as $path) {
+                        ProductImage::create([
+                            'product_id' => $product->id,
+                            'image'      => $path
+                        ]);
+                    }
+                }
+
+                return response()->json([
+                    'message' => 'Product updated successfully',
+                    'data'    => $product->load('images', 'movie')
+                ], 200);
+            });
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Update failed',
+                'error'   => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -32,7 +32,7 @@ const ProductDetail = () => {
       price: 0,
       discount: 0,
       images: [],
-      movieId: 0,
+      movieId: 1,
       stock: 0,
    });
    const { showSnackbar } = useSnackbar();
@@ -198,7 +198,7 @@ const ProductDetail = () => {
                               color="primary"
                               fontWeight={700}
                            >
-                              ${productInfo.price.toFixed(2)}
+                              ${productInfo.price}
                            </Typography>
                         )}
                      </Box>

@@ -74,3 +74,16 @@ export interface RegisterResponse {
    message: string;
    user: User;
 }
+
+export interface ProductPayload {
+   title: string;
+   description: string;
+   price: number;
+   stock: number;
+   discount?: number;
+   movie_id: number;
+   images: string[];
+}
+export interface UpdateProductPayload extends ProductPayload {
+   id: number;
+}

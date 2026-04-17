@@ -1,14 +1,5 @@
+import type { ProductPayload } from "../../utils/dataType";
 import api from "../api/axios";
-
-interface ProductPayload {
-   title: string;
-   description: string;
-   price: number;
-   stock: number;
-   discount?: number;
-   movie_id: number;
-   images: string[];
-}
 
 export const createProduct = async (payload: ProductPayload) => {
    try {
