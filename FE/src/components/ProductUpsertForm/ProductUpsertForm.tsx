@@ -335,7 +335,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                                           key={movie.id}
                                           value={movie.id}
                                        >
-                                          {movie.name}
+                                          {movie.title}
                                        </MenuItem>
                                     ))}
                                  </Select>

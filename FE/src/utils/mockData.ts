@@ -5,54 +5,53 @@ import {
    type CartItem,
    type Order,
    type OrderItem,
-   type User,
 } from "./dataType";
 
 export const moviesList: MovieCategory[] = [
    {
       id: "1",
-      name: "My Neighbor Totoro",
+      title: "My Neighbor Totoro",
       img: "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781421561226/my-neighbor-totoro-picture-book-new-edition-9781421561226_hr.jpg",
    },
    {
       id: "2",
-      name: "Spirited Away",
+      title: "Spirited Away",
       img: "https://example.com/spirited_away.jpg",
    },
    {
       id: "3",
-      name: "Princess Mononoke",
+      title: "Princess Mononoke",
       img: "https://example.com/princess_mononoke.jpg",
    },
    {
       id: "4",
-      name: "Howl's Moving Castle",
+      title: "Howl's Moving Castle",
       img: "https://example.com/howls_moving_castle.jpg",
    },
    {
       id: "5",
-      name: "Kiki's Delivery Service",
+      title: "Kiki's Delivery Service",
       img: "https://s3.amazonaws.com/nightjarprod/content/uploads/sites/344/2026/03/13163130/Aufa4YdZIv4AXpR9rznwVA5SEfd-1-scaled.jpg",
    },
-   { id: "6", name: "Ponyo", img: "https://example.com/ponyo.jpg" },
+   { id: "6", title: "Ponyo", img: "https://example.com/ponyo.jpg" },
    {
       id: "7",
-      name: "The Wind Rises",
+      title: "The Wind Rises",
       img: "https://example.com/the_wind_rises.jpg",
    },
    {
       id: "8",
-      name: "Castle in the Sky",
+      title: "Castle in the Sky",
       img: "https://example.com/castle_in_the_sky.jpg",
    },
    {
       id: "9",
-      name: "Ponyo",
+      title: "Ponyo",
       img: "https://images.fathomevents.com/image/upload/w_400,dpr_2,f_auto,q_auto/v1743550042/Events/2025/2013/1000x1480_Ponyo_FE_Ticketing.jpg.jpg",
    },
    {
       id: "10",
-      name: "Nausicaä of the Valley of the Wind",
+      title: "Nausicaä of the Valley of the Wind",
       img: "https://example.com/nausicaa.jpg",
    },
 ];
@@ -596,12 +595,3 @@ export const mockOrderItems: OrderItem[] = [
       status: "processing",
    },
 ];
-
-export const mockUser: User = {
-   id: "user-1",
-   name: "New User",
-   email: "user@example.com",
-   phone: "123-456-7890",
-   address: "123 Main St, City, Country",
-   role: "admin",
-};

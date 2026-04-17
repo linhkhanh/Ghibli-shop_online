@@ -25,7 +25,7 @@ const ProductsByMovie = () => {
                gutterBottom
                sx={{ color: "#fff", m: 0 }}
             >
-               {productsList.movie.name}
+               {productsList.movie.title}
             </Typography>
          </Box>
          <Box

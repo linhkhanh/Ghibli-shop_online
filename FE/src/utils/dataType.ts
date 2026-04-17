@@ -11,7 +11,7 @@ export interface ProductItem {
 
 export interface MovieCategory {
    id: string;
-   name: string;
+   title: string;
    img: string;
 }
 
