@@ -12,12 +12,15 @@ class ProductController extends Controller
     public function index()
     {
         // We load only the single latest image instead of the whole collection
-        $products = Product::with(['latestImage'])->get();
+        $products = Product::with(['latestImage'])
+        ->where('stock', '>', 0)
+        ->get();
 
         return response()->json([
             'success' => true,
+            'count'   => $products->count(),
             'data'    => $products
-        ]);
+        ], 200);
     }
 
     public function store(Request $request)

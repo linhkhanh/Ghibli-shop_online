@@ -2,18 +2,29 @@ import { Box, Typography, Pagination, Stack } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useProductsList from "../../hooks/useProductsList/useProductsList";
 import type { ProductItem } from "../../utils/dataType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ITEMS_PER_PAGE = 24;
 
 const ProductsList = () => {
-   const productsList: ProductItem[] = useProductsList();
+   const { getProducts } = useProductsList();
+   const [productsList, setProductsList] = useState<ProductItem[]>([]);
+
    const [page, setPage] = useState(1);
    const pageCount = Math.ceil(productsList.length / ITEMS_PER_PAGE);
    const paginatedProducts = productsList.slice(
       (page - 1) * ITEMS_PER_PAGE,
       page * ITEMS_PER_PAGE,
    );
+
+   useEffect(() => {
+      const fetchProducts = async () => {
+         const products = await getProducts();
+         console.log("Fetched products in component:", products);
+         setProductsList(products);
+      };
+      fetchProducts();
+   }, []);
 
    const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
       setPage(value);

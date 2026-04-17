@@ -66,14 +66,14 @@ export default function ProductCard(props: ProductCardProps) {
                      color="text.secondary"
                      sx={{ textDecoration: "line-through" }}
                   >
-                     Original Price: ${price.toFixed(2)}
+                     Original Price: ${price}
                   </Typography>
                   <Typography variant="body1" color="primary" fontWeight="bold">
-                     Now: ${(price - price * discount).toFixed(2)}
+                     Now: ${(price - (price * discount) / 100).toFixed(2)}
                   </Typography>
-                  {/* TODO: fix Discount render */}
-                  {discount && (
-                     <Typography variant="body2" color="primary">
+
+                  {discount > 0 && (
+                     <Typography variant="body2" color="error">
                         {discount}% off
                      </Typography>
                   )}
