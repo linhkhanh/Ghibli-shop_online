@@ -24,4 +24,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function latestImage()
+{
+    // This tells Laravel to find only ONE record from the product_images table
+    return $this->hasOne(ProductImage::class)->latestOfMany();
+}
 }

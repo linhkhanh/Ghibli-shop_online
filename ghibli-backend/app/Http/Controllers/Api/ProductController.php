@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        // We load only the single latest image instead of the whole collection
+        $products = Product::with(['latestImage'])->get();
+
+        return response()->json([
+            'success' => true,
+            'data'    => $products
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -57,4 +68,5 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
 }

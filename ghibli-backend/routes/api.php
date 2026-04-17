@@ -10,7 +10,9 @@ use App\Http\Controllers\Api\ProductController;
 Route::post('/register', [AuthController::class, 'register']);
 // Limits to 5 attempts per minute to prevent brute-force attacks
 Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1'); 
+
 Route::get('/movies', [MovieController::class, 'index']);
+Route::get('/products', [ProductController::class, 'index']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
