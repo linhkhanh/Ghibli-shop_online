@@ -15,7 +15,8 @@ class ProductController extends Controller
         // We load only the single latest image instead of the whole collection
         $products = Product::with(['images'])
         ->where('stock', '>', 0)
-        ->get();
+        ->latest()
+        ->paginate(12);
 
         return response()->json([
             'success' => true,
@@ -185,5 +186,28 @@ class ProductController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function getByMovie(Request $request, $movie_id)
+    {
+        $products = Product::with(['movie', 'images'])
+            ->where('movie_id', $movie_id)
+            ->where('stock', '>', 0)
+            ->when($request->query('limit'), function ($query, $limit) {
+                return $query->limit($limit);
+                })
+            ->get();
+
+        if ($products->isEmpty()) {
+            return response()->json([
+                'message' => 'No products found for this movie.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'count'   => $products->count(),
+            'data' => $products,
+        ]);
     }
 }

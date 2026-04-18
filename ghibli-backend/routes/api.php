@@ -14,6 +14,7 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/movies/{movie_id}/products', [ProductController::class, 'getByMovie']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
