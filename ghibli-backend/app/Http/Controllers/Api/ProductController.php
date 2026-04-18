@@ -190,13 +190,15 @@ class ProductController extends Controller
 
     public function getByMovie(Request $request, $movie_id)
     {
+        $perPage = $request->query('limit', 12);
         $products = Product::with(['movie', 'images'])
             ->where('movie_id', $movie_id)
             ->where('stock', '>', 0)
             ->when($request->query('limit'), function ($query, $limit) {
                 return $query->limit($limit);
                 })
-            ->get();
+            ->latest()
+            ->paginate($perPage);
 
         if ($products->isEmpty()) {
             return response()->json([
