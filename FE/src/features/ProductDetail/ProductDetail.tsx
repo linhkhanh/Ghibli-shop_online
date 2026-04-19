@@ -35,11 +35,13 @@ const ProductDetail = () => {
       movieId: 1,
       stock: 0,
    });
+
    const { showSnackbar } = useSnackbar();
    const navigate = useNavigate();
    const [tabIndex, setTabIndex] = useState(0);
 
    const [open, setOpen] = useState(false);
+   const [loading, setLoading] = useState<boolean>(false);
 
    const { deleteProductById } = useDeleteProduct();
 
@@ -62,14 +64,17 @@ const ProductDetail = () => {
 
    useEffect(() => {
       const fetchProduct = async () => {
+         setLoading(true);
          const productData = await getProductById(Number(productId));
          if (productData) {
+            setLoading(false);
             setProductInfo(productData);
          }
       };
       fetchProduct();
    }, [productId]);
 
+   if (loading) return <p>Loading product details...</p>;
    return (
       <Box component="main" sx={{ p: 4, maxWidth: 1000, mx: "auto" }}>
          <Grid container spacing={4}>
@@ -243,7 +248,7 @@ const ProductDetail = () => {
             </Grid>
          </Grid>
          <Divider sx={{ my: 6 }} />
-         <RelatedProducts />
+         <RelatedProducts movieId={productInfo.movieId} />
          <Divider sx={{ my: 6 }} />
          <OtherMovies />
 

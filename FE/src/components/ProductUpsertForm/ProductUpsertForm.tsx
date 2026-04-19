@@ -42,6 +42,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
    const { getListMovies } = useGetMovies();
 
    const [moviesList, setMoviesList] = useState<MovieCategory[]>([]);
+   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
    const {
       register,
@@ -66,11 +67,13 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       }
 
       if (title === "Edit Product") {
+         setIsDisabled(true);
          await editProduct({
             ...inputProData,
             id: (defaultValues as ProductItem).id,
          });
       } else {
+         setIsDisabled(true);
          await createNewProduct(inputProData);
       }
       closeModal();
@@ -355,6 +358,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                      variant="contained"
                      color="primary"
                      fullWidth
+                     disabled={isDisabled}
                   >
                      Submit
                   </Button>

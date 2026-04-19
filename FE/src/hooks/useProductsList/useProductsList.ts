@@ -4,11 +4,13 @@ import { useSnackbar } from "../useSnackBar/useSnackBar";
 
 const useProductsList = () => {
    const { showSnackbar } = useSnackbar();
-   const getProducts = async (): Promise<ProductItem[]> => {
+   const getProducts = async (
+      page: number,
+   ): Promise<{ products: ProductItem[]; lastPage: number }> => {
       try {
-         const products = await getAllProducts();
+         const { data, lastPage } = await getAllProducts(page);
 
-         const formattedProducts: ProductItem[] = products.data.map(
+         const formattedProducts: ProductItem[] = data.map(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (product: any) => ({
                id: product.id,
@@ -23,13 +25,16 @@ const useProductsList = () => {
             }),
          );
 
-         return formattedProducts;
-      } catch (error) {
+         return {
+            products: formattedProducts,
+            lastPage,
+         };
+      } catch (error: Error | unknown) {
          showSnackbar(
-            `Error fetching products, using mock data: ${error}`,
+            `Error fetching products: ${error instanceof Error ? error.message : "Failed to fetch products"}`,
             "error",
          );
-         return [];
+         return { products: [], lastPage: 0 };
       }
    };
 

@@ -1,27 +1,19 @@
-import { useState } from "react";
 import { createProduct } from "../../services/createProduct/createProduct";
 import uploadImage from "../../services/uploadImage/uploadImage";
 import type { ProductData, ProductItem } from "../../utils/dataType";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
 
 const useCreateProduct = () => {
-   const [loading, setLoading] = useState<boolean>(false);
    const { showSnackbar } = useSnackbar();
 
-   const createNewProduct = async (
-      productData: ProductData | ProductItem,
-   ): Promise<{ loading: boolean }> => {
-      setLoading(true);
-
+   const createNewProduct = async (productData: ProductData | ProductItem) => {
       const uploadImagesList = productData.images.map(
          async (imgItem, index) => {
             if (typeof imgItem === "string") return imgItem;
 
-            const {
-               uploadedImage,
-               loading: uploadLoading,
-               error: uploadError,
-            } = await uploadImage({ imageFile: imgItem });
+            const { uploadedImage, error: uploadError } = await uploadImage({
+               imageFile: imgItem,
+            });
 
             if (uploadError) {
                showSnackbar(
@@ -29,7 +21,6 @@ const useCreateProduct = () => {
                   "error",
                );
 
-               setLoading(uploadLoading);
                return null;
             }
 
@@ -55,13 +46,7 @@ const useCreateProduct = () => {
             err instanceof Error ? err.message : "Failed to create product",
             "error",
          );
-      } finally {
-         setLoading(false);
       }
-
-      return {
-         loading,
-      };
    };
 
    return { createNewProduct };

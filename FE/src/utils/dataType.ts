@@ -15,9 +15,9 @@ export interface MovieCategory {
    img: string;
 }
 
-export interface ProductsByCategory {
-   movie: MovieCategory;
-   products: ProductItem[];
+export interface ProductByCategory extends ProductItem {
+   movieTitle: string;
+   movieImg: string;
 }
 
 export interface ItemInfo {

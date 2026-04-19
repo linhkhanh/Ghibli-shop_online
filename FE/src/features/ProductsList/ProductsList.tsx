@@ -4,32 +4,32 @@ import useProductsList from "../../hooks/useProductsList/useProductsList";
 import type { ProductItem } from "../../utils/dataType";
 import { useEffect, useState } from "react";
 
-const ITEMS_PER_PAGE = 24;
-
 const ProductsList = () => {
    const { getProducts } = useProductsList();
    const [productsList, setProductsList] = useState<ProductItem[]>([]);
 
    const [page, setPage] = useState(1);
-   const pageCount = Math.ceil(productsList.length / ITEMS_PER_PAGE);
-   const paginatedProducts = productsList.slice(
-      (page - 1) * ITEMS_PER_PAGE,
-      page * ITEMS_PER_PAGE,
-   );
+   const [loading, setLoading] = useState(true);
+   const [pageCount, setPageCount] = useState<number>(0);
 
    useEffect(() => {
       const fetchProducts = async () => {
-         const products = await getProducts();
-         console.log("Fetched products in component:", products);
+         setLoading(true);
+         const { products, lastPage } = await getProducts(page);
+
          setProductsList(products);
+         setPageCount(lastPage);
+         setLoading(false);
       };
       fetchProducts();
-   }, []);
+   }, [page]);
 
    const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
       setPage(value);
       window.scrollTo({ top: 0, behavior: "smooth" });
    };
+
+   if (loading) return <p>Loading Ghibli treasures...</p>;
 
    return (
       <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
@@ -44,7 +44,7 @@ const ProductsList = () => {
                mt: 2,
             }}
          >
-            {paginatedProducts.map((product) => (
+            {productsList.map((product) => (
                <ProductCard key={product.id} productDetail={product} />
             ))}
          </Box>
