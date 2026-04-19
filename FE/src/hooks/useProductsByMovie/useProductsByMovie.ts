@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getProductsByMovieId } from "../../services/getProductsByMovieId/getProductByMovieId";
 import type { ProductByCategory } from "../../utils/dataType";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
@@ -11,13 +11,22 @@ interface UseProductsByMovieProps {
 
 const useProductsByMovie = ({
    movieId,
-   page,
+   page: pageProp,
    limit = 12,
 }: UseProductsByMovieProps) => {
    const [products, setProducts] = useState<ProductByCategory[]>([]);
    const [lastPage, setLastPage] = useState<number>(1);
    const [loading, setLoading] = useState<boolean>(true);
+   const [page, setPage] = useState<number>(pageProp || 1);
    const { showSnackbar } = useSnackbar();
+   const prevMovieId = useRef<number>(null);
+
+   useEffect(() => {
+      if (prevMovieId.current !== null && prevMovieId.current !== movieId) {
+         setPage(1);
+      }
+      prevMovieId.current = movieId;
+   }, [movieId]);
 
    useEffect(() => {
       const fetchProductsByMovieId = async () => {
@@ -26,7 +35,7 @@ const useProductsByMovie = ({
             const { data, lastPage, success } = await getProductsByMovieId({
                movieId: String(movieId),
                limit,
-               page: page || 1,
+               page,
             });
 
             if (success) {
@@ -61,7 +70,7 @@ const useProductsByMovie = ({
       fetchProductsByMovieId();
    }, [movieId, page, limit]);
 
-   return { products, lastPage, loading };
+   return { products, lastPage, loading, page, setPage };
 };
 
 export default useProductsByMovie;
