@@ -9,18 +9,12 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
-import { mockUser } from "../../utils/mockData";
+import useLogin from "../../hooks/useLogin/useLogin";
 
 interface LoginFormInputs {
    email: string;
    password: string;
 }
-
-const FAKE_USER = {
-   email: "user@example.com",
-   password: "123456",
-};
 
 interface LoginFormProps {
    handleCurrentForm: () => void;
@@ -29,8 +23,8 @@ interface LoginFormProps {
 
 const LoginForm = (props: LoginFormProps) => {
    const { handleCurrentForm, handleLogin: closeModal } = props;
-   const { updateUser } = useAuthentication();
    const [authError, setAuthError] = useState("");
+   const { login } = useLogin();
    const {
       register,
       handleSubmit,
@@ -38,24 +32,16 @@ const LoginForm = (props: LoginFormProps) => {
       reset,
    } = useForm<LoginFormInputs>();
 
-   //    TODO: Call API here to authenticate user and handle login logic
-   const onLogin = (data: LoginFormInputs) => {
-      // fake call API, replace with real API call later
-      // use try catch block to handle error if call API fails
-      // setAuthError to display error message if login fails
-      // updateUser to update user info in context if login successful
-      setAuthError("");
-      if (
-         data.email === FAKE_USER.email &&
-         data.password === FAKE_USER.password
-      ) {
-         alert("Login successful!");
-         //  call API to get user info and cart items here, then update context
-         updateUser(mockUser);
-         reset();
+   const onLogin = async (data: LoginFormInputs) => {
+      const response = await login({
+         email: data.email,
+         password: data.password,
+      });
+      if (response.success) {
          closeModal();
       } else {
-         setAuthError("Invalid email or password.");
+         setAuthError("Invalid email or password");
+         reset();
       }
    };
 

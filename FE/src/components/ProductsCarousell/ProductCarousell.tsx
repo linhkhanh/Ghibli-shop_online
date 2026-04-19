@@ -2,10 +2,10 @@ import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
 import { Box, IconButton } from "@mui/material";
 import ProductCard from "../ProductCard/ProductCard";
 import { useRef } from "react";
-import type { ProductsByCategory } from "../../utils/dataType";
+import type { ProductByCategory } from "../../utils/dataType";
 
 interface ProductsCarousellProps {
-   productsListByMovie: ProductsByCategory;
+   productsListByMovie: ProductByCategory[];
 }
 
 const ProductsCarousell = ({ productsListByMovie }: ProductsCarousellProps) => {
@@ -56,7 +56,7 @@ const ProductsCarousell = ({ productsListByMovie }: ProductsCarousellProps) => {
                },
             }}
          >
-            {productsListByMovie.products.map((product) => (
+            {productsListByMovie.map((product) => (
                <ProductCard key={product.id} productDetail={product} />
             ))}
          </Box>

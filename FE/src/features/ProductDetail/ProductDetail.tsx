@@ -10,26 +10,40 @@ import {
 } from "@mui/material";
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
-import { useState, type SyntheticEvent } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpsertModal";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
+import type { ProductItem } from "../../utils/dataType";
 
 const ProductDetail = () => {
    const { productId } = useParams();
-   const productInfo = useProductDetail(productId || "");
+   const { getProductById } = useProductDetail();
    const { cartCount, updateCart, user } = useAuthentication();
+   const [productInfo, setProductInfo] = useState<ProductItem>({
+      id: 0,
+      title: "",
+      description: "",
+      price: 0,
+      discount: 0,
+      images: [],
+      movieId: 1,
+      stock: 0,
+   });
+
    const { showSnackbar } = useSnackbar();
+   const navigate = useNavigate();
    const [tabIndex, setTabIndex] = useState(0);
 
    const [open, setOpen] = useState(false);
+   const [loading, setLoading] = useState<boolean>(false);
 
-   const { deleteProduct, isDeleting } = useDeleteProduct();
+   const { deleteProductById } = useDeleteProduct();
 
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -43,6 +57,24 @@ const ProductDetail = () => {
       updateCart(cartCount + 1);
    };
 
+   const handleDelete = async () => {
+      await deleteProductById(productInfo.id);
+      navigate("/products");
+   };
+
+   useEffect(() => {
+      const fetchProduct = async () => {
+         setLoading(true);
+         const productData = await getProductById(Number(productId));
+         if (productData) {
+            setLoading(false);
+            setProductInfo(productData);
+         }
+      };
+      fetchProduct();
+   }, [productId]);
+
+   if (loading) return <p>Loading product details...</p>;
    return (
       <Box component="main" sx={{ p: 4, maxWidth: 1000, mx: "auto" }}>
          <Grid container spacing={4}>
@@ -148,7 +180,7 @@ const ProductDetail = () => {
                                  color="text.secondary"
                                  sx={{ textDecoration: "line-through" }}
                               >
-                                 ${productInfo.price.toFixed(2)}
+                                 ${productInfo.price}
                               </Typography>
                               <Typography
                                  variant="h5"
@@ -177,7 +209,7 @@ const ProductDetail = () => {
                               color="primary"
                               fontWeight={700}
                            >
-                              ${productInfo.price.toFixed(2)}
+                              ${productInfo.price}
                            </Typography>
                         )}
                      </Box>
@@ -205,7 +237,7 @@ const ProductDetail = () => {
                            variant="outlined"
                            color="error"
                            startIcon={<DeleteIcon />}
-                           onClick={() => deleteProduct(productInfo.id)}
+                           onClick={handleDelete}
                            sx={{ ml: 1 }}
                         >
                            Delete
@@ -216,7 +248,7 @@ const ProductDetail = () => {
             </Grid>
          </Grid>
          <Divider sx={{ my: 6 }} />
-         <RelatedProducts />
+         <RelatedProducts movieId={productInfo.movieId} />
          <Divider sx={{ my: 6 }} />
          <OtherMovies />
 

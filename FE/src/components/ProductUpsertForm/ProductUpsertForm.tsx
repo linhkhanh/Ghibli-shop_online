@@ -14,10 +14,14 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { useState, useEffect } from "react";
-import { moviesList } from "../../utils/mockData";
-import type { ProductData, ProductItem } from "../../utils/dataType";
+import type {
+   MovieCategory,
+   ProductData,
+   ProductItem,
+} from "../../utils/dataType";
 import useCreateProduct from "../../hooks/useCreateProduct/useCreateProduct";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
+import useGetMovies from "../../hooks/useGetMovies/useGetMovies";
+import useUpdateProduct from "../../hooks/useUpdateProduct/useUpdateProduct";
 
 interface ProductUpsertFormProps {
    defaultValues?: ProductData | ProductItem;
@@ -29,12 +33,16 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
    const {
       defaultValues = {
          images: [],
-         movieId: "",
       },
       title,
       handleSubmit: closeModal,
    } = props;
-   const { createProduct } = useCreateProduct();
+   const { createNewProduct } = useCreateProduct();
+   const { editProduct } = useUpdateProduct();
+   const { getListMovies } = useGetMovies();
+
+   const [moviesList, setMoviesList] = useState<MovieCategory[]>([]);
+   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
    const {
       register,
@@ -49,8 +57,6 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
       defaultValues,
    });
 
-   const { showSnackbar } = useSnackbar();
-
    const onUpSert = async (inputProData: ProductData | ProductItem) => {
       if (!inputProData.images || inputProData.images.length === 0) {
          setError("images", {
@@ -60,27 +66,18 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
          return;
       }
 
-      console.log("Product data:", inputProData);
-
       if (title === "Edit Product") {
-         inputProData = {
+         setIsDisabled(true);
+         await editProduct({
             ...inputProData,
             id: (defaultValues as ProductItem).id,
-         };
+         });
+      } else {
+         setIsDisabled(true);
+         await createNewProduct(inputProData);
       }
-
-      try {
-         const { error } = await createProduct(inputProData);
-         if (error) {
-            showSnackbar(error, "error");
-         } else {
-            showSnackbar("Product submitted successfully!", "success");
-         }
-      } catch (error) {
-         showSnackbar(`Error submitting product. ${error}`, "error");
-      } finally {
-         closeModal();
-      }
+      closeModal();
+      window.location.reload();
    };
 
    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -154,6 +151,14 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
          setValue("images", newImages);
       }
    };
+
+   useEffect(() => {
+      const fetchMovies = async () => {
+         const movies = await getListMovies();
+         setMoviesList(movies);
+      };
+      fetchMovies();
+   }, []);
 
    return (
       <Box
@@ -335,7 +340,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                                           key={movie.id}
                                           value={movie.id}
                                        >
-                                          {movie.name}
+                                          {movie.title}
                                        </MenuItem>
                                     ))}
                                  </Select>
@@ -353,6 +358,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                      variant="contained"
                      color="primary"
                      fullWidth
+                     disabled={isDisabled}
                   >
                      Submit
                   </Button>

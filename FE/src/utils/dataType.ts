@@ -1,28 +1,28 @@
 export interface ProductItem {
-   id: string;
+   id: number;
    title: string;
    price: number;
    description: string;
    images: string[];
-   movieId: string;
+   movieId: number;
    discount?: number;
    stock: number;
 }
 
 export interface MovieCategory {
-   id: string;
-   name: string;
+   id: number;
+   title: string;
    img: string;
 }
 
-export interface ProductsByCategory {
-   movie: MovieCategory;
-   products: ProductItem[];
+export interface ProductByCategory extends ProductItem {
+   movieTitle: string;
+   movieImg: string;
 }
 
 export interface ItemInfo {
    quantity: number;
-   productId: string;
+   productId: number;
    title: string;
    price: number;
    discount: number;
@@ -30,8 +30,8 @@ export interface ItemInfo {
 }
 
 export interface CartItem extends ItemInfo {
-   id: string;
-   cartId: string;
+   id: number;
+   cartId: number;
 }
 
 export interface OrderItem extends ItemInfo {
@@ -51,10 +51,12 @@ export interface Order {
 export interface User {
    id: string;
    name: string;
-   role: "customer" | "admin";
    email: string;
-   phone?: string;
+   role: string;
    address?: string;
+   phone?: string;
+   created_at: string;
+   updated_at: string;
 }
 
 export interface ProductData {
@@ -63,6 +65,25 @@ export interface ProductData {
    price: number;
    stock: number;
    discount?: number;
-   movieId: string;
+   movieId: number;
    images: (File | string)[]; // Can be File objects for new uploads or URLs for existing images
+}
+
+export interface RegisterResponse {
+   success: boolean;
+   message: string;
+   user: User;
+}
+
+export interface ProductPayload {
+   title: string;
+   description: string;
+   price: number;
+   stock: number;
+   discount?: number;
+   movie_id: number;
+   images: string[];
+}
+export interface UpdateProductPayload extends ProductPayload {
+   id: number;
 }

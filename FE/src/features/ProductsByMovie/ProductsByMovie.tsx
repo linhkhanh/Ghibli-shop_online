@@ -1,12 +1,25 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Pagination, Stack, Typography } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import type { ProductsByCategory } from "../../utils/dataType";
 import useProductsByMovie from "../../hooks/useProductsByMovie/useProductsByMovie";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const ProductsByMovie = () => {
    const movieId = useParams().movieId;
-   const productsList: ProductsByCategory = useProductsByMovie(movieId || "");
+
+   const [page, setPage] = useState<number>(1);
+
+   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+      setPage(value);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+   };
+
+   const { products, lastPage, loading } = useProductsByMovie({
+      movieId: Number(movieId),
+      page,
+   });
+
+   if (loading) return <p>Loading Ghibli treasures...</p>;
    return (
       <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
          <Box
@@ -25,7 +38,7 @@ const ProductsByMovie = () => {
                gutterBottom
                sx={{ color: "#fff", m: 0 }}
             >
-               {productsList.movie.name}
+               {products.length > 0 ? products[0].movieTitle : "No Movie"}
             </Typography>
          </Box>
          <Box
@@ -36,10 +49,23 @@ const ProductsByMovie = () => {
                mt: 2,
             }}
          >
-            {productsList.products.map((product) => (
+            {products.map((product) => (
                <ProductCard key={product.id} productDetail={product} />
             ))}
          </Box>
+         {lastPage > 1 && (
+            <Stack alignItems="center" mt={4}>
+               <Pagination
+                  count={lastPage}
+                  page={page}
+                  onChange={handleChange}
+                  color="primary"
+                  shape="rounded"
+                  showFirstButton
+                  showLastButton
+               />
+            </Stack>
+         )}
       </Box>
    );
 };

@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
+import { deleteProduct } from "../../services/deleteProduct/deleteProduct";
 
 // TODO: Implement API call to delete product by id, handle loading and error states
 const useDeleteProduct = () => {
    const [isDeleting, setIsDeleting] = useState(false);
-   const [error, setError] = useState<string | null>(null);
    const { showSnackbar } = useSnackbar();
 
-   const deleteProduct = async (productId: string) => {
+   const deleteProductById = async (productId: number) => {
       setIsDeleting(true);
-      setError(null);
       try {
-         // Simulate API call with a delay
-         await new Promise((resolve) => setTimeout(resolve, 1000));
+         await deleteProduct(productId);
+         showSnackbar("Product deleted successfully!", "success");
       } catch (err) {
-         setError(`Failed to delete product. Please try again. ${err}`);
          showSnackbar(
-            `Failed to delete product. Please try again. ${err}`,
+            `Failed to delete product: ${err instanceof Error ? err.message : "Unknown error"}`,
             "error",
          );
       } finally {
@@ -24,7 +22,7 @@ const useDeleteProduct = () => {
       }
    };
 
-   return { deleteProduct, isDeleting, error };
+   return { deleteProductById, isDeleting };
 };
 
 export default useDeleteProduct;
