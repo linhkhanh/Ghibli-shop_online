@@ -100,7 +100,7 @@ class ProductController extends Controller
 
         // 3. Handle cases where the product ID doesn't exist
         if (!$product) {
-            return response()->json([
+            return response()->json([   
                 'success' => false,
                 'message' => 'Product not found'
             ], 404);
