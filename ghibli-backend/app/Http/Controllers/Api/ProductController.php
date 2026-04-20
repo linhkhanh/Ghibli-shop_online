@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['images']);
+        $query = Product::with(['movie', 'images']);
 
         // 1. Search Logic
         if ($request->has('search')) {
@@ -23,7 +23,10 @@ class ProductController extends Controller
                 foreach ($words as $word) {
                     // This ensures BOTH words must exist, but in any order
                     $q->where('title', 'LIKE', "%{$word}%")
-                    ->orWhere('description', 'LIKE', "%{$word}%");
+                    ->orWhere('description', 'LIKE', "%{$word}%")
+                    ->orWhereHas('movie', function($mq) use ($word) {
+                        $mq->where('title', 'LIKE', "%{$word}%");
+                    });
                 }
             });
         }

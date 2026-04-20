@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Pagination, Stack, Typography } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useSearchParams } from "react-router-dom";
 import useSearchByKeyword from "../../hooks/useSearchByKeyword/useSearchByKeyword";
@@ -6,9 +6,14 @@ import useSearchByKeyword from "../../hooks/useSearchByKeyword/useSearchByKeywor
 const SearchedProductsList = () => {
    const [searchParams] = useSearchParams();
    const query = searchParams.get("q");
-   const { products: productsList, loading } = useSearchByKeyword({
+   const { products, loading, lastPage, page, setPage } = useSearchByKeyword({
       keyword: query || "",
    });
+
+   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+      setPage(value);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+   };
 
    if (loading) return <p>Loading search results...</p>;
 
@@ -34,14 +39,28 @@ const SearchedProductsList = () => {
          <Box
             sx={{
                display: "grid",
-               gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+               gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
                gap: 3,
+               mt: 2,
             }}
          >
-            {productsList.map((product) => (
+            {products.map((product) => (
                <ProductCard key={product.id} productDetail={product} />
             ))}
          </Box>
+         {lastPage > 1 && (
+            <Stack alignItems="center" mt={4}>
+               <Pagination
+                  count={lastPage}
+                  page={page}
+                  onChange={handleChange}
+                  color="primary"
+                  shape="rounded"
+                  showFirstButton
+                  showLastButton
+               />
+            </Stack>
+         )}
       </Box>
    );
 };
