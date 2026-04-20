@@ -5,19 +5,17 @@ import { useSnackbar } from "../useSnackBar/useSnackBar";
 
 interface UseProductsByMovieProps {
    movieId: number;
-   page?: number;
    limit?: number;
 }
 
 const useProductsByMovie = ({
    movieId,
-   page: pageProp,
    limit = 12,
 }: UseProductsByMovieProps) => {
    const [products, setProducts] = useState<ProductByCategory[]>([]);
    const [lastPage, setLastPage] = useState<number>(1);
    const [loading, setLoading] = useState<boolean>(true);
-   const [page, setPage] = useState<number>(pageProp || 1);
+   const [page, setPage] = useState<number>(1);
    const { showSnackbar } = useSnackbar();
    const prevMovieId = useRef<number>(null);
 

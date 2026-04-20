@@ -48,16 +48,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const SearchBar = () => {
    const navigate = useNavigate();
-   const { register, handleSubmit, reset } = useForm<{ search: string }>();
+   const { register, handleSubmit, reset, watch } = useForm<{
+      search: string;
+   }>();
+   const searchVal = watch("search", "");
 
-   // TODO: Call API here to get search results and pass them to the search results page
-   const handleSearch = (data: { search: string }) => {
-      console.log("Search value:", data.search);
+   const handleSearch = () => {
       reset(); // Clear the input after submission
-      if (!data.search.trim()) {
+      if (!searchVal.trim()) {
          return; // Do not navigate if the search query is empty
       }
-      return navigate(`/search?q=${encodeURIComponent(data.search.trim())}`);
+      return navigate(`/search?q=${encodeURIComponent(searchVal.trim())}`);
    };
 
    return (

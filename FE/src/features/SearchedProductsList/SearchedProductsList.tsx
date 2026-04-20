@@ -1,14 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import useSearchedProductsList from "../../hooks/useSearchedProductsList/useSearchProductsList";
 import { useSearchParams } from "react-router-dom";
+import useSearchByKeyword from "../../hooks/useSearchByKeyword/useSearchByKeyword";
 
 const SearchedProductsList = () => {
    const [searchParams] = useSearchParams();
    const query = searchParams.get("q");
-   const productsList = useSearchedProductsList({
+   const { products: productsList, loading } = useSearchByKeyword({
       keyword: query || "",
    });
+
+   if (loading) return <p>Loading search results...</p>;
 
    return (
       <Box sx={{ maxWidth: 1200, mx: "auto", py: 4 }}>

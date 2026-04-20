@@ -33,6 +33,7 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
    const {
       defaultValues = {
          images: [],
+         movieId: 1,
       },
       title,
       handleSubmit: closeModal,
