@@ -9,16 +9,19 @@ const images = [
       url: "https://images6.alphacoders.com/135/thumb-350-1354046.webp",
       title: "My Neighbor Totoro",
       width: "30%",
+      movieId: 1,
    },
    {
       url: "https://wallup.net/wp-content/uploads/2016/05/14/40836-Studio_Ghibli-My_Neighbor_Totoro-Totoro.jpg",
       title: "Kiki's Delivery Service",
       width: "40%",
+      movieId: 4,
    },
    {
       url: "https://i.guim.co.uk/img/media/18e0b02b77238d312812c835c23144cc63baa86a/0_0_923_554/master/923.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=c640a0f676e4a724c16e15624f4686a0",
       title: "Howl's Moving Castle",
       width: "30%",
+      movieId: 3,
    },
 ];
 
@@ -86,14 +89,6 @@ const ImageMarked = styled("span")(({ theme }) => ({
    transition: theme.transitions.create("opacity"),
 }));
 
-const getMoviePath = (title: string) => {
-   const formattedTitle = title.toLowerCase().split(" ");
-   const movieId = formattedTitle
-      .map((item) => item.split("'").join(""))
-      .join("-");
-   return `/products-by-movie/${movieId}`;
-};
-
 export default function OtherMovies() {
    return (
       <Box>
@@ -123,7 +118,7 @@ export default function OtherMovies() {
                   <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
                   <ImageBackdrop className="MuiImageBackdrop-root" />
                   <Image>
-                     <StyledLink path={getMoviePath(image.title)}>
+                     <StyledLink path={`/products-by-movie/${image.movieId}`}>
                         <Typography
                            component="span"
                            variant="subtitle1"

@@ -1,5 +1,5 @@
 import BackDrop from "../../components/BackDrop/BackDrop";
-import ProductsListByMovie from "../../components/ProductsByMovie/ProductsByMovie";
+import ProductsListByMovie from "../../components/ProductsListByMovie/ProductsListByMovie";
 
 const LandingPage = () => {
    return (

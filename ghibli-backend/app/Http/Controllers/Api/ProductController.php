@@ -10,19 +10,37 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // We load only the single latest image instead of the whole collection
-        $products = Product::with(['images'])
-        ->where('stock', '>', 0)
-        ->latest()
-        ->paginate(12);
+        $query = Product::with(['movie', 'images']);
+
+        // 1. Search Logic
+        if ($request->has('search')) {
+            $searchTerm = trim($request->query('search'));
+            $words = explode(' ', $searchTerm);
+            
+            $query->where(function($q) use ($words) {
+                foreach ($words as $word) {
+                    // This ensures BOTH words must exist, but in any order
+                    $q->where('title', 'LIKE', "%{$word}%")
+                    ->orWhere('description', 'LIKE', "%{$word}%")
+                    ->orWhereHas('movie', function($mq) use ($word) {
+                        $mq->where('title', 'LIKE', "%{$word}%");
+                    });
+                }
+            });
+        }
+
+        // 3. Finalize with Pagination
+        $products = $query->where('stock', '>', 0)
+                        ->latest()
+                        ->paginate(12);
 
         return response()->json([
-            'success' => true,
-            'count'   => $products->count(),
-            'data'    => $products
-        ], 200);
+                    'success' => true,
+                    'count'   => $products->count(),
+                    'data'    => $products
+                    ], 200);
     }
 
     public function store(Request $request)
