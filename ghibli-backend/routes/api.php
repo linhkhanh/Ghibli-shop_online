@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CartController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -15,6 +16,8 @@ Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/movies/{movie_id}/products', [ProductController::class, 'getByMovie']);
+
+Route::post('/cart/add', [CartController::class, 'addItem']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
