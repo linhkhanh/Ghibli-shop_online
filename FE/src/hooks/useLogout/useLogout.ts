@@ -8,16 +8,13 @@ const useLogout = () => {
    const logout = async () => {
       try {
          await logoutUser();
+         updateUser(null);
+         showSnackbar("Logout successful!", "success");
       } catch (error: unknown) {
          showSnackbar(
             `An unexpected error occurred during logout ${error instanceof Error ? error.message : ""}`,
             "error",
          );
-      } finally {
-         // Clear the token from localStorage to log the user out on the client side
-         localStorage.removeItem("token");
-         updateUser(null);
-         showSnackbar("Logout successful!", "success");
       }
    };
 

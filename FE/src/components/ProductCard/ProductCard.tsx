@@ -8,12 +8,12 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import type { ProductItem } from "../../utils/dataType";
 import { Box } from "@mui/material";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../StyledLink/StyledLink";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
+import useAddCart from "../../hooks/useAddCart/useAddCart";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -22,19 +22,17 @@ interface ProductCardProps {
 export default function ProductCard(props: ProductCardProps) {
    const { productDetail } = props;
    const { id, title, images: image, price, discount = 0 } = productDetail;
-   const { cartCount, updateCart, user } = useAuthentication();
-   const { showSnackbar } = useSnackbar();
+   const { user } = useAuthentication();
+
    const [open, setOpen] = useState(false);
    const handleEdit = () => setOpen(true);
    const handleClose = () => setOpen(false);
    const { deleteProductById } = useDeleteProduct();
+   const { addToCart } = useAddCart();
 
-   // TODO: Call API here (send request {productId})
-   const handleAdd = () => {
-      showSnackbar("Add to cart successfully!", "success");
-      updateCart(cartCount + 1);
+   const handleAdd = async () => {
+      await addToCart({ productId: id, quantity: 1 });
    };
-
    const handleDelete = async () => {
       await deleteProductById(id);
       window.location.reload();

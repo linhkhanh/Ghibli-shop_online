@@ -27,11 +27,14 @@ class HandleGuestSession
         // 3. If no ID exists, generate a new one
         if (!$guestId) {
             $guestId = (string) Str::uuid();
+            $request->headers->set('X-Guest-Cart-ID', $guestId);
         }
 
         $response = $next($request);
 
         // 4. Attach the ID to the response header so React can save it
-        return $response->header('X-Guest-Cart-ID', $guestId);
+        $response->headers->set('X-Guest-Cart-ID', $guestId);
+        $response->headers->set('Access-Control-Expose-Headers', 'X-Guest-Cart-ID');
+        return $response;
     }
 }

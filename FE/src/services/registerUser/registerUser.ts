@@ -13,7 +13,7 @@ export const registerUser = async (
 ): Promise<RegisterResponse> => {
    try {
       const response = await api.post("/register", payload);
-      localStorage.setItem("token", response.data.access_token);
+      localStorage.setItem("ghibli_token", response.data.access_token);
       return {
          success: true,
          message: "Registration successful!",
