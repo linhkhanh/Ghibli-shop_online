@@ -12,40 +12,46 @@ import {
    Typography,
 } from "@mui/material";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../../components/StyledLink/StyledLink";
+import useUpdateCartItem from "../../hooks/useUpdateCartItem/useUpdateCartItem";
+import useRemoveItem from "../../hooks/useRemoveItem/useRemoveItem";
 
 const CartTable = () => {
    const { cartInfo, loading, setCartInfo } = useCartDetail();
+   const { editCartItem } = useUpdateCartItem();
+   const { removeItem } = useRemoveItem();
 
-   const { showSnackbar } = useSnackbar();
-
-   const handleQuantityChange = (id: number, newQuantity: number) => {
+   const handleQuantityChange = async (props: {
+      newQuantity: number;
+      cartItemId: number;
+   }) => {
+      const { newQuantity, cartItemId } = props;
       if (newQuantity < 1) return;
-      setCartInfo((prev) => ({
-         ...prev,
-         items: prev.items.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item,
-         ),
-      }));
-      showSnackbar("Add to cart successfully!", "success");
+      await editCartItem({
+         setCartInfo,
+         cartItemId,
+         newQuantity,
+         cartInfo,
+      });
    };
 
-   // TODO: Call API here (send request {productId, newQuantity: 0}
-   // Recalculate number of items in cart, call updateCart from useContext
-   // const handleRemoveItem = (id: string) => {
-   //    setCartItems((items) => items.filter((item) => item.id !== id));
-   //    showSnackbar("Item removed from cart!", "info");
-   // };
+   const handleRemoveItem = async (itemId: number) => {
+      await removeItem({
+         itemId,
+         setCartInfo,
+         cartInfo,
+      });
+   };
 
-   // const calculateTotal = () => {
-   //    return cartItems.reduce(
-   //       (sum, item) => sum + (item.price - item.discount) * item.quantity,
-   //       0,
-   //    );
-   // };
+   const calculateTotal = () => {
+      return cartInfo.items.reduce(
+         (sum, item) =>
+            sum + item.price * item.quantity * (1 - item.discount / 100),
+         0,
+      );
+   };
 
-   // const total = calculateTotal();
+   const total = calculateTotal();
 
    if (loading) {
       return (
@@ -126,10 +132,10 @@ const CartTable = () => {
                                  size="small"
                                  value={item.quantity}
                                  onChange={(e) =>
-                                    handleQuantityChange(
-                                       item.id,
-                                       parseInt(e.target.value) || 1,
-                                    )
+                                    handleQuantityChange({
+                                       newQuantity: parseInt(e.target.value),
+                                       cartItemId: item.id,
+                                    })
                                  }
                                  sx={{ width: 70 }}
                               />
@@ -159,7 +165,7 @@ const CartTable = () => {
                            align="right"
                            sx={{ fontWeight: 700, fontSize: 16 }}
                         >
-                           ${cartInfo.totalPrice.toFixed(2)}
+                           ${total.toFixed(2)}
                         </TableCell>
                      </TableRow>
                   </TableBody>

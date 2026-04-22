@@ -46,7 +46,6 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
    useEffect(() => {
       api.get("/user")
          .then((res) => {
-            console.log("User info from API:", res.data);
             setUser(res.data);
          })
          .catch((err) => console.log("Connection failed", err));
@@ -59,9 +58,13 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
          },
       })
          .then((res) => {
-            console.log("Cart info from API:", res.data);
             const items = res.data.items || [];
-            setCartCount(items.length);
+            setCartCount(
+               items.reduce(
+                  (total: number, item: CartItem) => total + item.quantity,
+                  0,
+               ),
+            );
          })
          .catch((err) => console.log("Connection failed", err));
    }, []);
