@@ -18,6 +18,7 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/movies/{movie_id}/products', [ProductController::class, 'getByMovie']);
 
 Route::post('/cart/add', [CartController::class, 'addItem']);
+Route::get('/cart', [CartController::class, 'index']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

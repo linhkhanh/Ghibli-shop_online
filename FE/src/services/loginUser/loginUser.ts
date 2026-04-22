@@ -17,6 +17,7 @@ export const loginUser = async (payload: LoginPayload) => {
    try {
       const response = await api.post("/login", { email, password });
       localStorage.setItem("ghibli_token", response.data.access_token);
+      localStorage.removeItem("ghibli_guest_cart_id");
       return {
          success: true,
          message: "Login successful!",

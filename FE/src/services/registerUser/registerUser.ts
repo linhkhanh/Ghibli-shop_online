@@ -14,6 +14,7 @@ export const registerUser = async (
    try {
       const response = await api.post("/register", payload);
       localStorage.setItem("ghibli_token", response.data.access_token);
+      localStorage.removeItem("ghibli_guest_cart_id");
       return {
          success: true,
          message: "Registration successful!",

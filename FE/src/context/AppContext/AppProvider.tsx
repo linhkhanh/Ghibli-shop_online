@@ -13,10 +13,6 @@ interface UserCartInfo {
    cartItems: CartItem[];
 }
 
-// TODO: Get real data from call API here
-// get UserInfo here
-// Get CartItems by userId
-// without userId, get cartItems from localStorage or set to empty array
 const getUserInfoAndCart = (): UserCartInfo => {
    return {
       user: null,
@@ -52,6 +48,20 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
          .then((res) => {
             console.log("User info from API:", res.data);
             setUser(res.data);
+         })
+         .catch((err) => console.log("Connection failed", err));
+
+      const guestCartId = localStorage.getItem("ghibli_guest_cart_id");
+
+      api.get("/cart", {
+         headers: {
+            "X-Guest-Cart-ID": guestCartId,
+         },
+      })
+         .then((res) => {
+            console.log("Cart info from API:", res.data);
+            const items = res.data.items || [];
+            setCartCount(items.length);
          })
          .catch((err) => console.log("Connection failed", err));
    }, []);

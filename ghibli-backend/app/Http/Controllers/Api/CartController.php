@@ -9,6 +9,38 @@ use App\Models\CartItem;
 
 class CartController extends Controller
 {
+    public function index(Request $request)
+    {
+        $userId = auth('sanctum')->id();
+        $guestId = $request->header('X-Guest-Cart-ID');
+
+        // Find the cart belonging to either the user or the guest session
+        $cart = Cart::where(function ($query) use ($userId, $guestId) {
+            if ($userId) {
+                $query->where('user_id', $userId);
+            } else {
+                $query->where('session_id', $guestId);
+            }
+        })
+        ->with('items.product.images')
+        ->first();
+
+        if (!$cart) {
+            return response()->json([
+                'items' => [],
+                'total_price' => 0
+            ]);
+        }
+
+        return response()->json([
+            'cart_id' => $cart->id,
+            'items' => $cart->items,
+            'total_price' => $cart->items->sum(function($item) {
+                return $item->quantity * $item->product->price;
+            })
+        ]);
+    }
+
     public function addItem(Request $request)
     {
         $request->validate([
