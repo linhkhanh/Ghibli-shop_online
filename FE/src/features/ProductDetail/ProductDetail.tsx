@@ -11,7 +11,6 @@ import {
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -20,11 +19,12 @@ import { useEffect, useState, type SyntheticEvent } from "react";
 import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpsertModal";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 import type { ProductItem } from "../../utils/dataType";
+import useAddCart from "../../hooks/useAddCart/useAddCart";
 
 const ProductDetail = () => {
    const { productId } = useParams();
    const { getProductById } = useProductDetail();
-   const { cartCount, updateCart, user } = useAuthentication();
+   const { user } = useAuthentication();
    const [productInfo, setProductInfo] = useState<ProductItem>({
       id: 0,
       title: "",
@@ -36,7 +36,6 @@ const ProductDetail = () => {
       stock: 0,
    });
 
-   const { showSnackbar } = useSnackbar();
    const navigate = useNavigate();
    const [tabIndex, setTabIndex] = useState(0);
 
@@ -44,6 +43,7 @@ const ProductDetail = () => {
    const [loading, setLoading] = useState<boolean>(false);
 
    const { deleteProductById } = useDeleteProduct();
+   const { addToCart } = useAddCart();
 
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -52,9 +52,8 @@ const ProductDetail = () => {
       setTabIndex(newValue);
    };
 
-   const handleAdd = () => {
-      showSnackbar("Add to cart successfully!", "success");
-      updateCart(cartCount + 1);
+   const handleAdd = async () => {
+      await addToCart({ productId: productInfo.id, quantity: 1 });
    };
 
    const handleDelete = async () => {
