@@ -32,12 +32,28 @@ class CartController extends Controller
             ]);
         }
 
+        $removedItems = [];
+
+        foreach ($cart->items as $item) {
+            // Check if the product still exists or if stock has run out
+            if (!$item->product || $item->quantity > $item->product->stock) {
+                $removedItems[] = $item->product->title ?? 'An unavailable item';
+                $item->delete(); // Remove from database
+            }
+        }
+        $cart->load('items.product.images'); // Reload cart items after potential deletions
+
+        $message = !empty($removedItems) 
+        ? "Some of the items were removed as they are out of stock: " . implode(', ', $removedItems)
+        : null;
+
         return response()->json([
             'cart_id' => $cart->id,
             'items' => $cart->items,
             'total_price' => $cart->items->sum(function($item) {
-                return $item->quantity * $item->product->price;
-            })
+                return $item->quantity * $item->product->price * (1 - $item->product->discount / 100);
+            }),
+            'message' => $message
         ]);
     }
 
@@ -75,5 +91,58 @@ class CartController extends Controller
             'message' => 'Item added to cart successfully',
             'cart' => $cart->load('items.product')
         ], 200);
+    }
+
+    public function update(Request $request, $itemId)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1'
+        ]);
+
+        // 1. Find the item and its product (to check stock)
+        $cartItem = CartItem::with('product')->findOrFail($itemId);
+        
+        // 2. Validate Ownership (User or Guest)
+        $this->authorizeCartItem($cartItem);
+
+        // 3. Stock Check
+        if ($request->quantity > $cartItem->product->stock) {
+            return response()->json([
+                'message' => "Sorry, only {$cartItem->product->stock} units left in stock."
+            ], 422);
+        }
+
+        $cartItem->update(['quantity' => $request->quantity]);
+
+        return response()->json(['message' => 'Quantity updated', 'item' => $cartItem]);
+    }
+
+    public function destroy($itemId)
+    {
+        $cartItem = CartItem::findOrFail($itemId);
+        
+        // Validate Ownership
+        $this->authorizeCartItem($cartItem);
+
+        $cartItem->delete();
+
+        return response()->json(['message' => 'Item removed from cart']);
+    }
+
+/**
+ * Helper to ensure the person trying to edit the cart actually owns it
+ */
+    private function authorizeCartItem($cartItem)
+    {
+        $userId = auth('sanctum')->id();
+        $guestId = request()->header('X-Guest-Cart-ID');
+        $cart = $cartItem->cart;
+
+        $isOwner = ($userId && $cart->user_id === $userId) || 
+                (!$userId && $cart->session_id === $guestId);
+
+        if (!$isOwner) {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }

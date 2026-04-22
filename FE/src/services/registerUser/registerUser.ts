@@ -12,7 +12,12 @@ export const registerUser = async (
    payload: RegisterPayload,
 ): Promise<RegisterResponse> => {
    try {
-      const response = await api.post("/register", payload);
+      const guestCartId = localStorage.getItem("ghibli_guest_cart_id");
+      const response = await api.post("/register", payload, {
+         headers: {
+            "X-Guest-Cart-ID": guestCartId || "",
+         },
+      });
       localStorage.setItem("ghibli_token", response.data.access_token);
       localStorage.removeItem("ghibli_guest_cart_id");
       return {

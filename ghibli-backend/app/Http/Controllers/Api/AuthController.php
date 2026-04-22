@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +40,11 @@ class AuthController extends Controller
         // 3. Create Token (Sanctum)
         $token = $user->createToken('auth_token')->plainTextToken;
 
+        // Trigger the merge
+        $guestId = $request->header('X-Guest-Cart-ID');
+        if ($guestId) {
+            Cart::mergeGuestCart($user->id, $guestId);
+        }
         // 4. Return Response to React
         return response()->json([
             'message' => 'User registered successfully!',
@@ -76,6 +82,12 @@ class AuthController extends Controller
         // 3. Find User & Create Token
         $user = User::where('email', $request->email)->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Trigger the merge
+        $guestId = $request->header('X-Guest-Cart-ID');
+        if ($guestId) {
+            Cart::mergeGuestCart($user->id, $guestId);
+        }
 
         // 4. Return Response
         return response()->json([

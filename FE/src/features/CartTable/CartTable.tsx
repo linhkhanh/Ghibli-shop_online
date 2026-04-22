@@ -20,16 +20,16 @@ const CartTable = () => {
 
    const { showSnackbar } = useSnackbar();
 
-   // const handleQuantityChange = (id: string, newQuantity: number) => {
-   //    if (newQuantity < 1) return;
-   //    setCartInfo((prev) => ({
-   //       ...prev,
-   //       items: prev.items.map((item) =>
-   //          item.id === id ? { ...item, quantity: newQuantity } : item,
-   //       ),
-   //    );
-   //    showSnackbar("Add to cart successfully!", "success");
-   // };
+   const handleQuantityChange = (id: number, newQuantity: number) => {
+      if (newQuantity < 1) return;
+      setCartInfo((prev) => ({
+         ...prev,
+         items: prev.items.map((item) =>
+            item.id === id ? { ...item, quantity: newQuantity } : item,
+         ),
+      }));
+      showSnackbar("Add to cart successfully!", "success");
+   };
 
    // TODO: Call API here (send request {productId, newQuantity: 0}
    // Recalculate number of items in cart, call updateCart from useContext
@@ -159,7 +159,7 @@ const CartTable = () => {
                            align="right"
                            sx={{ fontWeight: 700, fontSize: 16 }}
                         >
-                           ${cartInfo.totalPrice}
+                           ${cartInfo.totalPrice.toFixed(2)}
                         </TableCell>
                      </TableRow>
                   </TableBody>

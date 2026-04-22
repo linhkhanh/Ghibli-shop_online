@@ -19,6 +19,10 @@ Route::get('/movies/{movie_id}/products', [ProductController::class, 'getByMovie
 
 Route::post('/cart/add', [CartController::class, 'addItem']);
 Route::get('/cart', [CartController::class, 'index']);
+// Update quantity
+Route::patch('/cart/items/{itemId}', [CartController::class, 'update']);
+// Remove item
+Route::delete('/cart/items/{itemId}', [CartController::class, 'destroy']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

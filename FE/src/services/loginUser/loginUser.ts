@@ -15,7 +15,17 @@ export interface LoginResponse {
 export const loginUser = async (payload: LoginPayload) => {
    const { email, password } = payload;
    try {
-      const response = await api.post("/login", { email, password });
+      const guestCartId = localStorage.getItem("ghibli_guest_cart_id");
+      const response = await api.post(
+         "/login",
+         { email, password },
+         {
+            headers: {
+               "X-Guest-Cart-ID": guestCartId || "",
+            },
+         },
+      );
+
       localStorage.setItem("ghibli_token", response.data.access_token);
       localStorage.removeItem("ghibli_guest_cart_id");
       return {

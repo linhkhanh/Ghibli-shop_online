@@ -13,6 +13,7 @@ export const getCartItems = async () => {
          items: response.data.items || [],
          totalPrice: response.data.total_price || 0,
          cartId: response.data.cart_id || null,
+         message: response.data.message || null,
       };
    } catch (error) {
       throw new Error(

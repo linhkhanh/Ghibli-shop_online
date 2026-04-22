@@ -22,7 +22,8 @@ const useCartDetail = (): UseCartDetailReturn => {
       const fetchCartDetails = async () => {
          try {
             setLoading(true);
-            const { cartId, items, totalPrice } = await getCartItems();
+            const { cartId, items, totalPrice, message } = await getCartItems();
+
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const formattedItems: CartItem[] = items.map((item: any) => ({
                id: item.id,
@@ -37,16 +38,16 @@ const useCartDetail = (): UseCartDetailReturn => {
                      ? item.product.images[0].image
                      : "",
             }));
-            console.log("Fetched cart details:", {
-               cartId,
-               items: formattedItems,
-               totalPrice,
-            });
+
             setCartInfo({
                cartId,
                items: formattedItems,
                totalPrice,
             });
+
+            if (message) {
+               showSnackbar(message, "info");
+            }
          } catch (error) {
             showSnackbar(
                `Failed to fetch cart details: ${error instanceof Error ? error.message : "Unknown error"}`,
