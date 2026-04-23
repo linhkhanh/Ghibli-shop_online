@@ -12,13 +12,22 @@ export const placeOrder = async (payload: PlaceOrderPayload) => {
    const { name, email, phone, shippingAddress, paymentMethod } = payload;
 
    try {
-      const response = await api.post("/orders", {
-         name,
-         email,
-         phone_number: phone,
-         shipping_address: shippingAddress,
-         payment_method: paymentMethod,
-      });
+      const response = await api.post(
+         "/orders",
+         {
+            name,
+            email,
+            phone_number: phone,
+            shipping_address: shippingAddress,
+            payment_method: paymentMethod,
+         },
+         {
+            headers: {
+               "X-Guest-Cart-ID":
+                  localStorage.getItem("ghibli_guest_cart_id") || "",
+            },
+         },
+      );
       return {
          message: response.data.message,
          orderId: response.data.orderId,
