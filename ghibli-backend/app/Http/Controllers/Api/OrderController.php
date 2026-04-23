@@ -128,4 +128,29 @@ class OrderController extends Controller
 
         return response()->json($orders);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        // 1. Security check: Only Admins can change status
+        if ($request->user()->role !== 'admin') {
+            return response()->json(['message' => 'Only Admins can update order status'], 403);
+        }
+
+        // 2. Validate the input
+        $request->validate([
+            'status' => 'required|string|in:pending,processing,shipped,delivered'
+        ]);
+
+        // 3. Find the order or fail
+        $order = Order::findOrFail($id);
+
+        // 4. Update the status
+        $order->status = $request->status;
+        $order->save();
+
+        return response()->json([
+            'message' => "Order #{$id} status updated to {$request->status}!",
+            'order' => $order
+        ]);
+    }
 }

@@ -42,6 +42,21 @@ export default function OrderDetail() {
       orderItems?.reduce((sum, item) => sum + item.price * item.quantity, 0) ||
       0;
 
+   const chipColor = (status: string) => {
+      switch (status) {
+         case "pending":
+            return "warning";
+         case "processing":
+            return "info";
+         case "shipped":
+            return "primary";
+         case "delivered":
+            return "success";
+         default:
+            return "default";
+      }
+   };
+
    return (
       <Box
          minHeight="80vh"
@@ -227,15 +242,9 @@ export default function OrderDetail() {
                                        py={0.5}
                                        borderRadius={2}
                                        bgcolor={
-                                          item.status === "delivered"
-                                             ? "success.light"
-                                             : "warning.light"
+                                          chipColor(item.status) + ".light"
                                        }
-                                       color={
-                                          item.status === "delivered"
-                                             ? "success.dark"
-                                             : "warning.dark"
-                                       }
+                                       color={chipColor(item.status) + ".dark"}
                                        display="inline-block"
                                     >
                                        {item.status.charAt(0).toUpperCase() +

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/logoutUser/logoutUser";
 import { useAuthentication } from "../useAuthentication/useAuthentication";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
@@ -5,11 +6,13 @@ import { useSnackbar } from "../useSnackBar/useSnackBar";
 const useLogout = () => {
    const { showSnackbar } = useSnackbar();
    const { updateUser } = useAuthentication();
+   const navigate = useNavigate();
    const logout = async () => {
       try {
          await logoutUser();
          updateUser(null);
          showSnackbar("Logout successful!", "success");
+         navigate("/products");
          window.location.reload();
       } catch (error: unknown) {
          showSnackbar(

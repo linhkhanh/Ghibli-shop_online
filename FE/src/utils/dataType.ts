@@ -40,22 +40,22 @@ export interface CartInfo {
    totalPrice: number;
 }
 export interface OrderItem extends ItemInfo {
-   id: string;
-   orderId: string;
-   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+   id: number;
+   orderId: number;
+   status: OrderStatus;
 }
 
 export interface Order {
-   id: string;
-   userId: string;
+   id: number;
+   userId: number;
    totalAmount: number;
    paymentMethod?: string;
-   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+   status: OrderStatus;
    createdAt: string;
 }
 
 export interface User {
-   id: string;
+   id: number;
    name: string;
    email: string;
    role: string;
@@ -93,3 +93,5 @@ export interface ProductPayload {
 export interface UpdateProductPayload extends ProductPayload {
    id: number;
 }
+
+export type OrderStatus = "pending" | "processing" | "shipped" | "delivered";

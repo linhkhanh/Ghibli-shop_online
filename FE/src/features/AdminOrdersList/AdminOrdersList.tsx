@@ -15,27 +15,22 @@ import {
    MenuItem,
    FormControl,
 } from "@mui/material";
-import { Style } from "@mui/icons-material";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import useAdminOrdersList from "../../hooks/useAdminOrdersList/useAdminOrdersList";
-// import useOrdersList from "../../hooks/useOrdersList/useOrdersList";
+import type { OrderStatus } from "../../utils/dataType";
+import useUpdateOrderStatus from "../../hooks/useUpdateOrderStatus/useUpdateOrderStatus";
 
-const ORDER_STATUSES = [
-   "pending",
-   "processing",
-   "shipped",
-   "delivered",
-   "cancelled",
-];
+const ORDER_STATUSES = ["pending", "processing", "shipped", "delivered"];
 
 const AdminOrdersList = () => {
    const [page, setPage] = useState(0);
    const [rowsPerPage, setRowsPerPage] = useState(5);
-   const [editStatusId, setEditStatusId] = useState<string | null>(null);
-   const [statusDraft, setStatusDraft] = useState<string>("");
-   const [filterStatus, setFilterStatus] = useState<string>("all");
+   const [editStatusId, setEditStatusId] = useState<number | null>(null);
+   const [currentStatus, setCurrentStatus] = useState<OrderStatus>("pending");
+   const [filterStatus, setFilterStatus] = useState<OrderStatus | "all">("all");
 
    const { orders, loading } = useAdminOrdersList();
+   const { adminUpdateOrderStatus } = useUpdateOrderStatus();
 
    const filteredOrders =
       filterStatus === "all"
@@ -58,26 +53,26 @@ const AdminOrdersList = () => {
       setPage(0);
    };
 
-   const handleEditClick = (orderId: string, currentStatus: string) => {
+   const handleEditClick = (orderId: number, currentStatus: OrderStatus) => {
       setEditStatusId(orderId);
-      setStatusDraft(currentStatus);
+      setCurrentStatus(currentStatus);
    };
 
    const handleStatusChange = (
-      event: React.ChangeEvent<{ value: unknown }>,
+      event: React.ChangeEvent<{ value: OrderStatus }>,
    ) => {
-      setStatusDraft(event.target.value as string);
+      setCurrentStatus(event.target.value as OrderStatus);
    };
 
-   const handleSaveStatus = (orderId: string) => {
-      // TODO: Call API to update order status
+   const handleSaveStatus = async (orderId: number) => {
+      await adminUpdateOrderStatus(orderId, currentStatus);
       setEditStatusId(null);
    };
 
    const handleFilterChange = (
-      event: React.ChangeEvent<{ value: unknown }>,
+      event: React.ChangeEvent<{ value: OrderStatus | "all" }>,
    ) => {
-      setFilterStatus(event.target.value as string);
+      setFilterStatus(event.target.value as OrderStatus | "all");
       setPage(0);
    };
 
@@ -150,7 +145,7 @@ const AdminOrdersList = () => {
                               {editStatusId === order.id ? (
                                  <FormControl size="small">
                                     <Select
-                                       value={statusDraft}
+                                       value={currentStatus}
                                        onChange={handleStatusChange}
                                     >
                                        {ORDER_STATUSES.map((status) => (
