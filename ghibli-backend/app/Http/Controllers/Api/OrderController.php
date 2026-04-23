@@ -44,7 +44,9 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        $userId = auth('sanctum')->id();
+        /** @var \App\Models\User $user */
+        $user = auth('sanctum')->user();
+        $userId = $user ? $user->id : null;
         $guestId = $request->header('X-Guest-Cart-ID');
 
         // 1. Find the correct cart
@@ -59,10 +61,16 @@ class OrderController extends Controller
         }
 
         try {
-            return DB::transaction(function () use ($request, $userId, $cart) {
+            return DB::transaction(function () use ($request, $user, $cart) {
+                if ($user) {
+                    $user->update([
+                        'phone' => $request->phone_number,
+                        'address' => $request->shipping_address,
+                    ]);
+                }
                 // 2. Create the Order (Mapping guest info if not logged in)
                 $order = Order::create([
-                    'user_id' => $userId, // Will be null for guests
+                    'user_id' => $user ? $user->id : null, // Will be null for guests
                     'name' => $request->name,
                     'email' => $request->email, 
                     'total_amount' => $cart->items->sum(fn($i) => $i->quantity * $i->product->price * (1 - $i->product->discount / 100)),
