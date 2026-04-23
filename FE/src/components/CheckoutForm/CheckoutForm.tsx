@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
    Box,
    Button,
@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import usePlaceOrder from "../../hooks/usePlaceOrder/usePlaceOrder";
 
 interface CheckoutFormData {
    name: string;
@@ -31,8 +31,8 @@ const defaultValues: CheckoutFormData = {
 };
 
 const CheckoutForm = () => {
-   const { showSnackbar } = useSnackbar();
-   const { updateCart, user } = useAuthentication();
+   const { user } = useAuthentication();
+   const { checkoutOrder } = usePlaceOrder();
 
    const {
       control,
@@ -56,11 +56,8 @@ const CheckoutForm = () => {
       }
    }, [user]);
 
-   // TODO: Handle checkout logic, e.g., API call, clear cart
-   const onSubmit = (data: CheckoutFormData) => {
-      console.log("Checkout data:", data);
-      showSnackbar("Checkout successful!", "success");
-      updateCart(0); // TODO: remove this line when fetching real data
+   const onSubmit = async (data: CheckoutFormData) => {
+      await checkoutOrder(data);
    };
 
    return (
