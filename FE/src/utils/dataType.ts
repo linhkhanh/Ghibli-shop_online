@@ -49,6 +49,7 @@ export interface Order {
    id: string;
    userId: string;
    totalAmount: number;
+   paymentMethod?: string;
    status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
    createdAt: string;
 }

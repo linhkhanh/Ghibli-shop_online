@@ -34,8 +34,9 @@ class OrderController extends Controller
         // We use .product to get the Ghibli item name and image
         $order = Order::with('items.product.images')->findOrFail($id);
 
-        // Security Check: Only allow the owner (or the guest who just placed it) to see it
-        if (auth('sanctum')->check() && $order->user_id !== auth('sanctum')->id()) {
+        $user = auth('sanctum')->user();
+        $isAdmin = $user && $user->role === 'admin';
+        if (!$isAdmin && $order->user_id !== $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
@@ -110,5 +111,21 @@ class OrderController extends Controller
                 'message' => $e->getMessage()
             ], 422);
         }
+    }
+
+    public function adminIndex(Request $request)
+    {
+        // 1. Security Check: Ensure the person asking is an admin
+        if ($request->user()->role != 'admin') {
+            return response()->json(['message' => 'Forbidden: Admins only'], 403);
+        }
+
+        // 2. Retrieve all orders with user and item details
+        // We sort by 'id' descending to see the newest orders at the top
+        $orders = Order::with([])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json($orders);
     }
 }

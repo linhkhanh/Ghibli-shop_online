@@ -4,6 +4,12 @@ import { getOrderDetail } from "../../services/getOrderDetail/getOrderDetail";
 
 const useOrderDetail = (orderId: number) => {
    const [orderItems, setOrderItems] = useState<OrderItem[]>([]);
+   const [orderInfo, setOrderInfo] = useState({
+      phone: "",
+      shippingAddress: "",
+      name: "",
+      email: "",
+   });
    const [loading, setLoading] = useState<boolean>(true);
 
    useEffect(() => {
@@ -23,6 +29,12 @@ const useOrderDetail = (orderId: number) => {
                imageUrl: item.product.images[0].image,
             }));
             setOrderItems(formattedItems);
+            setOrderInfo({
+               phone: res.phone_number,
+               shippingAddress: res.shipping_address,
+               name: res.name,
+               email: res.email,
+            });
          } catch (error) {
             console.error(error);
          } finally {
@@ -36,6 +48,7 @@ const useOrderDetail = (orderId: number) => {
    return {
       orderItems,
       loading,
+      orderInfo,
    };
 };
 

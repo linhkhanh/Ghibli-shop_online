@@ -16,6 +16,7 @@ const useLogin = () => {
          const response = await loginUser(payload);
          showSnackbar("Login successful!", "success");
          updateUser(response.user);
+         window.location.reload();
          return {
             success: true,
             message: "Login successful!",

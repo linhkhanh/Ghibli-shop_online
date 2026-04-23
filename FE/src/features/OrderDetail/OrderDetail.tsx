@@ -33,7 +33,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function OrderDetail() {
    const orderId = useParams();
-   const { orderItems, loading } = useOrderDetail(
+   const { orderItems, loading, orderInfo } = useOrderDetail(
       orderId ? parseInt(orderId.orderId || "0") : 0,
    );
 
@@ -87,134 +87,183 @@ export default function OrderDetail() {
                   No items found for this order.
                </Typography>
             ) : (
-               <TableContainer
-                  component={Paper}
-                  sx={{ borderRadius: 3, boxShadow: 2 }}
-               >
-                  <Table aria-label="customized table">
-                     <TableHead>
-                        <TableRow>
-                           <StyledTableCell align="center">
-                              Product
-                           </StyledTableCell>
-                           <StyledTableCell align="left">Title</StyledTableCell>
-                           <StyledTableCell align="right">
-                              Price
-                           </StyledTableCell>
-                           <StyledTableCell align="right">
-                              Quantity
-                           </StyledTableCell>
-                           <StyledTableCell align="right">
-                              Status
-                           </StyledTableCell>
-                        </TableRow>
-                     </TableHead>
-                     <TableBody>
-                        {orderItems.map((item) => (
-                           <StyledTableRow key={item.id}>
-                              <StyledTableCell
-                                 align="center"
-                                 component="th"
-                                 scope="row"
-                              >
-                                 <StyledLink
-                                    path={`/product-detail/${item.productId}`}
-                                 >
-                                    <Box
-                                       display="flex"
-                                       alignItems="center"
-                                       justifyContent="center"
-                                    >
-                                       <img
-                                          src={item.imageUrl}
-                                          alt={item.title}
-                                          style={{
-                                             width: 60,
-                                             height: 60,
-                                             borderRadius: 12,
-                                             objectFit: "cover",
-                                             boxShadow:
-                                                "0 2px 8px rgba(0,0,0,0.08)",
-                                             marginRight: 8,
-                                             border: "2px solid #e0e0e0",
-                                          }}
-                                       />
-                                    </Box>
-                                 </StyledLink>
-                                 <Typography
-                                    variant="caption"
-                                    color="text.secondary"
-                                 >
-                                    #{item.productId}
-                                 </Typography>
+               <>
+                  <Box
+                     mb={4}
+                     p={3}
+                     borderRadius={3}
+                     bgcolor="#f8fafc"
+                     boxShadow={1}
+                  >
+                     <Typography variant="h6" fontWeight="bold" gutterBottom>
+                        Shipping Information
+                     </Typography>
+                     <Box display="flex" flexWrap="wrap" gap={4}>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Name
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo?.name || "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Email
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo?.email || "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Phone
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo?.phone || "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Shipping Address
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo?.shippingAddress || "-"}
+                           </Typography>
+                        </Box>
+                     </Box>
+                  </Box>
+                  <TableContainer
+                     component={Paper}
+                     sx={{ borderRadius: 3, boxShadow: 2 }}
+                  >
+                     <Table aria-label="customized table">
+                        <TableHead>
+                           <TableRow>
+                              <StyledTableCell align="center">
+                                 Product
                               </StyledTableCell>
                               <StyledTableCell align="left">
-                                 <StyledLink
-                                    path={`/product-detail/${item.productId}`}
+                                 Title
+                              </StyledTableCell>
+                              <StyledTableCell align="right">
+                                 Price
+                              </StyledTableCell>
+                              <StyledTableCell align="right">
+                                 Quantity
+                              </StyledTableCell>
+                              <StyledTableCell align="right">
+                                 Status
+                              </StyledTableCell>
+                           </TableRow>
+                        </TableHead>
+                        <TableBody>
+                           {orderItems.map((item) => (
+                              <StyledTableRow key={item.id}>
+                                 <StyledTableCell
+                                    align="center"
+                                    component="th"
+                                    scope="row"
                                  >
-                                    <Typography
-                                       fontWeight={500}
-                                       sx={{
-                                          maxWidth: 180,
-                                          whiteSpace: "nowrap",
-                                          overflow: "hidden",
-                                          textOverflow: "ellipsis",
-                                          display: "block",
-                                       }}
-                                       title={item.title}
+                                    <StyledLink
+                                       path={`/product-detail/${item.productId}`}
                                     >
-                                       {item.title}
+                                       <Box
+                                          display="flex"
+                                          alignItems="center"
+                                          justifyContent="center"
+                                       >
+                                          <img
+                                             src={item.imageUrl}
+                                             alt={item.title}
+                                             style={{
+                                                width: 60,
+                                                height: 60,
+                                                borderRadius: 12,
+                                                objectFit: "cover",
+                                                boxShadow:
+                                                   "0 2px 8px rgba(0,0,0,0.08)",
+                                                marginRight: 8,
+                                                border: "2px solid #e0e0e0",
+                                             }}
+                                          />
+                                       </Box>
+                                    </StyledLink>
+                                    <Typography
+                                       variant="caption"
+                                       color="text.secondary"
+                                    >
+                                       #{item.productId}
                                     </Typography>
-                                 </StyledLink>
+                                 </StyledTableCell>
+                                 <StyledTableCell align="left">
+                                    <StyledLink
+                                       path={`/product-detail/${item.productId}`}
+                                    >
+                                       <Typography
+                                          fontWeight={500}
+                                          sx={{
+                                             maxWidth: 180,
+                                             whiteSpace: "nowrap",
+                                             overflow: "hidden",
+                                             textOverflow: "ellipsis",
+                                             display: "block",
+                                          }}
+                                          title={item.title}
+                                       >
+                                          {item.title}
+                                       </Typography>
+                                    </StyledLink>
+                                 </StyledTableCell>
+                                 <StyledTableCell align="right">
+                                    ${item.price}
+                                 </StyledTableCell>
+                                 <StyledTableCell align="right">
+                                    {item.quantity}
+                                 </StyledTableCell>
+                                 <StyledTableCell align="right">
+                                    <Box
+                                       px={1}
+                                       py={0.5}
+                                       borderRadius={2}
+                                       bgcolor={
+                                          item.status === "delivered"
+                                             ? "success.light"
+                                             : "warning.light"
+                                       }
+                                       color={
+                                          item.status === "delivered"
+                                             ? "success.dark"
+                                             : "warning.dark"
+                                       }
+                                       display="inline-block"
+                                    >
+                                       {item.status.charAt(0).toUpperCase() +
+                                          item.status.slice(1)}
+                                    </Box>
+                                 </StyledTableCell>
+                              </StyledTableRow>
+                           ))}
+                           <StyledTableRow>
+                              <StyledTableCell colSpan={2} />
+                              <StyledTableCell
+                                 align="right"
+                                 colSpan={2}
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
+                                 Total:
                               </StyledTableCell>
-                              <StyledTableCell align="right">
-                                 ${item.price}
-                              </StyledTableCell>
-                              <StyledTableCell align="right">
-                                 {item.quantity}
-                              </StyledTableCell>
-                              <StyledTableCell align="right">
-                                 <Box
-                                    px={1}
-                                    py={0.5}
-                                    borderRadius={2}
-                                    bgcolor={
-                                       item.status === "delivered"
-                                          ? "success.light"
-                                          : "warning.light"
-                                    }
-                                    color={
-                                       item.status === "delivered"
-                                          ? "success.dark"
-                                          : "warning.dark"
-                                    }
-                                    display="inline-block"
-                                 >
-                                    {item.status.charAt(0).toUpperCase() +
-                                       item.status.slice(1)}
-                                 </Box>
+                              <StyledTableCell
+                                 align="right"
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
+                                 ${total.toFixed(2)}
                               </StyledTableCell>
                            </StyledTableRow>
-                        ))}
-                        <StyledTableRow>
-                           <StyledTableCell colSpan={2} />
-                           <StyledTableCell
-                              align="right"
-                              colSpan={2}
-                              sx={{ fontWeight: "bold", fontSize: 16 }}
-                           >
-                              Total:
-                           </StyledTableCell>
-                           <StyledTableCell
-                              align="right"
-                              sx={{ fontWeight: "bold", fontSize: 16 }}
-                           >
-                              ${total.toFixed(2)}
-                           </StyledTableCell>
-                        </StyledTableRow>
-                     </TableBody>
-                  </Table>
-               </TableContainer>
+                        </TableBody>
+                     </Table>
+                  </TableContainer>
+               </>
             )}
          </Paper>
       </Box>
