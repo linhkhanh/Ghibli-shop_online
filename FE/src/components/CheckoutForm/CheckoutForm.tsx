@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import {
    Box,
    Button,
@@ -14,8 +15,7 @@ import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 interface CheckoutFormData {
-   firstName: string;
-   lastName: string;
+   name: string;
    email: string;
    phone: string;
    shippingAddress: string;
@@ -23,8 +23,7 @@ interface CheckoutFormData {
 }
 
 const defaultValues: CheckoutFormData = {
-   firstName: "",
-   lastName: "",
+   name: "",
    email: "",
    phone: "",
    shippingAddress: "",
@@ -32,15 +31,30 @@ const defaultValues: CheckoutFormData = {
 };
 
 const CheckoutForm = () => {
+   const { showSnackbar } = useSnackbar();
+   const { updateCart, user } = useAuthentication();
+
    const {
       control,
       handleSubmit,
       formState: { errors },
+      reset,
    } = useForm<CheckoutFormData>({
       defaultValues,
    });
-   const { showSnackbar } = useSnackbar();
-   const { updateCart } = useAuthentication();
+
+   // Prefill form with user info if available
+   useEffect(() => {
+      if (user) {
+         reset({
+            name: user.name || "",
+            email: user.email || "",
+            phone: user.phone || "",
+            shippingAddress: user.address || "",
+            paymentMethod: "cash",
+         });
+      }
+   }, [user]);
 
    // TODO: Handle checkout logic, e.g., API call, clear cart
    const onSubmit = (data: CheckoutFormData) => {
@@ -70,30 +84,15 @@ const CheckoutForm = () => {
          </Typography>
 
          <Controller
-            name="firstName"
+            name="name"
             control={control}
-            rules={{ required: "First name is required" }}
+            rules={{ required: "Name is required" }}
             render={({ field }) => (
                <TextField
-                  label="First Name"
+                  label="Name"
                   {...field}
-                  error={!!errors.firstName}
-                  helperText={errors.firstName?.message}
-                  fullWidth
-               />
-            )}
-         />
-
-         <Controller
-            name="lastName"
-            control={control}
-            rules={{ required: "Last name is required" }}
-            render={({ field }) => (
-               <TextField
-                  label="Last Name"
-                  {...field}
-                  error={!!errors.lastName}
-                  helperText={errors.lastName?.message}
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
                   fullWidth
                />
             )}
