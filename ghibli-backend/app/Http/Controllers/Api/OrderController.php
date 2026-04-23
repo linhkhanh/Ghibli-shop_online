@@ -11,6 +11,37 @@ use App\Models\OrderItem;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        // 1. Get the logged-in user
+        $user = auth('sanctum')->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Please login to view order history'], 401);
+        }
+
+        // 2. Fetch all orders with basic info, sorted by newest first
+        $orders = Order::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($orders);
+    }
+
+    public function show($id)
+    {
+        // Fetch a specific order with its items and the related products
+        // We use .product to get the Ghibli item name and image
+        $order = Order::with('items.product.images')->findOrFail($id);
+
+        // Security Check: Only allow the owner (or the guest who just placed it) to see it
+        if (auth('sanctum')->check() && $order->user_id !== auth('sanctum')->id()) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($order);
+    }
+
     public function store(Request $request)
     {
         $userId = auth('sanctum')->id();

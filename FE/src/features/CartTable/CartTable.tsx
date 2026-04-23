@@ -119,7 +119,17 @@ const CartTable = () => {
                                  <StyledLink
                                     path={"/product-detail/" + item.productId}
                                  >
-                                    <Typography variant="body1">
+                                    <Typography
+                                       variant="body1"
+                                       sx={{
+                                          maxWidth: 180,
+                                          whiteSpace: "nowrap",
+                                          overflow: "hidden",
+                                          textOverflow: "ellipsis",
+                                          display: "block",
+                                       }}
+                                       title={item.title}
+                                    >
                                        {item.title}
                                     </Typography>
                                  </StyledLink>
