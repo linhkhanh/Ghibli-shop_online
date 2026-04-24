@@ -92,7 +92,9 @@ If your frontend (React) needs to connect to the backend API, you can create a `
 VITE_API_URL=http://localhost/api
 ```
 
-Update the value to match your backend URL as needed. 3. Start Laravel Sail (runs Docker containers):
+Update the value to match your backend URL as needed.
+
+3. Start Laravel Sail (runs Docker containers):
 
 ```bash
 ./vendor/bin/sail up -d
