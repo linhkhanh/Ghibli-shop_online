@@ -221,3 +221,22 @@ Below are the main data structures used in this project, including database tabl
   "created_at": "2026-04-24T10:00:00Z"
 }
 ```
+## Pages
+### Landing Page
+<img width="1418" height="663" alt="Screenshot 2026-04-24 at 12 18 07" src="https://github.com/user-attachments/assets/f237e2cc-650a-419e-a638-59f482345fe4" />
+
+### Products List
+<img width="1402" height="664" alt="Screenshot 2026-04-24 at 12 19 29" src="https://github.com/user-attachments/assets/0e53bde0-8562-43ee-b825-374edea4c34d" />
+
+### Product Detail
+<img width="1394" height="620" alt="Screenshot 2026-04-24 at 12 20 16" src="https://github.com/user-attachments/assets/45bd83c2-78dd-4a74-84e1-b116d90878d3" />
+
+### Orders List
+<img width="1419" height="653" alt="Screenshot 2026-04-24 at 12 21 00" src="https://github.com/user-attachments/assets/9b55bd84-8884-40ba-aed3-617dc00ca2f8" />
+
+### Cart view
+<img width="1394" height="620" alt="Screenshot 2026-04-24 at 12 20 16" src="https://github.com/user-attachments/assets/8355c7ea-510e-4ed6-b166-243eb11b4baa" />
+
+### Order Detail
+<img width="1433" height="661" alt="Screenshot 2026-04-24 at 12 22 14" src="https://github.com/user-attachments/assets/525699db-c328-486f-a2d7-5a3481794e6e" />
+
