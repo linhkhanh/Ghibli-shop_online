@@ -172,45 +172,38 @@ const ProductDetail = () => {
                      </Typography>
                      {/* Price Section */}
                      <Box sx={{ mb: 2 }}>
-                        {productInfo.discount ? (
-                           <>
-                              <Typography
-                                 variant="body1"
-                                 color="text.secondary"
-                                 sx={{ textDecoration: "line-through" }}
-                              >
-                                 ${productInfo.price}
-                              </Typography>
-                              <Typography
-                                 variant="h5"
-                                 color="primary"
-                                 fontWeight={700}
-                              >
-                                 $
-                                 {(
-                                    productInfo.price -
-                                    (productInfo.price * productInfo.discount) /
-                                       100
-                                 ).toFixed(2)}{" "}
-                                 <Typography
-                                    component="span"
-                                    variant="body2"
-                                    color="error"
-                                    sx={{ ml: 1 }}
-                                 >
-                                    {Math.round(productInfo.discount)}% OFF
-                                 </Typography>
-                              </Typography>
-                           </>
-                        ) : (
+                        {productInfo.discount > 0 && (
                            <Typography
-                              variant="h5"
-                              color="primary"
-                              fontWeight={700}
+                              variant="body1"
+                              color="text.secondary"
+                              sx={{ textDecoration: "line-through" }}
                            >
                               ${productInfo.price}
                            </Typography>
                         )}
+                        <Typography
+                           variant="h5"
+                           color="primary"
+                           fontWeight={700}
+                        >
+                           $
+                           {(
+                              productInfo.price -
+                              (productInfo.price *
+                                 (productInfo.discount || 0)) /
+                                 100
+                           ).toFixed(2)}
+                           {productInfo.discount > 0 && (
+                              <Typography
+                                 component="span"
+                                 variant="body2"
+                                 color="error"
+                                 sx={{ ml: 1 }}
+                              >
+                                 {Math.round(productInfo.discount)}% OFF
+                              </Typography>
+                           )}
+                        </Typography>
                      </Box>
                   </Box>
                   {!(user?.role == "admin") ? (

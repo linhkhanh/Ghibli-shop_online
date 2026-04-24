@@ -54,19 +54,36 @@ export default function ProductCard(props: ProductCardProps) {
          <CardMedia sx={{ height: 200 }} image={image[0]} title={title} />
          <CardContent>
             <StyledLink path={"/product-detail/" + id}>
-               <Typography gutterBottom variant="h5">
+               <Typography
+                  gutterBottom
+                  variant="h5"
+                  sx={{
+                     maxWidth: 180,
+                     whiteSpace: "nowrap",
+                     overflow: "hidden",
+                     textOverflow: "ellipsis",
+                     display: "block",
+                  }}
+                  title={title}
+               >
                   {title}
                </Typography>
             </StyledLink>
-            <Box display="flex" flexDirection="row">
+            <Box
+               display="flex"
+               flexDirection="row"
+               justifyContent="space-between"
+            >
                <Box>
-                  <Typography
-                     variant="body2"
-                     color="text.secondary"
-                     sx={{ textDecoration: "line-through" }}
-                  >
-                     Original Price: ${price}
-                  </Typography>
+                  {discount > 0 && (
+                     <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ textDecoration: "line-through" }}
+                     >
+                        Original Price: ${price}
+                     </Typography>
+                  )}
                   <Typography variant="body1" color="primary" fontWeight="bold">
                      Now: ${(price - (price * discount) / 100).toFixed(2)}
                   </Typography>
@@ -77,8 +94,29 @@ export default function ProductCard(props: ProductCardProps) {
                      </Typography>
                   )}
                </Box>
-               {!isAdmin && (
-                  <CardActions>
+
+               <CardActions>
+                  {isAdmin ? (
+                     <Box display="flex" flexDirection="column">
+                        <Button
+                           variant="outlined"
+                           color="primary"
+                           startIcon={<EditIcon />}
+                           onClick={handleEdit}
+                        >
+                           Edit
+                        </Button>
+                        <Button
+                           variant="outlined"
+                           color="error"
+                           startIcon={<DeleteIcon />}
+                           onClick={handleDelete}
+                           // sx={{ ml: 1 }}
+                        >
+                           Delete
+                        </Button>
+                     </Box>
+                  ) : (
                      <Button
                         variant="outlined"
                         startIcon={<AddShoppingCartIcon />}
@@ -86,10 +124,10 @@ export default function ProductCard(props: ProductCardProps) {
                      >
                         Add
                      </Button>
-                  </CardActions>
-               )}
+                  )}
+               </CardActions>
             </Box>
-            {isAdmin && (
+            {/* {isAdmin && (
                <>
                   <Button
                      variant="outlined"
@@ -110,7 +148,7 @@ export default function ProductCard(props: ProductCardProps) {
                      Delete
                   </Button>
                </>
-            )}
+            )} */}
          </CardContent>
          <ProductUpsertModal
             open={open}

@@ -5,7 +5,7 @@ export interface ProductItem {
    description: string;
    images: string[];
    movieId: number;
-   discount?: number;
+   discount: number;
    stock: number;
 }
 

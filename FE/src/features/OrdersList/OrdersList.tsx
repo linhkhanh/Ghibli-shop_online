@@ -87,7 +87,7 @@ const OrdersList = () => {
                                        textOverflow: "ellipsis",
                                        display: "inline-block",
                                     }}
-                                    title={order.id}
+                                    title={`Order ID: ${order.id}`}
                                  >
                                     #{order.id}
                                  </span>
