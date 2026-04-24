@@ -30,12 +30,14 @@ const LoginForm = (props: LoginFormProps) => {
       handleSubmit,
       formState: { errors },
       reset,
+      watch,
    } = useForm<LoginFormInputs>();
 
-   const onLogin = async (data: LoginFormInputs) => {
+   const [emailValue, passwordValue] = watch(["email", "password"]);
+   const onLogin = async () => {
       const response = await login({
-         email: data.email,
-         password: data.password,
+         email: emailValue,
+         password: passwordValue,
       });
       if (response.success) {
          closeModal();
