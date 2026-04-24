@@ -212,8 +212,3 @@ Below are the main data structures used in this project, including database tabl
   "created_at": "2026-04-24T10:00:00Z"
 }
 ```
-
-### Other Main Entities
-
-- **User**: id, name, email, password, created_at, updated_at
-- **OrderItem**: id, order_id, product_id, quantity, price
