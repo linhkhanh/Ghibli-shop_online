@@ -28,12 +28,7 @@ const ProductsByMovie = () => {
                display: "inline-block",
             }}
          >
-            <Typography
-               variant="h4"
-               component="h1"
-               gutterBottom
-               sx={{ color: "#fff", m: 0 }}
-            >
+            <Typography variant="h5" gutterBottom sx={{ color: "#fff", m: 0 }}>
                {products.length > 0 ? products[0].movieTitle : "No Movie"}
             </Typography>
          </Box>

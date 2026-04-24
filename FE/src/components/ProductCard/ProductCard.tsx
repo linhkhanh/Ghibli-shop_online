@@ -56,7 +56,7 @@ export default function ProductCard(props: ProductCardProps) {
             <StyledLink path={"/product-detail/" + id}>
                <Typography
                   gutterBottom
-                  variant="h5"
+                  variant="h6"
                   sx={{
                      maxWidth: 180,
                      whiteSpace: "nowrap",
