@@ -212,3 +212,4 @@ Below are the main data structures used in this project, including database tabl
   "created_at": "2026-04-24T10:00:00Z"
 }
 ```
+<img width="356" height="440" alt="Screenshot 2026-04-24 at 11 48 34" src="https://github.com/user-attachments/assets/87f17a11-8f49-4693-a828-de8375d8dc34" />
