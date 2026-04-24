@@ -1,3 +1,62 @@
+## Backend Stack
+
+This backend uses **Laravel Sail** (official Docker-based local development environment for Laravel), **MySQL** as the database, and **Docker** for containerization.
+
+### Getting Started
+
+1. **Install Docker**
+    - Make sure you have Docker Desktop installed: https://www.docker.com/products/docker-desktop
+
+2. **Clone the repository and navigate to the backend folder:**
+
+    ```bash
+    git clone <your-repo-url>
+    cd ghibli-backend
+    ```
+
+3. **Copy the example environment file and set your environment variables:**
+
+    ```bash
+    cp .env.example .env
+    # Edit .env as needed (DB, mail, etc.)
+    ```
+
+4. **Start Laravel Sail (runs Docker containers):**
+
+    ```bash
+    ./vendor/bin/sail up -d
+    ```
+
+    Or, if you haven't installed Sail yet:
+
+    ```bash
+    composer install
+    php artisan sail:install
+    ./vendor/bin/sail up -d
+    ```
+
+5. **Run migrations and seeders:**
+
+    ```bash
+    ./vendor/bin/sail artisan migrate --seed
+    ```
+
+6. **Access the app:**
+    - The backend API will be available at `http://localhost` (or the port specified in your `.env`).
+
+### Useful Sail Commands
+
+```bash
+# Stop containers
+./vendor/bin/sail down
+# Run tests
+./vendor/bin/sail test
+# Run artisan commands
+./vendor/bin/sail artisan <command>
+```
+
+For more info, see the [Laravel Sail documentation](https://laravel.com/docs/sail).
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
