@@ -235,7 +235,8 @@ Below are the main data structures used in this project, including database tabl
 <img width="1419" height="653" alt="Screenshot 2026-04-24 at 12 21 00" src="https://github.com/user-attachments/assets/9b55bd84-8884-40ba-aed3-617dc00ca2f8" />
 
 ### Cart view
-<img width="1394" height="620" alt="Screenshot 2026-04-24 at 12 20 16" src="https://github.com/user-attachments/assets/8355c7ea-510e-4ed6-b166-243eb11b4baa" />
+<img width="1416" height="666" alt="Screenshot 2026-04-24 at 12 21 39" src="https://github.com/user-attachments/assets/786ad1b4-93b4-4e89-80ac-da09f2dbd436" />
+
 
 ### Order Detail
 <img width="1433" height="661" alt="Screenshot 2026-04-24 at 12 22 14" src="https://github.com/user-attachments/assets/525699db-c328-486f-a2d7-5a3481794e6e" />
