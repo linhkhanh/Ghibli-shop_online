@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
    Box,
    Button,
@@ -10,12 +11,11 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import usePlaceOrder from "../../hooks/usePlaceOrder/usePlaceOrder";
 
 interface CheckoutFormData {
-   firstName: string;
-   lastName: string;
+   name: string;
    email: string;
    phone: string;
    shippingAddress: string;
@@ -23,8 +23,7 @@ interface CheckoutFormData {
 }
 
 const defaultValues: CheckoutFormData = {
-   firstName: "",
-   lastName: "",
+   name: "",
    email: "",
    phone: "",
    shippingAddress: "",
@@ -32,21 +31,33 @@ const defaultValues: CheckoutFormData = {
 };
 
 const CheckoutForm = () => {
+   const { user } = useAuthentication();
+   const { checkoutOrder } = usePlaceOrder();
+
    const {
       control,
       handleSubmit,
       formState: { errors },
+      reset,
    } = useForm<CheckoutFormData>({
       defaultValues,
    });
-   const { showSnackbar } = useSnackbar();
-   const { updateCart } = useAuthentication();
 
-   // TODO: Handle checkout logic, e.g., API call, clear cart
-   const onSubmit = (data: CheckoutFormData) => {
-      console.log("Checkout data:", data);
-      showSnackbar("Checkout successful!", "success");
-      updateCart(0); // TODO: remove this line when fetching real data
+   // Prefill form with user info if available
+   useEffect(() => {
+      if (user) {
+         reset({
+            name: user.name || "",
+            email: user.email || "",
+            phone: user.phone || "",
+            shippingAddress: user.address || "",
+            paymentMethod: "cash",
+         });
+      }
+   }, [user]);
+
+   const onSubmit = async (data: CheckoutFormData) => {
+      await checkoutOrder(data);
    };
 
    return (
@@ -70,30 +81,15 @@ const CheckoutForm = () => {
          </Typography>
 
          <Controller
-            name="firstName"
+            name="name"
             control={control}
-            rules={{ required: "First name is required" }}
+            rules={{ required: "Name is required" }}
             render={({ field }) => (
                <TextField
-                  label="First Name"
+                  label="Name"
                   {...field}
-                  error={!!errors.firstName}
-                  helperText={errors.firstName?.message}
-                  fullWidth
-               />
-            )}
-         />
-
-         <Controller
-            name="lastName"
-            control={control}
-            rules={{ required: "Last name is required" }}
-            render={({ field }) => (
-               <TextField
-                  label="Last Name"
-                  {...field}
-                  error={!!errors.lastName}
-                  helperText={errors.lastName?.message}
+                  error={!!errors.name}
+                  helperText={errors.name?.message}
                   fullWidth
                />
             )}

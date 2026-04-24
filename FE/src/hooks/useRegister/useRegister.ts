@@ -22,6 +22,7 @@ const useRegister = () => {
 
          showSnackbar("Registration successful!", "success");
          updateUser(response.user);
+         window.location.reload();
       } catch (error: Error | unknown) {
          showSnackbar(
             `${error instanceof Error ? error.message : ""}`,

@@ -19,7 +19,6 @@ const Footer = () => {
                maxWidth={1200}
                mx="auto"
             >
-               {/* Shop Name & Description */}
                <Box>
                   <Typography
                      variant="h5"
@@ -31,15 +30,15 @@ const Footer = () => {
                      }}
                      gutterBottom
                   >
-                     Ghibli Magic Shop
+                     MyGhibli
                   </Typography>
                   <Typography
                      variant="body2"
                      sx={{ color: "#e3f2fd", maxWidth: 320 }}
                   >
-                     Mang phép màu từ những bộ phim hoạt hình huyền thoại đến
-                     với không gian sống của bạn. Chúng tôi cung cấp các sản
-                     phẩm chính hãng lấy cảm hứng từ Studio Ghibli.
+                     Bring the magic of Studio Ghibli to your doorstep with our
+                     exclusive collection of merchandise inspired by your
+                     favorite films.
                   </Typography>
                </Box>
 
@@ -50,20 +49,20 @@ const Footer = () => {
                      sx={{ color: "#ADFF2F", fontWeight: 600 }}
                      gutterBottom
                   >
-                     Thông Tin Cửa Hàng
+                     Our Shop
                   </Typography>
                   <Stack spacing={1}>
                      <Link href="/about" underline="hover" color="#e3f2fd">
-                        Giới thiệu
+                        About Us
                      </Link>
                      <Link href="/policy" underline="hover" color="#e3f2fd">
-                        Chính sách bảo mật
+                        Privacy Policy
                      </Link>
                      <Link href="/shipping" underline="hover" color="#e3f2fd">
-                        Giao hàng & Đổi trả
+                        Shipping & Returns
                      </Link>
                      <Link href="/contact" underline="hover" color="#e3f2fd">
-                        Liên hệ hỗ trợ
+                        Contact Us
                      </Link>
                   </Stack>
                </Box>
@@ -75,16 +74,16 @@ const Footer = () => {
                      sx={{ color: "#ADFF2F", fontWeight: 600 }}
                      gutterBottom
                   >
-                     Vị Trí & Liên Hệ
+                     Location
                   </Typography>
                   <Stack spacing={1} sx={{ color: "#e3f2fd" }}>
                      <Box display="flex" alignItems="flex-start">
                         <span style={{ marginRight: 8 }}>📍</span>
-                        123 Đường Phép Màu, Quận Hoàn Kiếm, Hà Nội, Việt Nam
+                        123 Ghibli Lane, Singapore
                      </Box>
                      <Box display="flex" alignItems="center">
                         <span style={{ marginRight: 8 }}>📞</span>
-                        +84 (0) 9xx xxx xxx
+                        +81 (0) 3-1234-5678
                      </Box>
                      <Box display="flex" alignItems="center">
                         <span style={{ marginRight: 8 }}>✉️</span>

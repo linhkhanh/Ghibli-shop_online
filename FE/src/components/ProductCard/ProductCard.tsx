@@ -8,12 +8,12 @@ import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import type { ProductItem } from "../../utils/dataType";
 import { Box } from "@mui/material";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../StyledLink/StyledLink";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
+import useAddCart from "../../hooks/useAddCart/useAddCart";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -22,19 +22,17 @@ interface ProductCardProps {
 export default function ProductCard(props: ProductCardProps) {
    const { productDetail } = props;
    const { id, title, images: image, price, discount = 0 } = productDetail;
-   const { cartCount, updateCart, user } = useAuthentication();
-   const { showSnackbar } = useSnackbar();
+   const { user } = useAuthentication();
+
    const [open, setOpen] = useState(false);
    const handleEdit = () => setOpen(true);
    const handleClose = () => setOpen(false);
    const { deleteProductById } = useDeleteProduct();
+   const { addToCart } = useAddCart();
 
-   // TODO: Call API here (send request {productId})
-   const handleAdd = () => {
-      showSnackbar("Add to cart successfully!", "success");
-      updateCart(cartCount + 1);
+   const handleAdd = async () => {
+      await addToCart({ productId: id, quantity: 1 });
    };
-
    const handleDelete = async () => {
       await deleteProductById(id);
       window.location.reload();
@@ -56,19 +54,36 @@ export default function ProductCard(props: ProductCardProps) {
          <CardMedia sx={{ height: 200 }} image={image[0]} title={title} />
          <CardContent>
             <StyledLink path={"/product-detail/" + id}>
-               <Typography gutterBottom variant="h5">
+               <Typography
+                  gutterBottom
+                  variant="h5"
+                  sx={{
+                     maxWidth: 180,
+                     whiteSpace: "nowrap",
+                     overflow: "hidden",
+                     textOverflow: "ellipsis",
+                     display: "block",
+                  }}
+                  title={title}
+               >
                   {title}
                </Typography>
             </StyledLink>
-            <Box display="flex" flexDirection="row">
+            <Box
+               display="flex"
+               flexDirection="row"
+               justifyContent="space-between"
+            >
                <Box>
-                  <Typography
-                     variant="body2"
-                     color="text.secondary"
-                     sx={{ textDecoration: "line-through" }}
-                  >
-                     Original Price: ${price}
-                  </Typography>
+                  {discount > 0 && (
+                     <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ textDecoration: "line-through" }}
+                     >
+                        Original Price: ${price}
+                     </Typography>
+                  )}
                   <Typography variant="body1" color="primary" fontWeight="bold">
                      Now: ${(price - (price * discount) / 100).toFixed(2)}
                   </Typography>
@@ -79,8 +94,29 @@ export default function ProductCard(props: ProductCardProps) {
                      </Typography>
                   )}
                </Box>
-               {!isAdmin && (
-                  <CardActions>
+
+               <CardActions>
+                  {isAdmin ? (
+                     <Box display="flex" flexDirection="column">
+                        <Button
+                           variant="outlined"
+                           color="primary"
+                           startIcon={<EditIcon />}
+                           onClick={handleEdit}
+                        >
+                           Edit
+                        </Button>
+                        <Button
+                           variant="outlined"
+                           color="error"
+                           startIcon={<DeleteIcon />}
+                           onClick={handleDelete}
+                           // sx={{ ml: 1 }}
+                        >
+                           Delete
+                        </Button>
+                     </Box>
+                  ) : (
                      <Button
                         variant="outlined"
                         startIcon={<AddShoppingCartIcon />}
@@ -88,10 +124,10 @@ export default function ProductCard(props: ProductCardProps) {
                      >
                         Add
                      </Button>
-                  </CardActions>
-               )}
+                  )}
+               </CardActions>
             </Box>
-            {isAdmin && (
+            {/* {isAdmin && (
                <>
                   <Button
                      variant="outlined"
@@ -112,7 +148,7 @@ export default function ProductCard(props: ProductCardProps) {
                      Delete
                   </Button>
                </>
-            )}
+            )} */}
          </CardContent>
          <ProductUpsertModal
             open={open}

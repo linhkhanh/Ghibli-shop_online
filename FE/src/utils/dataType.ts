@@ -5,7 +5,7 @@ export interface ProductItem {
    description: string;
    images: string[];
    movieId: number;
-   discount?: number;
+   discount: number;
    stock: number;
 }
 
@@ -34,22 +34,28 @@ export interface CartItem extends ItemInfo {
    cartId: number;
 }
 
+export interface CartInfo {
+   cartId: number;
+   items: CartItem[];
+   totalPrice: number;
+}
 export interface OrderItem extends ItemInfo {
-   id: string;
-   orderId: string;
-   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+   id: number;
+   orderId: number;
+   status: OrderStatus;
 }
 
 export interface Order {
-   id: string;
-   userId: string;
+   id: number;
+   userId: number;
    totalAmount: number;
-   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+   paymentMethod?: string;
+   status: OrderStatus;
    createdAt: string;
 }
 
 export interface User {
-   id: string;
+   id: number;
    name: string;
    email: string;
    role: string;
@@ -87,3 +93,5 @@ export interface ProductPayload {
 export interface UpdateProductPayload extends ProductPayload {
    id: number;
 }
+
+export type OrderStatus = "pending" | "processing" | "shipped" | "delivered";

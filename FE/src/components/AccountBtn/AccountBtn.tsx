@@ -10,29 +10,17 @@ import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
 import StyledLink from "../StyledLink/StyledLink";
 import useLogout from "../../hooks/useLogout/useLogout";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 
 interface SettingItem {
    title: string;
    linkTo?: string;
 }
 
-const settings: SettingItem[] = [
-   {
-      title: "Account",
-      linkTo: "/",
-   },
-   {
-      title: "View Orders",
-      linkTo: "/member/orders",
-   },
-   {
-      title: "Logout",
-   },
-];
-
 const AccountBtn = () => {
    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
    const { logout } = useLogout();
+   const { user } = useAuthentication();
 
    const handleCloseUserMenu = () => {
       setAnchorElUser(null);
@@ -41,6 +29,20 @@ const AccountBtn = () => {
    const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
       setAnchorElUser(event.currentTarget);
    };
+
+   const settings: SettingItem[] = [
+      {
+         title: "Account",
+         linkTo: "/",
+      },
+      {
+         title: "View Orders",
+         linkTo: user?.role === "admin" ? "/admin/orders" : "/member/orders",
+      },
+      {
+         title: "Logout",
+      },
+   ];
 
    return (
       <>

@@ -11,43 +11,57 @@ import {
    TextField,
    Typography,
 } from "@mui/material";
-import { useState } from "react";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
-import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 import StyledLink from "../../components/StyledLink/StyledLink";
+import useUpdateCartItem from "../../hooks/useUpdateCartItem/useUpdateCartItem";
+import useRemoveItem from "../../hooks/useRemoveItem/useRemoveItem";
 
 const CartTable = () => {
-   const itemsInCart = useCartDetail();
-   const [cartItems, setCartItems] = useState(itemsInCart);
-   const { showSnackbar } = useSnackbar();
+   const { cartInfo, loading, setCartInfo } = useCartDetail();
+   const { editCartItem } = useUpdateCartItem();
+   const { removeItem } = useRemoveItem();
 
-   // TODO: call API here (send request {productId, newQuantity}
-   // Recalculate number of items in cart, call updateCart from useContext
-   const handleQuantityChange = (id: string, newQuantity: number) => {
+   const handleQuantityChange = async (props: {
+      newQuantity: number;
+      cartItemId: number;
+   }) => {
+      const { newQuantity, cartItemId } = props;
       if (newQuantity < 1) return;
-      setCartItems((items) =>
-         items.map((item) =>
-            item.id === id ? { ...item, quantity: newQuantity } : item,
-         ),
-      );
-      showSnackbar("Add to cart successfully!", "success");
+      await editCartItem({
+         setCartInfo,
+         cartItemId,
+         newQuantity,
+         cartInfo,
+      });
    };
 
-   // TODO: Call API here (send request {productId, newQuantity: 0}
-   // Recalculate number of items in cart, call updateCart from useContext
-   const handleRemoveItem = (id: string) => {
-      setCartItems((items) => items.filter((item) => item.id !== id));
-      showSnackbar("Item removed from cart!", "info");
+   const handleRemoveItem = async (itemId: number) => {
+      await removeItem({
+         itemId,
+         setCartInfo,
+         cartInfo,
+      });
    };
 
    const calculateTotal = () => {
-      return cartItems.reduce(
-         (sum, item) => sum + (item.price - item.discount) * item.quantity,
+      return cartInfo.items.reduce(
+         (sum, item) =>
+            sum + item.price * item.quantity * (1 - item.discount / 100),
          0,
       );
    };
 
    const total = calculateTotal();
+
+   if (loading) {
+      return (
+         <Box sx={{ maxWidth: 1000, mx: "auto", mt: 4 }}>
+            <Typography variant="h5" component="h2" gutterBottom>
+               Loading cart details...
+            </Typography>
+         </Box>
+      );
+   }
 
    return (
       <Box sx={{ maxWidth: 1000, mx: "auto" }}>
@@ -55,7 +69,7 @@ const CartTable = () => {
             Shopping Cart
          </Typography>
 
-         {cartItems.length === 0 ? (
+         {cartInfo.items.length === 0 ? (
             <Typography variant="body1" color="text.secondary" sx={{ mt: 4 }}>
                Your cart is empty.
             </Typography>
@@ -85,7 +99,7 @@ const CartTable = () => {
                      </TableRow>
                   </TableHead>
                   <TableBody>
-                     {cartItems.map((item, index) => (
+                     {cartInfo.items.map((item, index) => (
                         <TableRow key={item.id}>
                            <TableCell align="center">{index + 1}</TableCell>
                            <TableCell>
@@ -105,7 +119,17 @@ const CartTable = () => {
                                  <StyledLink
                                     path={"/product-detail/" + item.productId}
                                  >
-                                    <Typography variant="body1">
+                                    <Typography
+                                       variant="body1"
+                                       sx={{
+                                          maxWidth: 180,
+                                          whiteSpace: "nowrap",
+                                          overflow: "hidden",
+                                          textOverflow: "ellipsis",
+                                          display: "block",
+                                       }}
+                                       title={item.title}
+                                    >
                                        {item.title}
                                     </Typography>
                                  </StyledLink>
@@ -118,20 +142,16 @@ const CartTable = () => {
                                  size="small"
                                  value={item.quantity}
                                  onChange={(e) =>
-                                    handleQuantityChange(
-                                       item.id,
-                                       parseInt(e.target.value) || 1,
-                                    )
+                                    handleQuantityChange({
+                                       newQuantity: parseInt(e.target.value),
+                                       cartItemId: item.id,
+                                    })
                                  }
                                  sx={{ width: 70 }}
                               />
                            </TableCell>
-                           <TableCell align="right">
-                              ${item.price.toFixed(2)}
-                           </TableCell>
-                           <TableCell align="right">
-                              {item.discount.toFixed(2)}%
-                           </TableCell>
+                           <TableCell align="right">${item.price}</TableCell>
+                           <TableCell align="right">{item.discount}%</TableCell>
                            <TableCell align="center">
                               <Button
                                  variant="outlined"
