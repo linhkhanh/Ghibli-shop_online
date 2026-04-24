@@ -120,4 +120,100 @@ For more info, see the backend [README](ghibli-backend/README.md) and the [Larav
 
 Enjoy exploring the magic of Studio Ghibli through this demo shop!
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Data Structure
+
+Below are the main data structures used in this project, including database tables and key entity schemas.
+
+### Database Tables (MySQL)
+
+#### products
+
+| Field       | Type      | Description          |
+| ----------- | --------- | -------------------- |
+| id          | BIGINT    | Primary key          |
+| title       | VARCHAR   | Product name         |
+| description | TEXT      | Product description  |
+| price       | DECIMAL   | Price                |
+| discount    | DECIMAL   | Discount (if any)    |
+| movie       | VARCHAR   | Related Ghibli movie |
+| stock       | INT       | Product stock        |
+| created_at  | TIMESTAMP | Creation timestamp   |
+| updated_at  | TIMESTAMP | Update timestamp     |
+
+#### orders
+
+| Field        | Type      | Description              |
+| ------------ | --------- | ------------------------ |
+| id           | BIGINT    | Primary key              |
+| user_id      | BIGINT    | Reference to users table |
+| total_amount | DECIMAL   | Total order amount       |
+| status       | VARCHAR   | Order status             |
+| address      | VARCHAR   | Shipping address         |
+| name         | VARCHAR   | User name                |
+| email        | VARCHAR   | User email               |
+| phone        | VARCHAR   | User phone number        |
+| created_at   | TIMESTAMP | Creation timestamp       |
+| updated_at   | TIMESTAMP | Update timestamp         |
+
+#### order_items
+
+| Field      | Type    | Description               |
+| ---------- | ------- | ------------------------- |
+| id         | BIGINT  | Primary key               |
+| order_id   | BIGINT  | Reference to orders table |
+| product_id | BIGINT  | Reference to products     |
+| quantity   | INT     | Quantity ordered          |
+| price      | DECIMAL | Price at order time       |
+
+#### users
+
+| Field      | Type      | Description        |
+| ---------- | --------- | ------------------ |
+| id         | BIGINT    | Primary key        |
+| name       | VARCHAR   | User's name        |
+| email      | VARCHAR   | User's email       |
+| password   | VARCHAR   | Hashed password    |
+| address    | VARCHAR   | User's address     |
+| phone      | VARCHAR   | User's phone       |
+| created_at | TIMESTAMP | Creation timestamp |
+| updated_at | TIMESTAMP | Update timestamp   |
+
+### Product Schema (Example)
+
+```json
+{
+  "id": 1,
+  "name": "Totoro Plush",
+  "description": "Soft and cuddly Totoro plush toy.",
+  "price": 29.99,
+  "discount": 5.0,
+  "image_url": "https://...",
+  "movie": "My Neighbor Totoro"
+}
+```
+
+### Order Schema (Example)
+
+```json
+{
+  "id": 101,
+  "user_id": 1,
+  "total": 54.98,
+  "status": "pending",
+  "address": "123 Ghibli Lane, Tokyo",
+  "items": [
+    {
+      "product_id": 1,
+      "name": "Totoro Plush",
+      "quantity": 2,
+      "price": 24.99
+    }
+  ],
+  "created_at": "2026-04-24T10:00:00Z"
+}
+```
+
+### Other Main Entities
+
+- **User**: id, name, email, password, created_at, updated_at
+- **OrderItem**: id, order_id, product_id, quantity, price
