@@ -2,11 +2,6 @@
 
 Welcome to **Ghibli Shop Online**! This is a modern e-commerce web application inspired by Studio Ghibli, built with:
 
-- **React** (with TypeScript)
-- **React Hook Form** for form management and validation
-- **React Hooks** for state and effect management
-- **React Router** for client-side routing
-
 ## Features
 
 - Browse a large collection of Ghibli-inspired products
@@ -22,10 +17,10 @@ Welcome to **Ghibli Shop Online**! This is a modern e-commerce web application i
 
 ### Frontend
 
-- **React** + **TypeScript**
-- **React Hook Form**
-- **React Router**
-- **Material UI** (MUI) for UI components
+- **React** (with TypeScript)
+- **React Hook Form** for form management and validation
+- **React Hooks** for state and effect management
+- **React Router** for client-side routing
 
 ### Backend
 
@@ -108,10 +103,22 @@ php artisan sail:install
 ./vendor/bin/sail up -d
 ```
 
-4. Run migrations and seeders:
+4. Run migrations and all seeders:
+
    ```bash
    ./vendor/bin/sail artisan migrate --seed
    ```
+
+   To run a specific seeder file (e.g., `MoviesTableSeeder`, `ProductsTableSeeder`):
+
+   ```bash
+   ./vendor/bin/sail artisan db:seed --class=MoviesTableSeeder
+   ```
+
+   ```bash
+   ./vendor/bin/sail artisan db:seed --class=ProductsTableSeeder
+   ```
+
 5. The backend API will be available at `http://localhost` (or the port specified in your `.env`).
 
 For more info, see the backend [README](ghibli-backend/README.md) and the [Laravel Sail documentation](https://laravel.com/docs/sail).
@@ -126,6 +133,7 @@ Below are the main data structures used in this project, including database tabl
 
 ### Database Tables (MySQL)
 
+<img width="356" height="440" alt="Screenshot 2026-04-24 at 11 48 34" src="https://github.com/user-attachments/assets/87f17a11-8f49-4693-a828-de8375d8dc34" />
 #### products
 
 | Field       | Type      | Description          |
@@ -212,4 +220,3 @@ Below are the main data structures used in this project, including database tabl
   "created_at": "2026-04-24T10:00:00Z"
 }
 ```
-<img width="356" height="440" alt="Screenshot 2026-04-24 at 11 48 34" src="https://github.com/user-attachments/assets/87f17a11-8f49-4693-a828-de8375d8dc34" />
