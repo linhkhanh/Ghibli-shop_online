@@ -34,7 +34,7 @@ class ProductController extends Controller
         // 3. Finalize with Pagination
         $products = $query->where('stock', '>', 0)
                         ->latest()
-                        ->paginate(12);
+                        ->paginate(24);
 
         return response()->json([
                     'success' => true,
