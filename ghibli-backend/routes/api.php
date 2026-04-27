@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\WishlistController;
 
 // Public routes
 // Authentication
@@ -38,6 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
+
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+    Route::post('/wishlist', [WishlistController::class, 'store']);
+    Route::delete('/wishlist/{productId}', [WishlistController::class, 'destroy']);
 });
 
 // Admin routes
