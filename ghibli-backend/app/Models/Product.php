@@ -26,4 +26,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+
+    public function wishedBy()
+    {
+        return $this->belongsToMany(User::class, 'wishlists');
+    }
 }

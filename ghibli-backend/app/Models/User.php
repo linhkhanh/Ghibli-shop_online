@@ -42,4 +42,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function wishlist()
+    {
+        // A user belongs to many products through the wishlist table
+        return $this->belongsToMany(Product::class, 'wishlists');
+    }
 }
