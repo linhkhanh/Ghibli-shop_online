@@ -153,8 +153,9 @@ class ProductController extends Controller
         ]);
 
         try {
-            return DB::transaction(function () use ($validated, $product) {
-
+            return DB::transaction(function () use ($validated, $product, $user) {
+                  // Set the current user ID for logging purposes
+                DB::statement("SET @current_user_id = ?", [$user->id]);
                 // 2. Update Product basic info
                 $product->update([
                     'title'       => $validated['title'],

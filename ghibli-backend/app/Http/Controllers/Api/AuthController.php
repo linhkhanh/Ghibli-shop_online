@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -45,6 +46,7 @@ class AuthController extends Controller
         if ($guestId) {
             Cart::mergeGuestCart($user->id, $guestId);
         }
+
         // 4. Return Response to React
         return response()->json([
             'message' => 'User registered successfully!',
