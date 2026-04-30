@@ -45,6 +45,11 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $user = auth('sanctum')->user();
+        if (!$user || $user->role !== 'admin') {
+            return response()->json(['message' => 'Forbidden: Admins only'], 403);
+        }
+
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -107,11 +112,14 @@ class ProductController extends Controller
         }
 
         // 4. (Optional) Check if stock is 0 for non-admins
-        if ($product->stock <= 0 && (!Auth::check() || Auth::user()->role !== 'admin')) {
-            return response()->json([
-                'success' => false,
-                'message' => 'This product is currently out of stock.'
-            ], 403);
+        if ($product->stock <= 0) {
+            $user = auth('sanctum')->user();
+            if (!$user || $user->role !== 'admin') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'This product is currently out of stock.'
+                ], 403);
+            }
         }
 
         return response()->json([
@@ -122,6 +130,10 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = auth('sanctum')->user();
+        if (!$user || $user->role !== 'admin') {
+            return response()->json(['message' => 'Forbidden: Admins only'], 403);
+        }
         $product = Product::find($id);
 
         if (!$product) {
@@ -181,6 +193,11 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        $user = auth('sanctum')->user();
+        if (!$user || $user->role !== 'admin') {
+            return response()->json(['message' => 'Forbidden: Admins only'], 403);
+        }
+
         $product = Product::find($id);
 
         if (!$product) {

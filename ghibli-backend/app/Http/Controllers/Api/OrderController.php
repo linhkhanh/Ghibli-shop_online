@@ -62,50 +62,66 @@ class OrderController extends Controller
         }
 
         try {
-            return DB::transaction(function () use ($request, $user, $cart) {
-                if ($user) {
-                    $user->update([
-                        'phone' => $request->phone_number,
-                        'address' => $request->shipping_address,
-                    ]);
-                }
-                // 2. Create the Order (Mapping guest info if not logged in)
-                $order = Order::create([
-                    'user_id' => $user ? $user->id : null, // Will be null for guests
-                    'name' => $request->name,
-                    'email' => $request->email, 
-                    'total_amount' => $cart->items->sum(fn($i) => $i->quantity * $i->product->price * (1 - $i->product->discount / 100)),
-                    'shipping_address' => $request->shipping_address,
-                    'phone_number' => $request->phone_number,
-                    'status' => 'pending',
-                    'payment_method' => $request->payment_method ?? 'cash',
-                ]);
+            // return DB::transaction(function () use ($request, $user, $cart) {
+            //     if ($user) {
+            //         $user->update([
+            //             'phone' => $request->phone_number,
+            //             'address' => $request->shipping_address,
+            //         ]);
+            //     }
+            //     // 2. Create the Order (Mapping guest info if not logged in)
+            //     $order = Order::create([
+            //         'user_id' => $user ? $user->id : null, // Will be null for guests
+            //         'name' => $request->name,
+            //         'email' => $request->email, 
+            //         'total_amount' => $cart->items->sum(fn($i) => $i->quantity * $i->product->price * (1 - $i->product->discount / 100)),
+            //         'shipping_address' => $request->shipping_address,
+            //         'phone_number' => $request->phone_number,
+            //         'status' => 'pending',
+            //         'payment_method' => $request->payment_method ?? 'cash',
+            //     ]);
 
-            // 2. Create Order Items & Reduce Product Stock
-                foreach ($cart->items as $cartItem) {
-                    $product = $cartItem->product;
-                    if ($product->stock < $cartItem->quantity) {
-                        // We throw an exception to "Rollback" the whole transaction
-                        throw new \Exception("Sorry, {$product->name} just sold out!");
-                    }
+            // // 2. Create Order Items & Reduce Product Stock
+            //     foreach ($cart->items as $cartItem) {
+            //         $product = $cartItem->product;
+            //         if ($product->stock < $cartItem->quantity) {
+            //             // We throw an exception to "Rollback" the whole transaction
+            //             throw new \Exception("Sorry, {$product->name} just sold out!");
+            //         }
 
-                    OrderItem::create([
-                        'order_id' => $order->id,
-                        'product_id' => $cartItem->product_id,
-                        'quantity' => $cartItem->quantity,
-                        'price' => $product->price * (1 - $product->discount / 100), // Save the current price with discount
-                    ]);
+            //         OrderItem::create([
+            //             'order_id' => $order->id,
+            //             'product_id' => $cartItem->product_id,
+            //             'quantity' => $cartItem->quantity,
+            //             'price' => $product->price * (1 - $product->discount / 100), // Save the current price with discount
+            //         ]);
 
-                    // Reduce stock
-                    $product->decrement('stock', $cartItem->quantity);
-                }
+            //         // Reduce stock
+            //         $product->decrement('stock', $cartItem->quantity);
+            //     }
 
-                $cart->delete(); 
-                return response()->json([
-                    'message' => 'Order placed successfully',
-                    'order_id' => $order->id
-                ], 201);
-            });
+            //     $cart->delete(); 
+            //     return response()->json([
+            //         'message' => 'Order placed successfully',
+            //         'order_id' => $order->id
+            //     ], 201);
+            // });
+            DB::statement("SET @order_id = 0");
+            DB::statement("CALL sp_PlaceOrder(?, ?, ?, ?, ?, ?, @order_id)", [
+                $user ? $user->id : null, // p_user_id
+                $request->name,             // p_name
+                $request->email,            // p_email
+                $request->phone_number,     // p_phone
+                $request->shipping_address, // p_address
+                $cart->id          // p_cart_id
+            ]);
+
+            $result = DB::select("SELECT @order_id as id");
+            $newOrderId = $result[0]->id;
+            return response()->json([
+                'message' => 'Order created successfully!',
+                'order_id' => $newOrderId
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()
