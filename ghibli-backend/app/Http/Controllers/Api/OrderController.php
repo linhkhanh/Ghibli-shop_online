@@ -32,7 +32,9 @@ class OrderController extends Controller
     {
         // Fetch a specific order with its items and the related products
         // We use .product to get the Ghibli item name and image
-        $order = Order::with('items.product.images')->findOrFail($id);
+        $order = Order::with(['items.product.images' => function ($query) {
+            $query->withTrashed();
+        }])->findOrFail($id);
 
         $user = auth('sanctum')->user();
         $isAdmin = $user && $user->role === 'admin';

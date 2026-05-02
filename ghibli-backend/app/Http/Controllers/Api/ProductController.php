@@ -208,12 +208,18 @@ class ProductController extends Controller
         }
 
         try {
-            $product->delete();
+            return DB::transaction(function () use ($product, $user) {
+                DB::statement("SET @current_user_id = ?", [$user->id]);
+                // 1. Soft delete all associated images
+                $product->images()->delete();
+                // 2. Soft delete the product itself
+                $product->delete();
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Product and all associated images deleted successfully'
-            ], 200);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Product and all associated images deleted successfully'
+                ], 200);
+            });
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
