@@ -31,11 +31,18 @@ class ProductController extends Controller
             });
         }
 
-        // 3. Finalize with Pagination
-        $products = $query->where('stock', '>', 0)
+        $user = auth('sanctum')->user();
+        if ($user && $user->role === 'admin') {
+            $products = $query
                         ->latest()
                         ->paginate(24);
-
+        } else {
+            $products = $query
+                        ->where('stock', '>', 0)
+                        ->latest()
+                        ->paginate(24);
+        }
+        
         return response()->json([
                     'success' => true,
                     'count'   => $products->count(),
