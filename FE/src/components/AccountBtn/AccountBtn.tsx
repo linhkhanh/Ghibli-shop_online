@@ -33,7 +33,7 @@ const AccountBtn = () => {
    const settings: SettingItem[] = [
       {
          title: "Account",
-         linkTo: "/",
+         linkTo: "/member/account",
       },
       {
          title: "View Orders",
