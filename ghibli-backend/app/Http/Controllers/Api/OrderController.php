@@ -168,6 +168,9 @@ class OrderController extends Controller
 
                 // 4. Update the status
                 $order->status = $request->status;
+                if ($request->status === 'delivered') {
+                    $order->payment_status = 'paid';
+                }
                 $order->save();
 
                 return response()->json([
