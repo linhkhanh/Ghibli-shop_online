@@ -1,14 +1,17 @@
 import type { ProductItem } from "../../utils/dataType";
 import { getAllProducts } from "../../services/getAllProducts/getAllProducts";
 import { useSnackbar } from "../useSnackBar/useSnackBar";
+import { getLowStockProducts } from "../../services/getLowStockProducts/getLowStockProducts";
 
-const useProductsList = () => {
+const useProductsList = (isLowStock: boolean) => {
    const { showSnackbar } = useSnackbar();
    const getProducts = async (
       page: number,
    ): Promise<{ products: ProductItem[]; lastPage: number }> => {
       try {
-         const { data, lastPage } = await getAllProducts(page);
+         const { data, lastPage } = isLowStock
+            ? await getLowStockProducts(page)
+            : await getAllProducts(page);
 
          const formattedProducts: ProductItem[] = data.map(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

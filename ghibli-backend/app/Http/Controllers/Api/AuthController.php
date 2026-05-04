@@ -138,7 +138,7 @@ class AuthController extends Controller
         $user->phone = $request->phone;
 
         // 3. Save to MySQL
-        DB::transaction(function () use ($user) {
+        return DB::transaction(function () use ($user) {
             try {
                 $user->save();
                 return response()->json([
@@ -147,7 +147,7 @@ class AuthController extends Controller
                 ], 200);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Failed to update profile', 'error' => $e->getMessage()], 500);
-            } 
+            }
         });
     }
 }

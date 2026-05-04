@@ -12,6 +12,7 @@ import ProductsByMovie from "../features/ProductsByMovie/ProductsByMovie";
 import SearchedProductsList from "../features/SearchedProductsList/SearchedProductsList";
 import AdminOrdersList from "../features/AdminOrdersList/AdminOrdersList";
 import AccountPage from "../features/AccountPage/AccountPage";
+import LowStockProductsList from "../features/LowStockProducts/LowStockProducts";
 
 export const router = createBrowserRouter([
    {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
          {
             path: "member/account",
             element: <AccountPage />,
+         },
+         {
+            path: "low-stock-products",
+            element: <LowStockProductsList />, // Reuse ProductsList with low stock flag
          },
       ],
    },

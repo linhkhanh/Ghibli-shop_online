@@ -260,4 +260,23 @@ class ProductController extends Controller
             'data' => $products,
         ]);
     }
+
+    public function lowStock()
+    {
+        $user = auth('sanctum')->user();
+        if (!$user || $user->role !== 'admin') {
+            return response()->json(['message' => 'Forbidden: Admins only'], 403);
+        }
+
+        $products = Product::with(['movie', 'images'])
+            ->where('stock', '<=', 10)
+            ->latest()
+            ->paginate(24);
+
+        return response()->json([
+            'success' => true,
+            'count'   => $products->count(),
+            'data' => $products,
+        ]);
+    }
 }
