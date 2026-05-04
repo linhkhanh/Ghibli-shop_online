@@ -52,6 +52,7 @@ export interface Order {
    paymentMethod?: string;
    status: OrderStatus;
    createdAt: string;
+   deliveryFee: number;
 }
 
 export interface User {

@@ -51,7 +51,9 @@ const CartTable = () => {
       );
    };
 
-   const total = calculateTotal();
+   const subtotal = calculateTotal();
+   const deliveryFee = subtotal >= 50 ? 0 : 20;
+   const total = subtotal + deliveryFee;
 
    if (loading) {
       return (
@@ -164,6 +166,34 @@ const CartTable = () => {
                            </TableCell>
                         </TableRow>
                      ))}
+                     <TableRow sx={{ backgroundColor: "#f9f9f9" }}>
+                        <TableCell
+                           colSpan={5}
+                           sx={{ fontWeight: 700, fontSize: 16 }}
+                        >
+                           Subtotal
+                        </TableCell>
+                        <TableCell
+                           align="right"
+                           sx={{ fontWeight: 700, fontSize: 16 }}
+                        >
+                           ${subtotal.toFixed(2)}
+                        </TableCell>
+                     </TableRow>
+                     <TableRow sx={{ backgroundColor: "#f9f9f9" }}>
+                        <TableCell
+                           colSpan={5}
+                           sx={{ fontWeight: 700, fontSize: 16 }}
+                        >
+                           Delivery Fee
+                        </TableCell>
+                        <TableCell
+                           align="right"
+                           sx={{ fontWeight: 700, fontSize: 16 }}
+                        >
+                           ${deliveryFee.toFixed(2)}
+                        </TableCell>
+                     </TableRow>
                      <TableRow sx={{ backgroundColor: "#f9f9f9" }}>
                         <TableCell
                            colSpan={5}

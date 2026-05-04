@@ -37,11 +37,6 @@ export default function OrderDetail() {
       orderId ? parseInt(orderId.orderId || "0") : 0,
    );
 
-   // Calculate total price if possible
-   const total =
-      orderItems?.reduce((sum, item) => sum + item.price * item.quantity, 0) ||
-      0;
-
    const chipColor = (status: string) => {
       switch (status) {
          case "pending":
@@ -260,13 +255,47 @@ export default function OrderDetail() {
                                  colSpan={2}
                                  sx={{ fontWeight: "bold", fontSize: 16 }}
                               >
+                                 Subtotal:
+                              </StyledTableCell>
+                              <StyledTableCell
+                                 align="right"
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
+                                 ${orderInfo.totalAmount}
+                              </StyledTableCell>
+                           </StyledTableRow>
+                           <StyledTableRow>
+                              <StyledTableCell colSpan={2} />
+                              <StyledTableCell
+                                 align="right"
+                                 colSpan={2}
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
+                                 Delivery Fee:
+                              </StyledTableCell>
+                              <StyledTableCell
+                                 align="right"
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
+                                 ${orderInfo.deliveryFee}
+                              </StyledTableCell>
+                           </StyledTableRow>
+                           <StyledTableRow>
+                              <StyledTableCell colSpan={2} />
+                              <StyledTableCell
+                                 align="right"
+                                 colSpan={2}
+                                 sx={{ fontWeight: "bold", fontSize: 16 }}
+                              >
                                  Total:
                               </StyledTableCell>
                               <StyledTableCell
                                  align="right"
                                  sx={{ fontWeight: "bold", fontSize: 16 }}
                               >
-                                 ${total.toFixed(2)}
+                                 $
+                                 {Number(orderInfo.totalAmount) +
+                                    Number(orderInfo.deliveryFee)}
                               </StyledTableCell>
                            </StyledTableRow>
                         </TableBody>

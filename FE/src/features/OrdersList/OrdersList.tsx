@@ -112,7 +112,9 @@ const OrdersList = () => {
                            </TableCell>
                            <TableCell>{order.paymentMethod}</TableCell>
                            <TableCell align="right">
-                              ${order.totalAmount}
+                              $
+                              {Number(order.totalAmount) +
+                                 Number(order.deliveryFee)}
                            </TableCell>
                         </TableRow>
                      ))}

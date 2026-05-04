@@ -9,6 +9,8 @@ const useOrderDetail = (orderId: number) => {
       shippingAddress: "",
       name: "",
       email: "",
+      totalAmount: 0,
+      deliveryFee: 0,
    });
    const [loading, setLoading] = useState<boolean>(true);
 
@@ -34,6 +36,8 @@ const useOrderDetail = (orderId: number) => {
                shippingAddress: res.shipping_address,
                name: res.name,
                email: res.email,
+               totalAmount: res.total_amount,
+               deliveryFee: res.delivery_fee,
             });
          } catch (error) {
             console.error(error);
