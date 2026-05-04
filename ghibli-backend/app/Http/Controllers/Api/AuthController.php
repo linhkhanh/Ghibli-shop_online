@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
@@ -98,5 +99,55 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'user' => $user
         ]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        try {
+            $user = User::findOrFail($user->id);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        // 1. Validation
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => [
+                    'required',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($user->id),
+                ],
+                'address' => 'nullable|string|max:255',
+                'phone' => 'nullable|string|max:20',
+
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
+
+        // 2. Prepare data for update
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+
+        // 3. Save to MySQL
+        DB::transaction(function () use ($user) {
+            try {
+                $user->save();
+                return response()->json([
+                    'message' => 'Profile updated successfully!',
+                    'user' => $user
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Failed to update profile', 'error' => $e->getMessage()], 500);
+            } 
+        });
     }
 }

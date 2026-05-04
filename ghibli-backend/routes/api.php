@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\WishlistController;
-
 // Public routes
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
@@ -40,9 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
 
-    Route::get('/wishlist', [WishlistController::class, 'index']);
-    Route::post('/wishlist', [WishlistController::class, 'store']);
-    Route::delete('/wishlist/{productId}', [WishlistController::class, 'destroy']);
+    Route::put('/user/update', [AuthController::class, 'update']);
 });
 
 // Admin routes
