@@ -14,6 +14,7 @@ import {
    Select,
    MenuItem,
    FormControl,
+   Chip,
 } from "@mui/material";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import useAdminOrdersList from "../../hooks/useAdminOrdersList/useAdminOrdersList";
@@ -119,6 +120,9 @@ const AdminOrdersList = () => {
                         <TableCell sx={{ fontWeight: 700 }}>
                            Payment Method
                         </TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>
+                           Payment Status
+                        </TableCell>
                         <TableCell align="right" sx={{ fontWeight: 700 }}>
                            Amount
                         </TableCell>
@@ -162,8 +166,26 @@ const AdminOrdersList = () => {
                               )}
                            </TableCell>
                            <TableCell>{order.paymentMethod}</TableCell>
+                           <TableCell>
+                              <Chip
+                                 label={order.paymentStatus}
+                                 color={
+                                    order.paymentStatus === "paid"
+                                       ? "success"
+                                       : "warning"
+                                 }
+                                 size="small"
+                                 sx={{
+                                    minWidth: 80,
+                                    fontWeight: 600,
+                                    fontSize: 14,
+                                 }}
+                              />
+                           </TableCell>
                            <TableCell align="right">
-                              ${order.totalAmount}
+                              $
+                              {Number(order.totalAmount) +
+                                 Number(order.deliveryFee)}
                            </TableCell>
                            <TableCell align="center">
                               {editStatusId === order.id ? (

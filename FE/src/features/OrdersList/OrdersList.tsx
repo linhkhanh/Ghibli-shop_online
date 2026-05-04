@@ -66,6 +66,9 @@ const OrdersList = () => {
                         <TableCell sx={{ fontWeight: 700 }}>
                            Payment Method
                         </TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>
+                           Payment Status
+                        </TableCell>
                         <TableCell align="right" sx={{ fontWeight: 700 }}>
                            Amount
                         </TableCell>
@@ -111,6 +114,17 @@ const OrdersList = () => {
                               />
                            </TableCell>
                            <TableCell>{order.paymentMethod}</TableCell>
+                           <TableCell>
+                              <Chip
+                                 label={order.paymentStatus}
+                                 color={
+                                    order.paymentStatus === "paid"
+                                       ? "success"
+                                       : "warning"
+                                 }
+                                 size="small"
+                              />
+                           </TableCell>
                            <TableCell align="right">
                               $
                               {Number(order.totalAmount) +

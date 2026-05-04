@@ -49,10 +49,11 @@ export interface Order {
    id: number;
    userId: number;
    totalAmount: number;
-   paymentMethod?: string;
+   paymentMethod: string;
    status: OrderStatus;
    createdAt: string;
    deliveryFee: number;
+   paymentStatus: "paid" | "unpaid";
 }
 
 export interface User {
