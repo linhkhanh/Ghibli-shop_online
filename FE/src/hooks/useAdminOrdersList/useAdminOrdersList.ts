@@ -20,8 +20,9 @@ const useAdminOrdersList = () => {
                status: order.status,
                createdAt: new Date(order.created_at).toLocaleDateString(),
                paymentMethod: order.payment_method,
+               paymentStatus: order.payment_status,
+               deliveryFee: order.delivery_fee,
             }));
-            console.log("Fetched admin orders:", formattedOrders);
             setOrders(formattedOrders);
          } catch (error) {
             showSnackbar(

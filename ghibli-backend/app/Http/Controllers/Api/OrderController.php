@@ -32,7 +32,9 @@ class OrderController extends Controller
     {
         // Fetch a specific order with its items and the related products
         // We use .product to get the Ghibli item name and image
-        $order = Order::with('items.product.images')->findOrFail($id);
+        $order = Order::with(['items.product.images' => function ($query) {
+            $query->withTrashed();
+        }])->findOrFail($id);
 
         $user = auth('sanctum')->user();
         $isAdmin = $user && $user->role === 'admin';
@@ -62,50 +64,66 @@ class OrderController extends Controller
         }
 
         try {
-            return DB::transaction(function () use ($request, $user, $cart) {
-                if ($user) {
-                    $user->update([
-                        'phone' => $request->phone_number,
-                        'address' => $request->shipping_address,
-                    ]);
-                }
-                // 2. Create the Order (Mapping guest info if not logged in)
-                $order = Order::create([
-                    'user_id' => $user ? $user->id : null, // Will be null for guests
-                    'name' => $request->name,
-                    'email' => $request->email, 
-                    'total_amount' => $cart->items->sum(fn($i) => $i->quantity * $i->product->price * (1 - $i->product->discount / 100)),
-                    'shipping_address' => $request->shipping_address,
-                    'phone_number' => $request->phone_number,
-                    'status' => 'pending',
-                    'payment_method' => $request->payment_method ?? 'cash',
-                ]);
+            // return DB::transaction(function () use ($request, $user, $cart) {
+            //     if ($user) {
+            //         $user->update([
+            //             'phone' => $request->phone_number,
+            //             'address' => $request->shipping_address,
+            //         ]);
+            //     }
+            //     // 2. Create the Order (Mapping guest info if not logged in)
+            //     $order = Order::create([
+            //         'user_id' => $user ? $user->id : null, // Will be null for guests
+            //         'name' => $request->name,
+            //         'email' => $request->email, 
+            //         'total_amount' => $cart->items->sum(fn($i) => $i->quantity * $i->product->price * (1 - $i->product->discount / 100)),
+            //         'shipping_address' => $request->shipping_address,
+            //         'phone_number' => $request->phone_number,
+            //         'status' => 'pending',
+            //         'payment_method' => $request->payment_method ?? 'cash',
+            //     ]);
 
-            // 2. Create Order Items & Reduce Product Stock
-                foreach ($cart->items as $cartItem) {
-                    $product = $cartItem->product;
-                    if ($product->stock < $cartItem->quantity) {
-                        // We throw an exception to "Rollback" the whole transaction
-                        throw new \Exception("Sorry, {$product->name} just sold out!");
-                    }
+            // // 2. Create Order Items & Reduce Product Stock
+            //     foreach ($cart->items as $cartItem) {
+            //         $product = $cartItem->product;
+            //         if ($product->stock < $cartItem->quantity) {
+            //             // We throw an exception to "Rollback" the whole transaction
+            //             throw new \Exception("Sorry, {$product->name} just sold out!");
+            //         }
 
-                    OrderItem::create([
-                        'order_id' => $order->id,
-                        'product_id' => $cartItem->product_id,
-                        'quantity' => $cartItem->quantity,
-                        'price' => $product->price * (1 - $product->discount / 100), // Save the current price with discount
-                    ]);
+            //         OrderItem::create([
+            //             'order_id' => $order->id,
+            //             'product_id' => $cartItem->product_id,
+            //             'quantity' => $cartItem->quantity,
+            //             'price' => $product->price * (1 - $product->discount / 100), // Save the current price with discount
+            //         ]);
 
-                    // Reduce stock
-                    $product->decrement('stock', $cartItem->quantity);
-                }
+            //         // Reduce stock
+            //         $product->decrement('stock', $cartItem->quantity);
+            //     }
 
-                $cart->delete(); 
-                return response()->json([
-                    'message' => 'Order placed successfully',
-                    'order_id' => $order->id
-                ], 201);
-            });
+            //     $cart->delete(); 
+            //     return response()->json([
+            //         'message' => 'Order placed successfully',
+            //         'order_id' => $order->id
+            //     ], 201);
+            // });
+            DB::statement("SET @order_id = 0");
+            DB::statement("CALL sp_PlaceOrder(?, ?, ?, ?, ?, ?, @order_id)", [
+                $user ? $user->id : null, // p_user_id
+                $request->name,             // p_name
+                $request->email,            // p_email
+                $request->phone_number,     // p_phone
+                $request->shipping_address, // p_address
+                $cart->id          // p_cart_id
+            ]);
+
+            $result = DB::select("SELECT @order_id as id");
+            $newOrderId = $result[0]->id;
+            return response()->json([
+                'message' => 'Order created successfully!',
+                'order_id' => $newOrderId
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()
@@ -132,25 +150,38 @@ class OrderController extends Controller
     public function updateStatus(Request $request, $id)
     {
         // 1. Security check: Only Admins can change status
-        if ($request->user()->role !== 'admin') {
+        $user = $request->user();
+        if ($user->role !== 'admin') {
             return response()->json(['message' => 'Only Admins can update order status'], 403);
         }
+        try {
+            return DB::transaction(function () use ($request, $id, $user) {
+                    // Set the current user ID for logging purposes 
+                DB::statement("SET @current_user_id = ?", [$user->id]);
+                // 2. Validate the input
+                $request->validate([
+                    'status' => 'required|string|in:pending,processing,shipped,delivered'
+                ]);
 
-        // 2. Validate the input
-        $request->validate([
-            'status' => 'required|string|in:pending,processing,shipped,delivered'
-        ]);
+                // 3. Find the order or fail
+                $order = Order::findOrFail($id);
 
-        // 3. Find the order or fail
-        $order = Order::findOrFail($id);
+                // 4. Update the status
+                $order->status = $request->status;
+                if ($request->status === 'delivered') {
+                    $order->payment_status = 'paid';
+                }
+                $order->save();
 
-        // 4. Update the status
-        $order->status = $request->status;
-        $order->save();
-
-        return response()->json([
-            'message' => "Order #{$id} status updated to {$request->status}!",
-            'order' => $order
-        ]);
+                return response()->json([
+                    'message' => "Order #{$id} status updated to {$request->status}!",
+                    'order' => $order
+                ]);
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 422);
+        }
     }
 }

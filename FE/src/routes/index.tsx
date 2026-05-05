@@ -11,6 +11,9 @@ import OrderDetail from "../features/OrderDetail/OrderDetail";
 import ProductsByMovie from "../features/ProductsByMovie/ProductsByMovie";
 import SearchedProductsList from "../features/SearchedProductsList/SearchedProductsList";
 import AdminOrdersList from "../features/AdminOrdersList/AdminOrdersList";
+import AccountPage from "../features/AccountPage/AccountPage";
+import LowStockProductsList from "../features/LowStockProducts/LowStockProducts";
+import Dashboard from "../features/Dashboard/Dashboard";
 
 export const router = createBrowserRouter([
    {
@@ -57,6 +60,18 @@ export const router = createBrowserRouter([
          {
             path: "admin/orders",
             element: <AdminOrdersList />,
+         },
+         {
+            path: "member/account",
+            element: <AccountPage />,
+         },
+         {
+            path: "low-stock-products",
+            element: <LowStockProductsList />,
+         },
+         {
+            path: "dashboard",
+            element: <Dashboard />,
          },
       ],
    },

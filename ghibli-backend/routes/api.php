@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\AnalyticsController;
 
 // Public routes
 // Authentication
@@ -40,9 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
 
-    Route::get('/wishlist', [WishlistController::class, 'index']);
-    Route::post('/wishlist', [WishlistController::class, 'store']);
-    Route::delete('/wishlist/{productId}', [WishlistController::class, 'destroy']);
+    Route::put('/user/update', [AuthController::class, 'update']);
 });
 
 // Admin routes
@@ -52,5 +50,11 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
     Route::get('/admin/orders', [OrderController::class, 'adminIndex']);
     Route::patch('/orders/{id}/status', [OrderController::class, 'updateStatus']);
+    Route::get('/low-stock/products', [ProductController::class, 'lowStock']);
+    Route::get('/order-revenue', [AnalyticsController::class, 'getTotalRevenue']);
+    Route::get('/customer-count', [AnalyticsController::class, 'getCustomerCount']);
+    Route::get('/low-stock-count', [AnalyticsController::class, 'getLowStockCount']);
+    Route::get('/top-sellers', [AnalyticsController::class, 'getTopSellers']);
+    Route::get('/order-status-distribution', [AnalyticsController::class, 'getOrderStatusDistribution']);
 });
 

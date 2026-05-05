@@ -1,14 +1,15 @@
 import type { ProductItem } from "../../utils/dataType";
 import { getAllProducts } from "../../services/getAllProducts/getAllProducts";
-import { useSnackbar } from "../useSnackBar/useSnackBar";
+import { getLowStockProducts } from "../../services/getLowStockProducts/getLowStockProducts";
 
-const useProductsList = () => {
-   const { showSnackbar } = useSnackbar();
+const useProductsList = (isLowStock: boolean) => {
    const getProducts = async (
       page: number,
    ): Promise<{ products: ProductItem[]; lastPage: number }> => {
       try {
-         const { data, lastPage } = await getAllProducts(page);
+         const { data, lastPage } = isLowStock
+            ? await getLowStockProducts(page)
+            : await getAllProducts(page);
 
          const formattedProducts: ProductItem[] = data.map(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,10 +31,7 @@ const useProductsList = () => {
             lastPage,
          };
       } catch (error: Error | unknown) {
-         showSnackbar(
-            `Error fetching products: ${error instanceof Error ? error.message : "Failed to fetch products"}`,
-            "error",
-         );
+         console.error("Error fetching products:", error);
          return { products: [], lastPage: 0 };
       }
    };

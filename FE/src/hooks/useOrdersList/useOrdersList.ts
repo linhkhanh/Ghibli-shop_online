@@ -19,6 +19,9 @@ const useOrdersList = (): { ordersList: Order[]; loading: boolean } => {
                totalAmount: order.total_amount,
                status: order.status,
                createdAt: new Date(order.created_at),
+               deliveryFee: order.delivery_fee,
+               paymentMethod: order.payment_method,
+               paymentStatus: order.payment_status,
             }));
             setOrdersList(formattedOrders);
          } catch (error) {

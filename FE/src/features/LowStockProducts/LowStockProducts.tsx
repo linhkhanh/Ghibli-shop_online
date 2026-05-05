@@ -1,20 +1,16 @@
-import { Box, Typography, Pagination, Stack, Button } from "@mui/material";
+import { Box, Typography, Pagination, Stack } from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useProductsList from "../../hooks/useProductsList/useProductsList";
 import type { ProductItem } from "../../utils/dataType";
 import { useEffect, useState } from "react";
-import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
-import { useNavigate } from "react-router-dom";
 
-const ProductsList = () => {
-   const { user } = useAuthentication();
+const LowStockProductsList = () => {
    const [productsList, setProductsList] = useState<ProductItem[]>([]);
-   const { getProducts } = useProductsList(false);
+   const { getProducts } = useProductsList(true);
 
    const [page, setPage] = useState(1);
    const [loading, setLoading] = useState(true);
    const [pageCount, setPageCount] = useState<number>(0);
-   const navigate = useNavigate();
 
    useEffect(() => {
       const fetchProducts = async () => {
@@ -38,9 +34,11 @@ const ProductsList = () => {
       return (
          <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
             <Typography variant="h4" component="h1" gutterBottom>
-               All Products
+               Low Stock Products
             </Typography>
-            <Typography variant="body1">No products found.</Typography>
+            <Typography variant="body1">
+               No low stock products found.
+            </Typography>
          </Box>
       );
 
@@ -53,17 +51,8 @@ const ProductsList = () => {
             mb={2}
          >
             <Typography variant="h4" component="h1" gutterBottom>
-               Product List
+               Low Stock Products
             </Typography>
-            {user?.role === "admin" && (
-               <Button
-                  variant="contained"
-                  color="warning"
-                  onClick={() => navigate("/low-stock-products")}
-               >
-                  Low Stock
-               </Button>
-            )}
          </Box>
          <Box
             sx={{
@@ -94,4 +83,4 @@ const ProductsList = () => {
    );
 };
 
-export default ProductsList;
+export default LowStockProductsList;

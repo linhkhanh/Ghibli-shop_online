@@ -7,7 +7,7 @@ import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import type { ProductItem } from "../../utils/dataType";
-import { Box } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 import StyledLink from "../StyledLink/StyledLink";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
@@ -21,7 +21,14 @@ interface ProductCardProps {
 
 export default function ProductCard(props: ProductCardProps) {
    const { productDetail } = props;
-   const { id, title, images: image, price, discount = 0 } = productDetail;
+   const {
+      id,
+      title,
+      images: image,
+      price,
+      discount = 0,
+      stock,
+   } = productDetail;
    const { user } = useAuthentication();
 
    const [open, setOpen] = useState(false);
@@ -54,47 +61,69 @@ export default function ProductCard(props: ProductCardProps) {
          <CardMedia sx={{ height: 200 }} image={image[0]} title={title} />
          <CardContent>
             <StyledLink path={"/product-detail/" + id}>
-               <Typography
-                  gutterBottom
-                  variant="h6"
-                  sx={{
-                     maxWidth: 180,
-                     whiteSpace: "nowrap",
-                     overflow: "hidden",
-                     textOverflow: "ellipsis",
-                     display: "block",
-                  }}
-                  title={title}
-               >
-                  {title}
-               </Typography>
+               <Box display="flex" alignItems="center" gap={1}>
+                  <Typography
+                     gutterBottom
+                     variant="h6"
+                     sx={{
+                        maxWidth: 140,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "block",
+                     }}
+                     title={title}
+                  >
+                     {title}
+                  </Typography>
+                  {discount > 0 && (
+                     <Chip
+                        label={`🔥 -${discount}%`}
+                        color="error"
+                        size="small"
+                        sx={{
+                           fontWeight: "bold",
+                           fontSize: 13,
+                           letterSpacing: 1,
+                        }}
+                     />
+                  )}
+               </Box>
             </StyledLink>
             <Box
                display="flex"
                flexDirection="row"
                justifyContent="space-between"
+               alignItems="flex-start"
             >
                <Box>
                   {discount > 0 && (
                      <Typography
                         variant="body2"
                         color="text.secondary"
-                        sx={{ textDecoration: "line-through" }}
+                        sx={{ textDecoration: "line-through", mb: 0.5 }}
                      >
-                        Original Price: ${price}
+                        Original: ${price}
                      </Typography>
                   )}
-                  <Typography variant="body1" color="primary" fontWeight="bold">
+                  <Typography
+                     variant="body1"
+                     color="primary"
+                     fontWeight="bold"
+                     sx={{ mb: discount > 0 ? 0.5 : 0 }}
+                  >
                      Now: ${(price - (price * discount) / 100).toFixed(2)}
                   </Typography>
-
-                  {discount > 0 && (
-                     <Typography variant="body2" color="error">
-                        {discount}% off
+                  {isAdmin && (
+                     <Typography
+                        variant="body2"
+                        color={stock > 0 ? "success.main" : "error"}
+                        mt={1}
+                     >
+                        Stock: {stock > 0 ? stock : "Out of stock"}
                      </Typography>
                   )}
                </Box>
-
                <CardActions>
                   {isAdmin ? (
                      <Box display="flex" flexDirection="column">
@@ -111,7 +140,6 @@ export default function ProductCard(props: ProductCardProps) {
                            color="error"
                            startIcon={<DeleteIcon />}
                            onClick={handleDelete}
-                           // sx={{ ml: 1 }}
                         >
                            Delete
                         </Button>
@@ -121,6 +149,7 @@ export default function ProductCard(props: ProductCardProps) {
                         variant="outlined"
                         startIcon={<AddShoppingCartIcon />}
                         onClick={handleAdd}
+                        disabled={stock <= 0}
                      >
                         Add
                      </Button>

@@ -170,7 +170,7 @@ const ProductDetail = () => {
                      >
                         {productInfo.description}
                      </Typography>
-                     {/* Price Section */}
+                     {/* Price & Stock Section */}
                      <Box sx={{ mb: 2 }}>
                         {productInfo.discount > 0 && (
                            <Typography
@@ -204,6 +204,22 @@ const ProductDetail = () => {
                               </Typography>
                            )}
                         </Typography>
+                        {user?.role === "admin" && (
+                           <Typography
+                              variant="body2"
+                              color={
+                                 productInfo.stock > 0
+                                    ? "success.main"
+                                    : "error"
+                              }
+                              sx={{ mt: 1 }}
+                           >
+                              Stock:{" "}
+                              {productInfo.stock > 0
+                                 ? productInfo.stock
+                                 : "Out of stock"}
+                           </Typography>
+                        )}
                      </Box>
                   </Box>
                   {!(user?.role == "admin") ? (
@@ -211,6 +227,7 @@ const ProductDetail = () => {
                         variant="contained"
                         startIcon={<AddShoppingCartIcon />}
                         onClick={handleAdd}
+                        disabled={productInfo.stock <= 0}
                      >
                         Add
                      </Button>
