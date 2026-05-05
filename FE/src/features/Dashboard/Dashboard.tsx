@@ -221,14 +221,17 @@ const Dashboard = () => {
                            color="success.dark"
                         >
                            Total : $
-                           {orderRevenue.completedRevenue +
-                              orderRevenue.pendingRevenue}
+                           {(
+                              orderRevenue.completedRevenue +
+                              orderRevenue.pendingRevenue
+                           ).toFixed(2)}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                           Completed: ${orderRevenue.completedRevenue}
+                           Completed: $
+                           {orderRevenue.completedRevenue.toFixed(2)}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                           Pending: ${orderRevenue.pendingRevenue}
+                           Pending: ${orderRevenue.pendingRevenue.toFixed(2)}
                         </Typography>
                      </Box>
                   </Paper>
@@ -239,7 +242,7 @@ const Dashboard = () => {
                <Grid size={6}>
                   <Paper sx={{ p: 3 }}>
                      <Typography variant="subtitle1" fontWeight={600} mb={2}>
-                        Top 5 Best Sellers
+                        Top 5 Best Selling Products
                      </Typography>
                      <BarChart
                         xAxis={[
