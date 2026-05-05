@@ -30,6 +30,17 @@ const LowStockProductsList = () => {
    };
 
    if (loading) return <p>Loading Ghibli treasures...</p>;
+   if (productsList.length === 0)
+      return (
+         <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
+            <Typography variant="h4" component="h1" gutterBottom>
+               Low Stock Products
+            </Typography>
+            <Typography variant="body1">
+               No low stock products found.
+            </Typography>
+         </Box>
+      );
 
    return (
       <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>

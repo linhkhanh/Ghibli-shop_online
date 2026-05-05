@@ -1,10 +1,8 @@
 import type { ProductItem } from "../../utils/dataType";
 import { getAllProducts } from "../../services/getAllProducts/getAllProducts";
-import { useSnackbar } from "../useSnackBar/useSnackBar";
 import { getLowStockProducts } from "../../services/getLowStockProducts/getLowStockProducts";
 
 const useProductsList = (isLowStock: boolean) => {
-   const { showSnackbar } = useSnackbar();
    const getProducts = async (
       page: number,
    ): Promise<{ products: ProductItem[]; lastPage: number }> => {
@@ -33,10 +31,7 @@ const useProductsList = (isLowStock: boolean) => {
             lastPage,
          };
       } catch (error: Error | unknown) {
-         showSnackbar(
-            `Error fetching products: ${error instanceof Error ? error.message : "Failed to fetch products"}`,
-            "error",
-         );
+         console.error("Error fetching products:", error);
          return { products: [], lastPage: 0 };
       }
    };
