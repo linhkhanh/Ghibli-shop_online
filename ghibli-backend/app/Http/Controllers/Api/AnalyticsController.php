@@ -44,7 +44,6 @@ class AnalyticsController extends Controller
         $pendingRevenue = Order::where('payment_status', 'unpaid')
             ->sum('total_amount');
 
-        // 3. Optional: Break down by Subtotal vs Shipping
         $revenueDetails = Order::where('payment_status', 'paid')
             ->select(
                 DB::raw('SUM(total_amount) as items_subtotal'),
@@ -87,12 +86,12 @@ class AnalyticsController extends Controller
             ->where('orders.payment_status', 'paid')
             ->select(
                 'products.id',
-                'products.name',
+                'products.title',
                 'products.price',
                 DB::raw('SUM(order_items.quantity) as total_sold'),
                 DB::raw('SUM(order_items.quantity * order_items.price) as total_revenue')
             )
-            ->groupBy('products.id', 'products.name', 'products.price')
+            ->groupBy('products.id', 'products.title', 'products.price')
             ->orderBy('total_sold', 'desc')
             ->limit(5)
             ->get();
@@ -100,6 +99,22 @@ class AnalyticsController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $topProducts
+        ]);
+    }
+
+    public function getOrderStatusDistribution()
+    {
+        $distribution = Order::select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->get();
+        $totalOrders = $distribution->sum('total');
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $distribution,
+            'meta' => [
+                'total_count' => $totalOrders
+            ]
         ]);
     }
 }

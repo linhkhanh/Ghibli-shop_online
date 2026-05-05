@@ -4,18 +4,16 @@ import { useAuthentication } from "../../hooks/useAuthentication/useAuthenticati
 import useDashboard from "../../hooks/useDashboard/useDashboard";
 import StyledLink from "../../components/StyledLink/StyledLink";
 
-// Mock data
-const orderStatusDist = [
-   { status: "pending", count: 12 },
-   { status: "processing", count: 8 },
-   { status: "shipped", count: 15 },
-   { status: "delivered", count: 60 },
-];
-
 const Dashboard = () => {
    const { user } = useAuthentication();
-   const { lowStockData, topSellers, orderRevenue, usersReport, loading } =
-      useDashboard();
+   const {
+      lowStockData,
+      topSellers,
+      orderRevenue,
+      usersReport,
+      orderStatusDistribution,
+      loading,
+   } = useDashboard();
 
    if (loading) {
       return (
@@ -248,6 +246,7 @@ const Dashboard = () => {
                            {
                               scaleType: "band",
                               data: topSellers.map((item) => item.title),
+                              label: "Product",
                            },
                         ]}
                         series={[
@@ -268,7 +267,7 @@ const Dashboard = () => {
                      <PieChart
                         series={[
                            {
-                              data: orderStatusDist.map((item) => ({
+                              data: orderStatusDistribution.map((item) => ({
                                  id: item.status,
                                  value: item.count,
                                  label: item.status,

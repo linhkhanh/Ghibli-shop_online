@@ -6,16 +6,20 @@ interface RevenueData {
    pendingRevenue: number;
    completedRevenue: number;
 }
-const useDashboard = () => {
-   // Mock data
-   const topSellers = [
-      { title: "Totoro Plush", sold: 120 },
-      { title: "No-Face Piggy Bank", sold: 95 },
-      { title: "Catbus Backpack", sold: 80 },
-      { title: "Kiki's Delivery Service Tote", sold: 65 },
-      { title: "Howl's Moving Castle Figurine", sold: 50 },
-   ];
 
+interface TopSeller {
+   id: number;
+   title: string;
+   sold: number;
+   totalRevenue: number;
+}
+
+interface OrderStatusDistribution {
+   status: "pending" | "processing" | "shipped" | "delivered";
+   count: number;
+}
+
+const useDashboard = () => {
    const { showSnackbar } = useSnackbar();
    const [orderRevenue, setOrderRevenue] = useState<RevenueData>({
       pendingRevenue: 0,
@@ -32,6 +36,11 @@ const useDashboard = () => {
       lowStockCount: 0,
       thresholdUsed: 10,
    });
+
+   const [topSellers, setTopSellers] = useState<TopSeller[]>([]);
+   const [orderStatusDistribution, setOrderStatusDistribution] = useState<
+      OrderStatusDistribution[]
+   >([]);
 
    const [loading, setLoading] = useState<boolean>(false);
 
@@ -57,6 +66,28 @@ const useDashboard = () => {
                lowStockCount: lowStockRes.data.data.low_stock_count,
                thresholdUsed: lowStockRes.data.data.threshold_used,
             });
+
+            const topSellersRes = await api.get("/top-sellers");
+            const formattedTopSellers = topSellersRes.data.data.map(
+               // eslint-disable-next-line @typescript-eslint/no-explicit-any
+               (item: any) => ({
+                  id: item.id,
+                  title: item.title,
+                  sold: item.total_sold,
+                  totalRevenue: item.total_revenue,
+               }),
+            );
+            setTopSellers(formattedTopSellers);
+
+            const orderStatusRes = await api.get("/order-status-distribution");
+            const formattedStatusDistribution = orderStatusRes.data.data.map(
+               // eslint-disable-next-line @typescript-eslint/no-explicit-any
+               (item: any) => ({
+                  status: item.status,
+                  count: item.total,
+               }),
+            );
+            setOrderStatusDistribution(formattedStatusDistribution);
          } catch (error) {
             console.error("Error fetching dashboard data:", error);
             showSnackbar("Error fetching dashboard data", "error");
@@ -71,6 +102,7 @@ const useDashboard = () => {
       topSellers,
       orderRevenue,
       usersReport,
+      orderStatusDistribution,
       loading,
    };
 };
