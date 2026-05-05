@@ -1,17 +1,10 @@
-import { Box, Typography, Paper, Grid, Avatar } from "@mui/material";
+import { Box, Typography, Paper, Grid, Avatar, Tooltip } from "@mui/material";
 import { BarChart, PieChart } from "@mui/x-charts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import useDashboard from "../../hooks/useDashboard/useDashboard";
+import StyledLink from "../../components/StyledLink/StyledLink";
 
 // Mock data
-const totalRevenue = 125000;
-const lowStockCount = 4;
-const topSellers = [
-   { title: "Totoro Plush", sold: 120 },
-   { title: "No-Face Piggy Bank", sold: 95 },
-   { title: "Kiki Mug", sold: 80 },
-   { title: "Catbus Pillow", sold: 65 },
-   { title: "Howl Ring", sold: 50 },
-];
 const orderStatusDist = [
    { status: "pending", count: 12 },
    { status: "processing", count: 8 },
@@ -21,6 +14,24 @@ const orderStatusDist = [
 
 const Dashboard = () => {
    const { user } = useAuthentication();
+   const { lowStockData, topSellers, orderRevenue, usersReport, loading } =
+      useDashboard();
+
+   if (loading) {
+      return (
+         <Box
+            sx={{
+               display: "flex",
+               justifyContent: "center",
+               alignItems: "center",
+               height: "100vh",
+            }}
+         >
+            <Typography variant="h6">Loading...</Typography>
+         </Box>
+      );
+   }
+
    return (
       <Box sx={{ display: "flex" }}>
          <Box component="main" sx={{ flexGrow: 1, px: 8, py: 3 }}>
@@ -98,14 +109,20 @@ const Dashboard = () => {
                      </Avatar>
                      <Box>
                         <Typography variant="subtitle2" color="secondary.main">
-                           Total Users
+                           Users
                         </Typography>
                         <Typography
                            variant="h6"
                            fontWeight={700}
                            color="secondary.dark"
                         >
-                           39
+                           Total: {usersReport.totalCustomers}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           Active: {usersReport.activeCustomers}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           Retention Rate: {usersReport.retentionRate}%
                         </Typography>
                      </Box>
                   </Paper>
@@ -136,15 +153,29 @@ const Dashboard = () => {
                         </span>
                      </Avatar>
                      <Box>
-                        <Typography variant="subtitle2" color="warning.main">
-                           Low Stock
-                        </Typography>
+                        <StyledLink path="/low-stock-products">
+                           <Tooltip
+                              title="View low stock products"
+                              placement="top"
+                           >
+                              <Typography
+                                 variant="subtitle2"
+                                 color="warning.main"
+                              >
+                                 Low Stock
+                              </Typography>
+                           </Tooltip>
+                        </StyledLink>
+
                         <Typography
                            variant="h6"
                            fontWeight={700}
                            color="warning.dark"
                         >
-                           {lowStockCount}
+                           {lowStockData.lowStockCount}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           Threshold: {lowStockData.thresholdUsed}
                         </Typography>
                      </Box>
                   </Paper>
@@ -175,15 +206,31 @@ const Dashboard = () => {
                         </span>
                      </Avatar>
                      <Box>
-                        <Typography variant="subtitle2" color="success.main">
-                           Revenue
-                        </Typography>
+                        <StyledLink path="/admin/orders">
+                           <Tooltip title="View all orders" placement="top">
+                              <Typography
+                                 variant="subtitle2"
+                                 color="success.main"
+                              >
+                                 Revenue
+                              </Typography>
+                           </Tooltip>
+                        </StyledLink>
+
                         <Typography
                            variant="h6"
                            fontWeight={700}
                            color="success.dark"
                         >
-                           ${totalRevenue.toLocaleString()}
+                           Total : $
+                           {orderRevenue.completedRevenue +
+                              orderRevenue.pendingRevenue}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           Completed: ${orderRevenue.completedRevenue}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                           Pending: ${orderRevenue.pendingRevenue}
                         </Typography>
                      </Box>
                   </Paper>

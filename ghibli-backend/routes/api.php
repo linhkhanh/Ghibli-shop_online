@@ -7,7 +7,8 @@ use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Api\AnalyticsController;
+
 // Public routes
 // Authentication
 Route::post('/register', [AuthController::class, 'register']);
@@ -50,5 +51,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/admin/orders', [OrderController::class, 'adminIndex']);
     Route::patch('/orders/{id}/status', [OrderController::class, 'updateStatus']);
     Route::get('/low-stock/products', [ProductController::class, 'lowStock']);
+    Route::get('/order-revenue', [AnalyticsController::class, 'getTotalRevenue']);
+    Route::get('/customer-count', [AnalyticsController::class, 'getCustomerCount']);
+    Route::get('/low-stock-count', [AnalyticsController::class, 'getLowStockCount']);
 });
 
