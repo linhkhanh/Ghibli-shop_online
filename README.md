@@ -133,7 +133,8 @@ Below are the main data structures used in this project, including database tabl
 
 ### Database Tables (MySQL)
 
-<img width="356" height="440" alt="Screenshot 2026-04-24 at 11 48 34" src="https://github.com/user-attachments/assets/87f17a11-8f49-4693-a828-de8375d8dc34" />
+<img width="3290" height="3766" alt="ghibli_backend" src="https://github.com/user-attachments/assets/b41713f5-15dc-4d8d-a043-b2a8f0ec3398" />
+
 
 #### products
 
