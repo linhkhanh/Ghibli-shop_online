@@ -103,7 +103,7 @@ php artisan sail:install
 ./vendor/bin/sail up -d
 ```
 
-4. Run migrations and all seeders:
+4. Run migrations and all seeders (if you don't want to use backup file):
 
    ```bash
    ./vendor/bin/sail artisan migrate --seed
@@ -127,6 +127,28 @@ For more info, see the backend [README](ghibli-backend/README.md) and the [Larav
 
 Enjoy exploring the magic of Studio Ghibli through this demo shop!
 
+6. Database Management & SQL Import
+   Connecting via DBeaver
+   To manage your database with DBeaver, use the following credentials (defined in your .env):
+
+Host: 127.0.0.1 (or localhost)
+
+Port: 3306 (for MySQL) or 5432 (for PostgreSQL)
+
+Username/Password: Check your DB_USERNAME and DB_PASSWORD in .env
+
+7. Importing the SQL Backup
+   Method A: Using DBeaver
+   Right-click your database in the Database Navigator.
+   Select Tools > Execute Script.
+   Choose your .sql file and click Start.
+
+Method B: Using the Command Line (Docker)
+
+```bash
+docker exec -i <database_container_name> /usr/bin/mysql -u <username> --password=<password> <database_name> < backup.sql
+```
+
 ## Data Structure
 
 Below are the main data structures used in this project, including database tables and key entity schemas.
@@ -134,7 +156,6 @@ Below are the main data structures used in this project, including database tabl
 ### Database Tables (MySQL)
 
 <img width="3290" height="3766" alt="ghibli_backend" src="https://github.com/user-attachments/assets/b41713f5-15dc-4d8d-a043-b2a8f0ec3398" />
-
 
 #### products
 
