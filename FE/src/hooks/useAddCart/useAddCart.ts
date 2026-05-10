@@ -17,11 +17,13 @@ const useAddCart = () => {
                total + item.quantity,
             0,
          );
-         updateCart(countItems);
-         showSnackbar(message, "success");
+         if (cart.id) {
+            updateCart(countItems);
+            showSnackbar(message, "success");
+         }
       } catch (error: unknown) {
          showSnackbar(
-            `Failed to add item to cart: ${error instanceof Error ? error.message : "Unknown error"}`,
+            `Cannot add item to cart: ${error instanceof Error ? error.message : "Unknown error"}`,
             "error",
          );
       } finally {

@@ -19,9 +19,8 @@ export const addCart = async (payload: AddCartPayload) => {
          },
       );
 
-      const guestCartIdFromResponse = response.headers["X-Guest-Cart-ID"];
-
       if (!guestCartId) {
+         const guestCartIdFromResponse = response.headers["X-Guest-Cart-ID"];
          localStorage.setItem("ghibli_guest_cart_id", guestCartIdFromResponse);
       }
       return {

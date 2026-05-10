@@ -80,7 +80,7 @@ class CartController extends Controller
             // Update quantity if it exists
             $cartItem->increment('quantity', $request->quantity);
         } else {
-            // Create new item if it doesn't
+            // Create new item if it doesn't exist
             $cart->items()->create([
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
