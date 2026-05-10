@@ -22,7 +22,7 @@ const useProductDetail = () => {
       } catch (error) {
          console.error("Error fetching product details:", error);
          showSnackbar(
-            "Failed to fetch product details. Please try again.",
+            "This product is not available or has been removed. Please try again.",
             "error",
          );
          return null;
