@@ -13,6 +13,7 @@ const Dashboard = () => {
       usersReport,
       orderStatusDistribution,
       loading,
+      error,
    } = useDashboard();
 
    if (loading) {
@@ -26,6 +27,23 @@ const Dashboard = () => {
             }}
          >
             <Typography variant="h6">Loading...</Typography>
+         </Box>
+      );
+   }
+
+   if (error) {
+      return (
+         <Box
+            sx={{
+               display: "flex",
+               justifyContent: "center",
+               alignItems: "center",
+               height: "100vh",
+            }}
+         >
+            <Typography variant="h6" color="error">
+               {error}
+            </Typography>
          </Box>
       );
    }

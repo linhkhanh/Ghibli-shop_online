@@ -43,6 +43,7 @@ const useDashboard = () => {
    >([]);
 
    const [loading, setLoading] = useState<boolean>(false);
+   const [error, setError] = useState<string | null>(null);
 
    useEffect(() => {
       const fetchDashboardData = async () => {
@@ -91,6 +92,7 @@ const useDashboard = () => {
          } catch (error) {
             console.error("Error fetching dashboard data:", error);
             showSnackbar("Error fetching dashboard data", "error");
+            setError("Only Admin can access dashboard data");
          } finally {
             setLoading(false);
          }
@@ -104,6 +106,7 @@ const useDashboard = () => {
       usersReport,
       orderStatusDistribution,
       loading,
+      error,
    };
 };
 

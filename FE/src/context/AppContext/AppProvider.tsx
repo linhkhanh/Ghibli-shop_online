@@ -1,7 +1,6 @@
 import { useState, type ReactNode, type FC, useEffect } from "react";
 import { AppContext, type AppContextType } from "./AppContext";
 import type { CartItem, User } from "../../utils/dataType";
-import { mockCartItems } from "../../utils/mockData";
 import api from "../../services/api/axios";
 
 type AppProviderProps = {
@@ -16,7 +15,7 @@ interface UserCartInfo {
 const getUserInfoAndCart = (): UserCartInfo => {
    return {
       user: null,
-      cartItems: mockCartItems,
+      cartItems: [],
    };
 };
 

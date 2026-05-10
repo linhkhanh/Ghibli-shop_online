@@ -14,7 +14,7 @@ const updateAccount = async (data: {
       };
    } catch (error) {
       throw new Error(
-         `${error instanceof Error ? error.message : String(error)}`,
+         `${error instanceof Error ? "Cannot update account or this email has been taken." : String(error)}`,
       );
    }
 };

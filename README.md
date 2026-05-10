@@ -103,7 +103,7 @@ php artisan sail:install
 ./vendor/bin/sail up -d
 ```
 
-4. Run migrations and all seeders:
+4. Run migrations and all seeders (if you don't want to use backup file):
 
    ```bash
    ./vendor/bin/sail artisan migrate --seed
@@ -119,6 +119,10 @@ php artisan sail:install
    ./vendor/bin/sail artisan db:seed --class=ProductsTableSeeder
    ```
 
+   ```bash
+   ./vendor/bin/sail artisan db:seed --class=ProductImagesTableSeeder
+   ```
+
 5. The backend API will be available at `http://localhost` (or the port specified in your `.env`).
 
 For more info, see the backend [README](ghibli-backend/README.md) and the [Laravel Sail documentation](https://laravel.com/docs/sail).
@@ -127,6 +131,28 @@ For more info, see the backend [README](ghibli-backend/README.md) and the [Larav
 
 Enjoy exploring the magic of Studio Ghibli through this demo shop!
 
+6. Database Management & SQL Import
+   Connecting via DBeaver
+   To manage your database with DBeaver, use the following credentials (defined in your .env):
+
+Host: 127.0.0.1 (or localhost)
+
+Port: 3306 (for MySQL) or 5432 (for PostgreSQL)
+
+Username/Password: Check your DB_USERNAME and DB_PASSWORD in .env
+
+7. Importing the SQL Backup
+   Method A: Using DBeaver
+   Right-click your database in the Database Navigator.
+   Select Tools > Execute Script.
+   Choose your .sql file and click Start.
+
+Method B: Using the Command Line (Docker)
+
+```bash
+docker exec -i <database_container_name> /usr/bin/mysql -u <username> --password=<password> <database_name> < backup.sql
+```
+
 ## Data Structure
 
 Below are the main data structures used in this project, including database tables and key entity schemas.
@@ -134,7 +160,6 @@ Below are the main data structures used in this project, including database tabl
 ### Database Tables (MySQL)
 
 <img width="3290" height="3766" alt="ghibli_backend" src="https://github.com/user-attachments/assets/b41713f5-15dc-4d8d-a043-b2a8f0ec3398" />
-
 
 #### products
 
@@ -222,23 +247,29 @@ Below are the main data structures used in this project, including database tabl
   "created_at": "2026-04-24T10:00:00Z"
 }
 ```
+
 ## Pages
+
 ### Landing Page
+
 <img width="1418" height="663" alt="Screenshot 2026-04-24 at 12 18 07" src="https://github.com/user-attachments/assets/f237e2cc-650a-419e-a638-59f482345fe4" />
 
 ### Products List
+
 <img width="1402" height="664" alt="Screenshot 2026-04-24 at 12 19 29" src="https://github.com/user-attachments/assets/0e53bde0-8562-43ee-b825-374edea4c34d" />
 
 ### Product Detail
+
 <img width="1394" height="620" alt="Screenshot 2026-04-24 at 12 20 16" src="https://github.com/user-attachments/assets/45bd83c2-78dd-4a74-84e1-b116d90878d3" />
 
 ### Orders List
+
 <img width="1419" height="653" alt="Screenshot 2026-04-24 at 12 21 00" src="https://github.com/user-attachments/assets/9b55bd84-8884-40ba-aed3-617dc00ca2f8" />
 
 ### Cart view
+
 <img width="1416" height="666" alt="Screenshot 2026-04-24 at 12 21 39" src="https://github.com/user-attachments/assets/786ad1b4-93b4-4e89-80ac-da09f2dbd436" />
 
-
 ### Order Detail
-<img width="1433" height="661" alt="Screenshot 2026-04-24 at 12 22 14" src="https://github.com/user-attachments/assets/525699db-c328-486f-a2d7-5a3481794e6e" />
 
+<img width="1433" height="661" alt="Screenshot 2026-04-24 at 12 22 14" src="https://github.com/user-attachments/assets/525699db-c328-486f-a2d7-5a3481794e6e" />

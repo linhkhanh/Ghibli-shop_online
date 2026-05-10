@@ -15,8 +15,6 @@ class MoviesTableSeeder extends Seeder
      */
     public function run()
     {
-        
-
         DB::table('movies')->delete();
         
         DB::table('movies')->insert(array (
@@ -68,8 +66,6 @@ class MoviesTableSeeder extends Seeder
                 'created_at' => '2026-04-17 03:14:57',
                 'updated_at' => '2026-04-17 03:14:57',
             ),
-        ));
-        
-        
+        )); 
     }
 }
