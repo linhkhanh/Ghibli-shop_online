@@ -43,7 +43,7 @@ const ProductDetail = () => {
    const [loading, setLoading] = useState<boolean>(false);
 
    const { deleteProductById } = useDeleteProduct();
-   const { addToCart } = useAddCart();
+   const { addToCart, loading: addToCartLoading } = useAddCart();
 
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
@@ -227,7 +227,7 @@ const ProductDetail = () => {
                         variant="contained"
                         startIcon={<AddShoppingCartIcon />}
                         onClick={handleAdd}
-                        disabled={productInfo.stock <= 0}
+                        disabled={productInfo.stock <= 0 || addToCartLoading}
                      >
                         Add
                      </Button>

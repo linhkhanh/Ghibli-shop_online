@@ -35,7 +35,7 @@ export default function ProductCard(props: ProductCardProps) {
    const handleEdit = () => setOpen(true);
    const handleClose = () => setOpen(false);
    const { deleteProductById } = useDeleteProduct();
-   const { addToCart } = useAddCart();
+   const { addToCart, loading: addToCartLoading } = useAddCart();
 
    const handleAdd = async () => {
       await addToCart({ productId: id, quantity: 1 });
@@ -149,7 +149,7 @@ export default function ProductCard(props: ProductCardProps) {
                         variant="outlined"
                         startIcon={<AddShoppingCartIcon />}
                         onClick={handleAdd}
-                        disabled={stock <= 0}
+                        disabled={stock <= 0 || addToCartLoading}
                      >
                         Add
                      </Button>

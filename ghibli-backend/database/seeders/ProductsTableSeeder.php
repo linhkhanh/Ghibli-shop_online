@@ -31,6 +31,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 05:12:50',
                 'updated_at' => '2026-04-17 14:43:47',
+                'deleted_at' => NULL,
             ),
             1 => 
             array (
@@ -43,6 +44,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 11:57:12',
                 'updated_at' => '2026-04-19 12:28:50',
+                'deleted_at' => NULL,
             ),
             2 => 
             array (
@@ -55,6 +57,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 14:03:29',
                 'updated_at' => '2026-04-17 14:03:29',
+                'deleted_at' => NULL,
             ),
             3 => 
             array (
@@ -67,6 +70,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 14:12:13',
                 'updated_at' => '2026-04-24 03:14:19',
+                'deleted_at' => NULL,
             ),
             4 => 
             array (
@@ -79,6 +83,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 1,
                 'created_at' => '2026-04-17 22:42:04',
                 'updated_at' => '2026-04-23 12:54:31',
+                'deleted_at' => NULL,
             ),
             5 => 
             array (
@@ -91,6 +96,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:43:24',
                 'updated_at' => '2026-04-23 12:54:31',
+                'deleted_at' => NULL,
             ),
             6 => 
             array (
@@ -98,11 +104,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Calcifier',
                 'description' => 'Cute fire',
                 'price' => '20.00',
-                'stock' => 300,
+                'stock' => 299,
                 'discount' => '10.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:44:03',
-                'updated_at' => '2026-04-17 22:44:03',
+                'updated_at' => '2026-05-02 11:57:15',
+                'deleted_at' => NULL,
             ),
             7 => 
             array (
@@ -115,6 +122,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-24 03:14:19',
+                'deleted_at' => NULL,
             ),
             8 => 
             array (
@@ -127,6 +135,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-23 12:44:28',
+                'deleted_at' => NULL,
             ),
             9 => 
             array (
@@ -139,6 +148,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-23 05:51:01',
+                'deleted_at' => NULL,
             ),
             10 => 
             array (
@@ -151,6 +161,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-18 10:34:55',
+                'deleted_at' => NULL,
             ),
             11 => 
             array (
@@ -158,11 +169,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Vitae similique ea quasi.',
                 'description' => 'Aut eveniet totam alias exercitationem sapiente necessitatibus ipsa. Cupiditate aut et velit quos voluptas. Quasi aut occaecati quae qui hic quaerat id. Nemo molestiae voluptas sed delectus.',
                 'price' => '175.35',
-                'stock' => 1,
+                'stock' => 0,
                 'discount' => '0.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:55:56',
-                'updated_at' => '2026-04-20 05:17:27',
+                'updated_at' => '2026-05-02 11:57:39',
+                'deleted_at' => '2026-05-02 11:57:39',
             ),
             12 => 
             array (
@@ -175,18 +187,20 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-24 03:42:20',
+                'deleted_at' => NULL,
             ),
             13 => 
             array (
                 'id' => 19,
                 'title' => 'Light fire',
                 'description' => 'Distinctio necessitatibus nesciunt excepturi molestias corporis architecto est. Tempora voluptas unde consectetur nesciunt. Vitae nihil cumque perspiciatis.',
-                'price' => '106.08',
+                'price' => '28.00',
                 'stock' => 24,
                 'discount' => '5.00',
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
-                'updated_at' => '2026-04-24 03:47:24',
+                'updated_at' => '2026-04-30 15:19:20',
+                'deleted_at' => NULL,
             ),
             14 => 
             array (
@@ -199,6 +213,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-24 03:52:29',
+                'deleted_at' => NULL,
             ),
             15 => 
             array (
@@ -211,6 +226,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:55:56',
                 'updated_at' => '2026-04-24 03:52:56',
+                'deleted_at' => NULL,
             ),
             16 => 
             array (
@@ -223,6 +239,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:50:53',
+                'deleted_at' => NULL,
             ),
             17 => 
             array (
@@ -235,6 +252,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:51:52',
+                'deleted_at' => NULL,
             ),
             18 => 
             array (
@@ -242,23 +260,25 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Playing Calcifier',
                 'description' => 'Nihil eveniet labore nobis quibusdam. Quam veritatis minima quos dolor eius sapiente. Quod quam facere explicabo et. Iure qui nobis cumque tempora voluptatem fugiat. Rerum nisi voluptas molestias rerum enim beatae blanditiis.',
                 'price' => '43.33',
-                'stock' => 44,
+                'stock' => 43,
                 'discount' => '10.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
-                'updated_at' => '2026-04-24 03:55:26',
+                'updated_at' => '2026-05-04 15:23:06',
+                'deleted_at' => NULL,
             ),
             19 => 
             array (
                 'id' => 25,
-                'title' => 'Kid bad',
+                'title' => 'Kid bag',
                 'description' => 'Voluptatem autem voluptatem sed est. Deserunt nostrum autem est aliquam quae iste. Sint doloribus dolor dolor et similique asperiores officia quia.',
                 'price' => '23.85',
                 'stock' => 19,
                 'discount' => '15.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
-                'updated_at' => '2026-04-24 03:56:59',
+                'updated_at' => '2026-05-02 11:56:25',
+                'deleted_at' => NULL,
             ),
             20 => 
             array (
@@ -271,18 +291,20 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:50:33',
+                'deleted_at' => NULL,
             ),
             21 => 
             array (
                 'id' => 27,
                 'title' => 'Totoro wallet',
                 'description' => 'Dolore voluptatem voluptatem a dolorem culpa. Eum optio pariatur odit omnis voluptas sed. Perferendis vitae pariatur excepturi inventore quam sint veritatis. Reprehenderit voluptas culpa repellendus dolor incidunt veniam.',
-                'price' => '192.78',
-                'stock' => 45,
+                'price' => '15.00',
+                'stock' => 450,
                 'discount' => '10.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
-                'updated_at' => '2026-04-24 03:48:49',
+                'updated_at' => '2026-05-01 02:54:32',
+                'deleted_at' => NULL,
             ),
             22 => 
             array (
@@ -295,6 +317,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:53:28',
+                'deleted_at' => NULL,
             ),
             23 => 
             array (
@@ -307,6 +330,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:48:15',
+                'deleted_at' => NULL,
             ),
             24 => 
             array (
@@ -314,11 +338,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Anime collection',
                 'description' => 'Qui voluptas amet totam error quo. Quia alias consequatur iure dolorem nam id. Deleniti id assumenda non blanditiis earum accusantium.',
                 'price' => '127.68',
-                'stock' => 21,
+                'stock' => 20,
                 'discount' => '0.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
-                'updated_at' => '2026-04-24 03:49:54',
+                'updated_at' => '2026-05-02 11:57:15',
+                'deleted_at' => NULL,
             ),
             25 => 
             array (
@@ -331,6 +356,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:57:39',
                 'updated_at' => '2026-04-24 03:49:27',
+                'deleted_at' => NULL,
             ),
             26 => 
             array (
@@ -343,18 +369,20 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 3,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:43:31',
+                'deleted_at' => NULL,
             ),
             27 => 
             array (
                 'id' => 33,
                 'title' => 'Black Cat',
                 'description' => 'Omnis sapiente magni itaque eos. Veniam quia id dolor explicabo. Illo ut quisquam quia enim eveniet.',
-                'price' => '198.21',
-                'stock' => 22,
+                'price' => '23.00',
+                'stock' => 21,
                 'discount' => '5.00',
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
-                'updated_at' => '2026-04-24 03:45:57',
+                'updated_at' => '2026-05-05 04:19:26',
+                'deleted_at' => '2026-05-05 04:19:26',
             ),
             28 => 
             array (
@@ -367,6 +395,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-18 14:28:44',
+                'deleted_at' => NULL,
             ),
             29 => 
             array (
@@ -379,6 +408,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:46:23',
+                'deleted_at' => NULL,
             ),
             30 => 
             array (
@@ -391,6 +421,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:46:54',
+                'deleted_at' => NULL,
             ),
             31 => 
             array (
@@ -403,6 +434,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:39:39',
+                'deleted_at' => NULL,
             ),
             32 => 
             array (
@@ -414,7 +446,8 @@ class ProductsTableSeeder extends Seeder
                 'discount' => '15.00',
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
-                'updated_at' => '2026-04-17 22:58:41',
+                'updated_at' => '2026-05-02 11:54:52',
+                'deleted_at' => '2026-05-02 11:54:52',
             ),
             33 => 
             array (
@@ -427,6 +460,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:54:18',
+                'deleted_at' => NULL,
             ),
             34 => 
             array (
@@ -439,6 +473,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:41:13',
+                'deleted_at' => NULL,
             ),
             35 => 
             array (
@@ -451,6 +486,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 4,
                 'created_at' => '2026-04-17 22:58:41',
                 'updated_at' => '2026-04-24 03:40:06',
+                'deleted_at' => NULL,
             ),
             36 => 
             array (
@@ -458,11 +494,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Soft Pillow',
                 'description' => 'Sunt aut amet et qui id harum quia id. Et iste quod molestiae necessitatibus quis quae. Et ut doloremque excepturi delectus non. Nemo sit reiciendis et molestiae id consequatur cumque.',
                 'price' => '134.29',
-                'stock' => 38,
+                'stock' => 36,
                 'discount' => '15.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:26:48',
+                'updated_at' => '2026-05-10 11:44:37',
+                'deleted_at' => NULL,
             ),
             37 => 
             array (
@@ -475,6 +512,7 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
                 'updated_at' => '2026-04-24 03:28:02',
+                'deleted_at' => NULL,
             ),
             38 => 
             array (
@@ -482,11 +520,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Dust bunny',
                 'description' => 'Ipsa qui voluptatibus fugiat consectetur consectetur quia distinctio voluptas. Et sint eaque harum est vero.',
                 'price' => '61.97',
-                'stock' => 12,
+                'stock' => 300,
                 'discount' => '5.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:28:28',
+                'updated_at' => '2026-04-24 12:17:30',
+                'deleted_at' => NULL,
             ),
             39 => 
             array (
@@ -494,11 +533,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Nice bag',
                 'description' => 'Quisquam omnis vitae consequatur qui. Cum unde tempora aliquid molestias sed. Nostrum voluptates molestias et aliquam est.',
                 'price' => '103.87',
-                'stock' => 33,
+                'stock' => 392,
                 'discount' => '15.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:57:14',
+                'updated_at' => '2026-05-05 05:30:14',
+                'deleted_at' => NULL,
             ),
             40 => 
             array (
@@ -506,11 +546,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Cum perferendis ipsam.',
                 'description' => 'Deserunt magni minima fugit fuga voluptatem sit similique. Consequatur sequi possimus ut qui accusamus ipsam animi voluptatum.',
                 'price' => '52.38',
-                'stock' => 17,
+                'stock' => 100,
                 'discount' => '15.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-17 22:59:06',
+                'updated_at' => '2026-04-24 12:17:08',
+                'deleted_at' => NULL,
             ),
             41 => 
             array (
@@ -518,11 +559,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Soft fire',
                 'description' => 'Harum et illo soluta. Cumque velit fugiat ex ipsam dolor qui aliquid doloribus. Quia voluptatibus sed voluptatem sint. Quas magnam consequuntur explicabo omnis ex optio.',
                 'price' => '46.33',
-                'stock' => 9,
+                'stock' => 40,
                 'discount' => '15.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:56:13',
+                'updated_at' => '2026-04-24 12:17:39',
+                'deleted_at' => NULL,
             ),
             42 => 
             array (
@@ -530,11 +572,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Dignissimos quidem harum aut.',
                 'description' => 'In aut dignissimos est optio nisi voluptatum eaque. Quo asperiores labore et natus pariatur ducimus. Quam maiores reprehenderit dolor minima asperiores velit suscipit. Aperiam beatae vitae distinctio voluptatem maiores voluptatibus. Quisquam repellendus tenetur omnis qui deleniti dolores.',
                 'price' => '102.80',
-                'stock' => 17,
+                'stock' => 400,
                 'discount' => '0.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-17 22:59:06',
+                'updated_at' => '2026-05-02 13:29:29',
+                'deleted_at' => '2026-05-02 13:29:29',
             ),
             43 => 
             array (
@@ -542,11 +585,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Calcifier',
                 'description' => 'Nobis et quidem culpa autem in nostrum. Natus porro aliquid iste est voluptatum et quis. Dolor odit cum nemo et atque. Et eaque nulla dolorem id officiis.',
                 'price' => '24.87',
-                'stock' => 36,
+                'stock' => 70,
                 'discount' => '15.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:39:11',
+                'updated_at' => '2026-04-24 12:18:10',
+                'deleted_at' => NULL,
             ),
             44 => 
             array (
@@ -554,11 +598,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Black stuff',
                 'description' => 'Ipsum error et asperiores sit perspiciatis iure voluptatem mollitia. Ut in sit omnis velit omnis nisi. Qui non error necessitatibus aliquam recusandae aspernatur. Facilis molestiae rem error sed.',
                 'price' => '18.54',
-                'stock' => 7,
+                'stock' => 500,
                 'discount' => '0.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
-                'updated_at' => '2026-04-24 03:31:34',
+                'updated_at' => '2026-04-24 12:17:48',
+                'deleted_at' => NULL,
             ),
             45 => 
             array (
@@ -571,18 +616,20 @@ class ProductsTableSeeder extends Seeder
                 'movie_id' => 5,
                 'created_at' => '2026-04-17 22:59:06',
                 'updated_at' => '2026-04-24 03:55:45',
+                'deleted_at' => NULL,
             ),
             46 => 
             array (
                 'id' => 52,
                 'title' => 'Mei',
                 'description' => 'Voluptates dolore voluptas temporibus vitae repellendus quia. Ipsam omnis aut delectus fugit. Quaerat aut ratione ducimus magnam et. Sunt modi neque possimus architecto.',
-                'price' => '95.81',
-                'stock' => 43,
+                'price' => '33.00',
+                'stock' => 42,
                 'discount' => '5.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:37:28',
+                'updated_at' => '2026-05-04 15:23:06',
+                'deleted_at' => NULL,
             ),
             47 => 
             array (
@@ -590,11 +637,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Ad ad neque qui.',
                 'description' => 'Ratione nihil qui possimus et cum. Dolore laboriosam aliquam corrupti saepe. Et ea minus vel dignissimos earum voluptas.',
                 'price' => '166.80',
-                'stock' => 33,
+                'stock' => 79,
                 'discount' => '0.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-17 22:59:48',
+                'updated_at' => '2026-04-30 06:55:45',
+                'deleted_at' => NULL,
             ),
             48 => 
             array (
@@ -602,35 +650,38 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Soft Pillow',
                 'description' => 'Eum ea ex sapiente eos consequatur fugiat eum fugiat. Ex dolor enim est labore odio dolor. Ratione est quis qui non ex rerum laborum.',
                 'price' => '183.17',
-                'stock' => 38,
+                'stock' => 0,
                 'discount' => '10.00',
                 'movie_id' => 1,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:20:04',
+                'updated_at' => '2026-05-08 15:20:16',
+                'deleted_at' => NULL,
             ),
             49 => 
             array (
                 'id' => 55,
-                'title' => 'Quo inventore quaerat quibusdam ut.',
+                'title' => 'Mini pillow',
                 'description' => 'Nemo saepe tempora maxime id enim. Totam molestiae temporibus est accusamus asperiores qui. Non deleniti commodi occaecati et nihil dolores unde veniam.',
                 'price' => '168.05',
-                'stock' => 0,
+                'stock' => 100,
                 'discount' => '15.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:14:19',
+                'updated_at' => '2026-05-04 13:08:52',
+                'deleted_at' => NULL,
             ),
             50 => 
             array (
                 'id' => 56,
                 'title' => 'Cartoon Puzzle',
                 'description' => 'Spend your time on assembling this cute stuff',
-                'price' => '88.33',
+                'price' => '40.00',
                 'stock' => 25,
-                'discount' => '0.00',
+                'discount' => '5.00',
                 'movie_id' => 2,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:21:12',
+                'updated_at' => '2026-04-30 15:14:24',
+                'deleted_at' => NULL,
             ),
             51 => 
             array (
@@ -638,11 +689,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'KiKi',
                 'description' => 'Cum qui quod sapiente doloribus. Non et culpa ut unde quos. Natus veritatis suscipit officiis dignissimos earum. Illum adipisci nihil dicta.',
                 'price' => '18.11',
-                'stock' => 3,
+                'stock' => 298,
                 'discount' => '15.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:37:09',
+                'updated_at' => '2026-04-30 06:55:45',
+                'deleted_at' => NULL,
             ),
             52 => 
             array (
@@ -650,11 +702,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Character clock',
                 'description' => 'Qui dicta libero voluptas et ipsam qui. Et ut velit sint nemo rerum aperiam cupiditate. Nam velit veniam amet saepe. Animi id quos deserunt sit incidunt.',
                 'price' => '55.34',
-                'stock' => 47,
+                'stock' => 501,
                 'discount' => '5.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:23:04',
+                'updated_at' => '2026-04-24 12:16:51',
+                'deleted_at' => NULL,
             ),
             53 => 
             array (
@@ -662,11 +715,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Soft Totoro shoes',
                 'description' => 'Voluptatibus qui tempora pariatur perspiciatis ut rerum. Rerum velit dolore molestias. Sapiente et necessitatibus deleniti quis laudantium suscipit. Pariatur quis cupiditate autem vero minima eos necessitatibus.',
                 'price' => '115.21',
-                'stock' => 17,
+                'stock' => 16,
                 'discount' => '10.00',
                 'movie_id' => 1,
                 'created_at' => '2026-04-17 22:59:48',
-                'updated_at' => '2026-04-24 03:22:16',
+                'updated_at' => '2026-05-05 05:30:14',
+                'deleted_at' => NULL,
             ),
             54 => 
             array (
@@ -674,11 +728,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Cat bus',
                 'description' => 'Very cute syuff',
                 'price' => '17.00',
-                'stock' => 179,
+                'stock' => 178,
                 'discount' => '0.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-18 10:06:38',
-                'updated_at' => '2026-04-23 03:48:45',
+                'updated_at' => '2026-05-04 13:00:07',
+                'deleted_at' => NULL,
             ),
             55 => 
             array (
@@ -686,11 +741,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Cute light',
                 'description' => 'Nice and special',
                 'price' => '71.00',
-                'stock' => 90,
+                'stock' => 85,
                 'discount' => '0.00',
                 'movie_id' => 3,
                 'created_at' => '2026-04-18 10:10:14',
-                'updated_at' => '2026-04-18 10:10:14',
+                'updated_at' => '2026-05-08 14:19:27',
+                'deleted_at' => NULL,
             ),
             56 => 
             array (
@@ -698,11 +754,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Special bag',
                 'description' => 'big bag',
                 'price' => '190.00',
-                'stock' => 87,
+                'stock' => 86,
                 'discount' => '0.00',
                 'movie_id' => 5,
                 'created_at' => '2026-04-18 10:11:10',
-                'updated_at' => '2026-04-23 03:48:45',
+                'updated_at' => '2026-05-10 11:44:37',
+                'deleted_at' => NULL,
             ),
             57 => 
             array (
@@ -710,11 +767,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Cute bunny',
                 'description' => 'soft and furry',
                 'price' => '8.00',
-                'stock' => 90,
+                'stock' => 89,
                 'discount' => '0.00',
                 'movie_id' => 1,
                 'created_at' => '2026-04-18 10:11:52',
-                'updated_at' => '2026-04-20 05:17:12',
+                'updated_at' => '2026-05-04 13:09:25',
+                'deleted_at' => NULL,
             ),
             58 => 
             array (
@@ -723,10 +781,11 @@ class ProductsTableSeeder extends Seeder
                 'description' => 'Good for decoration',
                 'price' => '24.00',
                 'stock' => 80,
-                'discount' => '5.00',
+                'discount' => '11.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-18 12:49:22',
-                'updated_at' => '2026-04-18 12:49:22',
+                'updated_at' => '2026-04-30 15:26:29',
+                'deleted_at' => NULL,
             ),
             59 => 
             array (
@@ -734,11 +793,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Totoro Characters',
                 'description' => 'Cute design',
                 'price' => '40.00',
-                'stock' => 300,
+                'stock' => 298,
                 'discount' => '0.00',
                 'movie_id' => 1,
                 'created_at' => '2026-04-18 14:00:52',
-                'updated_at' => '2026-04-18 14:00:52',
+                'updated_at' => '2026-05-08 14:19:27',
+                'deleted_at' => NULL,
             ),
             60 => 
             array (
@@ -746,11 +806,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Kiki picture',
                 'description' => 'Signature picture',
                 'price' => '18.00',
-                'stock' => 18,
+                'stock' => 40,
                 'discount' => '0.00',
                 'movie_id' => 4,
                 'created_at' => '2026-04-18 14:02:43',
-                'updated_at' => '2026-04-23 03:48:45',
+                'updated_at' => '2026-04-24 12:16:13',
+                'deleted_at' => NULL,
             ),
             61 => 
             array (
@@ -758,11 +819,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Castle pillow',
                 'description' => 'Very beautiful',
                 'price' => '27.00',
-                'stock' => 18,
+                'stock' => 298,
                 'discount' => '6.00',
                 'movie_id' => 6,
                 'created_at' => '2026-04-18 14:04:18',
-                'updated_at' => '2026-04-23 05:51:01',
+                'updated_at' => '2026-05-10 11:44:37',
+                'deleted_at' => NULL,
             ),
             62 => 
             array (
@@ -770,11 +832,12 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'No face',
                 'description' => 'No face pillow',
                 'price' => '19.00',
-                'stock' => 23,
+                'stock' => 229,
                 'discount' => '0.00',
                 'movie_id' => 2,
                 'created_at' => '2026-04-20 05:07:58',
-                'updated_at' => '2026-04-24 03:43:31',
+                'updated_at' => '2026-05-05 05:30:14',
+                'deleted_at' => NULL,
             ),
             63 => 
             array (
@@ -782,11 +845,116 @@ class ProductsTableSeeder extends Seeder
                 'title' => 'Totoro hair band',
                 'description' => 'Very soft and cute design',
                 'price' => '34.00',
-                'stock' => 600,
-                'discount' => '12.00',
+                'stock' => 599,
+                'discount' => '13.00',
                 'movie_id' => 1,
                 'created_at' => '2026-04-23 13:29:22',
-                'updated_at' => '2026-04-23 13:29:55',
+                'updated_at' => '2026-05-04 13:00:07',
+                'deleted_at' => NULL,
+            ),
+            64 => 
+            array (
+                'id' => 72,
+                'title' => 'Cute characters',
+                'description' => 'Good for play or decoration',
+                'price' => '34.00',
+                'stock' => 300,
+                'discount' => '0.00',
+                'movie_id' => 5,
+                'created_at' => '2026-05-02 11:56:02',
+                'updated_at' => '2026-05-02 12:39:51',
+                'deleted_at' => '2026-05-02 12:39:51',
+            ),
+            65 => 
+            array (
+                'id' => 73,
+                'title' => 'Cat calendar',
+                'description' => 'For JiJi fan',
+                'price' => '45.00',
+                'stock' => 300,
+                'discount' => '0.00',
+                'movie_id' => 1,
+                'created_at' => '2026-05-02 13:04:46',
+                'updated_at' => '2026-05-02 13:05:29',
+                'deleted_at' => '2026-05-02 13:05:29',
+            ),
+            66 => 
+            array (
+                'id' => 74,
+                'title' => 'Ceramic bow',
+                'description' => 'For Calcifier fan',
+                'price' => '55.00',
+                'stock' => 298,
+                'discount' => '0.00',
+                'movie_id' => 3,
+                'created_at' => '2026-05-02 13:06:47',
+                'updated_at' => '2026-05-02 13:08:50',
+                'deleted_at' => '2026-05-02 13:08:50',
+            ),
+            67 => 
+            array (
+                'id' => 75,
+                'title' => 'Cute characters',
+                'description' => 'Nice stuff for fan',
+                'price' => '30.00',
+                'stock' => 894,
+                'discount' => '20.00',
+                'movie_id' => 5,
+                'created_at' => '2026-05-02 13:31:48',
+                'updated_at' => '2026-05-10 11:44:37',
+                'deleted_at' => NULL,
+            ),
+            68 => 
+            array (
+                'id' => 76,
+                'title' => 'Nice calendar',
+                'description' => 'for KiKi fan',
+                'price' => '71.00',
+                'stock' => 17,
+                'discount' => '0.00',
+                'movie_id' => 1,
+                'created_at' => '2026-05-02 13:50:37',
+                'updated_at' => '2026-05-08 14:19:27',
+                'deleted_at' => NULL,
+            ),
+            69 => 
+            array (
+                'id' => 77,
+                'title' => 'Cuttie decoration',
+                'description' => 'Very good quality',
+                'price' => '38.00',
+                'stock' => 88,
+                'discount' => '18.00',
+                'movie_id' => 6,
+                'created_at' => '2026-05-04 13:07:42',
+                'updated_at' => '2026-05-10 11:44:37',
+                'deleted_at' => NULL,
+            ),
+            70 => 
+            array (
+                'id' => 78,
+                'title' => 'Soft cat bus',
+                'description' => 'Super cute item',
+                'price' => '33.00',
+                'stock' => 0,
+                'discount' => '20.00',
+                'movie_id' => 1,
+                'created_at' => '2026-05-05 04:20:42',
+                'updated_at' => '2026-05-08 15:18:54',
+                'deleted_at' => NULL,
+            ),
+            71 => 
+            array (
+                'id' => 79,
+                'title' => 'Mei and totoro',
+                'description' => 'Very cute and nice color',
+                'price' => '70.00',
+                'stock' => 700,
+                'discount' => '7.00',
+                'movie_id' => 1,
+                'created_at' => '2026-05-10 11:48:45',
+                'updated_at' => '2026-05-10 11:48:45',
+                'deleted_at' => NULL,
             ),
         ));
         
