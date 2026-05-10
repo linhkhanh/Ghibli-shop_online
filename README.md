@@ -119,6 +119,10 @@ php artisan sail:install
    ./vendor/bin/sail artisan db:seed --class=ProductsTableSeeder
    ```
 
+   ```bash
+   ./vendor/bin/sail artisan db:seed --class=ProductImagesTableSeeder
+   ```
+
 5. The backend API will be available at `http://localhost` (or the port specified in your `.env`).
 
 For more info, see the backend [README](ghibli-backend/README.md) and the [Laravel Sail documentation](https://laravel.com/docs/sail).
