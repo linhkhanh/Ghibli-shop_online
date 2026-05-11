@@ -17,7 +17,7 @@ const useAddCart = () => {
                total + item.quantity,
             0,
          );
-         if (cart.id) {
+         if (cart.items.length > 0) {
             updateCart(countItems);
             showSnackbar(message, "success");
          }

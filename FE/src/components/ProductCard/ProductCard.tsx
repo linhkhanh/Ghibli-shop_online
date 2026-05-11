@@ -156,28 +156,6 @@ export default function ProductCard(props: ProductCardProps) {
                   )}
                </CardActions>
             </Box>
-            {/* {isAdmin && (
-               <>
-                  <Button
-                     variant="outlined"
-                     color="primary"
-                     startIcon={<EditIcon />}
-                     onClick={handleEdit}
-                     sx={{ ml: 1 }}
-                  >
-                     Edit
-                  </Button>
-                  <Button
-                     variant="outlined"
-                     color="error"
-                     startIcon={<DeleteIcon />}
-                     onClick={handleDelete}
-                     sx={{ ml: 1 }}
-                  >
-                     Delete
-                  </Button>
-               </>
-            )} */}
          </CardContent>
          <ProductUpsertModal
             open={open}
