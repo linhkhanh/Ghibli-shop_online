@@ -73,7 +73,7 @@ class CartController extends Controller
             'session_id' => $userId ? null : $guestId,
         ]);
 
-        // / 2. Check if the product is already in the cart
+        // 2. Check if the product is already in the cart
         $cartItem = $cart->items()->where('product_id', $request->product_id)->first();
 
         if ($cartItem) {
