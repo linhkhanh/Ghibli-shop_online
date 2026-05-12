@@ -53,7 +53,7 @@ export const AppProvider: FC<AppProviderProps> = ({ children }) => {
 
       api.get("/cart", {
          headers: {
-            "X-Guest-Cart-ID": guestCartId,
+            "X-Guest-Cart-ID": guestCartId ? guestCartId : null,
          },
       })
          .then((res) => {

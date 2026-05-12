@@ -6,7 +6,7 @@ export const getCartItems = async () => {
    try {
       const response = await api.get("/cart", {
          headers: {
-            "X-Guest-Cart-ID": guestCartId,
+            "X-Guest-Cart-ID": guestCartId ? guestCartId : null,
          },
       });
       return {

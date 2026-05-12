@@ -5,7 +5,7 @@ export const removeCartItem = async (itemId: number) => {
       const response = await api.delete(`/cart/items/${itemId}`, {
          headers: {
             "X-Guest-Cart-ID":
-               localStorage.getItem("ghibli_guest_cart_id") || "",
+               localStorage.getItem("ghibli_guest_cart_id") || null,
          },
       });
       return {

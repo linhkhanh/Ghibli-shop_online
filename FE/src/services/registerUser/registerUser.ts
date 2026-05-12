@@ -15,7 +15,7 @@ export const registerUser = async (
       const guestCartId = localStorage.getItem("ghibli_guest_cart_id");
       const response = await api.post("/register", payload, {
          headers: {
-            "X-Guest-Cart-ID": guestCartId || "",
+            "X-Guest-Cart-ID": guestCartId ? guestCartId : null,
          },
       });
       localStorage.setItem("ghibli_token", response.data.access_token);
