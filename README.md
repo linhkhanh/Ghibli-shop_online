@@ -135,11 +135,11 @@ Enjoy exploring the magic of Studio Ghibli through this demo shop!
    Connecting via DBeaver
    To manage your database with DBeaver, use the following credentials (defined in your .env):
 
-Host: 127.0.0.1 (or localhost)
+   Host: 127.0.0.1 (or localhost)
 
-Port: 3306 (for MySQL) or 5432 (for PostgreSQL)
+   Port: 3306 (for MySQL) or 5432 (for PostgreSQL)
 
-Username/Password: Check your DB_USERNAME and DB_PASSWORD in .env
+   Username/Password: Check your DB_USERNAME and DB_PASSWORD in .env
 
 7. Importing the SQL Backup
    Method A: Using DBeaver
@@ -147,7 +147,7 @@ Username/Password: Check your DB_USERNAME and DB_PASSWORD in .env
    Select Tools > Execute Script.
    Choose your .sql file and click Start.
 
-Method B: Using the Command Line (Docker)
+   Method B: Using the Command Line (Docker)
 
 ```bash
 docker exec -i <database_container_name> /usr/bin/mysql -u <username> --password=<password> <database_name> < backup.sql

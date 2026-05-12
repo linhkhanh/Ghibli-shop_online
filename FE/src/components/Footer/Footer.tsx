@@ -52,13 +52,14 @@ const Footer = () => {
                      Our Shop
                   </Typography>
                   <Stack spacing={1}>
-                     <Link href="/about" underline="hover" color="#e3f2fd">
+                     <Link href="/about-us" underline="hover" color="#e3f2fd">
                         About Us
                      </Link>
-                     <Link href="/policy" underline="hover" color="#e3f2fd">
-                        Privacy Policy
-                     </Link>
-                     <Link href="/shipping" underline="hover" color="#e3f2fd">
+                     <Link
+                        href="/shipping-terms"
+                        underline="hover"
+                        color="#e3f2fd"
+                     >
                         Shipping & Returns
                      </Link>
                      <Link href="/contact" underline="hover" color="#e3f2fd">

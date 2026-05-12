@@ -15,6 +15,7 @@ import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import useUpdateCartItem from "../../hooks/useUpdateCartItem/useUpdateCartItem";
 import useRemoveItem from "../../hooks/useRemoveItem/useRemoveItem";
+import { Link } from "react-router-dom";
 
 const CartTable = () => {
    const { cartInfo, loading, setCartInfo } = useCartDetail();
@@ -108,16 +109,18 @@ const CartTable = () => {
                               <Box
                                  sx={{ display: "flex", alignItems: "center" }}
                               >
-                                 <img
-                                    src={item.imageUrl}
-                                    alt={item.title}
-                                    style={{
-                                       width: 50,
-                                       height: 50,
-                                       marginRight: 16,
-                                       objectFit: "cover",
-                                    }}
-                                 />
+                                 <Link to={"/product-detail/" + item.productId}>
+                                    <img
+                                       src={item.imageUrl}
+                                       alt={item.title}
+                                       style={{
+                                          width: 50,
+                                          height: 50,
+                                          marginRight: 16,
+                                          objectFit: "cover",
+                                       }}
+                                    />
+                                 </Link>
                                  <StyledLink
                                     path={"/product-detail/" + item.productId}
                                  >
@@ -192,6 +195,25 @@ const CartTable = () => {
                            sx={{ fontWeight: 700, fontSize: 16 }}
                         >
                            ${deliveryFee.toFixed(2)}
+                        </TableCell>
+                     </TableRow>
+                     <TableRow>
+                        <TableCell
+                           colSpan={6}
+                           sx={{
+                              pt: 0,
+                              pb: 1,
+                              backgroundColor: "#f9f9f9",
+                              border: 0,
+                           }}
+                        >
+                           <Typography
+                              variant="caption"
+                              color="text.secondary"
+                              sx={{ fontStyle: "italic", ml: 1 }}
+                           >
+                              Free shipping for order from $50
+                           </Typography>
                         </TableCell>
                      </TableRow>
                      <TableRow sx={{ backgroundColor: "#f9f9f9" }}>

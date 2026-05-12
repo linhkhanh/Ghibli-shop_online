@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
-import StyledLink from "../StyledLink/StyledLink";
 import useLogout from "../../hooks/useLogout/useLogout";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import { useNavigate } from "react-router-dom";
 
 interface SettingItem {
    title: string;
@@ -21,7 +21,7 @@ const AccountBtn = () => {
    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
    const { logout } = useLogout();
    const { user } = useAuthentication();
-
+   const navigate = useNavigate();
    const handleCloseUserMenu = () => {
       setAnchorElUser(null);
    };
@@ -68,13 +68,22 @@ const AccountBtn = () => {
             onClose={handleCloseUserMenu}
          >
             {settings.map((setting) => (
-               <MenuItem key={setting.title} onClick={handleCloseUserMenu}>
+               <MenuItem
+                  key={setting.title}
+                  onClick={() => {
+                     handleCloseUserMenu();
+                     if (setting.linkTo) {
+                        // Navigate to the link
+                        navigate(setting.linkTo);
+                     } else if (setting.title === "Logout") {
+                        logout();
+                     }
+                  }}
+               >
                   {setting.linkTo ? (
-                     <StyledLink path={setting.linkTo}>
-                        <Typography sx={{ textAlign: "center" }}>
-                           {setting.title}
-                        </Typography>
-                     </StyledLink>
+                     <Typography sx={{ textAlign: "center" }}>
+                        {setting.title}
+                     </Typography>
                   ) : (
                      <Typography
                         sx={{ textAlign: "center" }}

@@ -52,13 +52,10 @@ const ContactPage = () => {
             </ul>
          </Box>
          <Stack spacing={2}>
-            <Link href="/about" underline="hover" color="primary">
+            <Link href="/about-us" underline="hover" color="primary">
                Introduction
             </Link>
-            <Link href="/policy" underline="hover" color="primary">
-               Policy and Terms
-            </Link>
-            <Link href="/shipping" underline="hover" color="primary">
+            <Link href="/shipping-terms" underline="hover" color="primary">
                Shipping & Returns
             </Link>
             <Link href="/" underline="hover" color="primary">

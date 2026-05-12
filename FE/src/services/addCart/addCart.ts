@@ -14,13 +14,14 @@ export const addCart = async (payload: AddCartPayload) => {
          { product_id: productId, quantity },
          {
             headers: {
-               "X-Guest-Cart-ID": guestCartId,
+               "X-Guest-Cart-ID": guestCartId ? guestCartId : null,
             },
          },
       );
 
       if (!guestCartId) {
-         const guestCartIdFromResponse = response.headers["X-Guest-Cart-ID"];
+         // Note: use x-guest-cart-id instead of X-Guest-Cart-ID because axios converts header keys to lowercase
+         const guestCartIdFromResponse = response.headers["x-guest-cart-id"];
          localStorage.setItem("ghibli_guest_cart_id", guestCartIdFromResponse);
       }
       return {

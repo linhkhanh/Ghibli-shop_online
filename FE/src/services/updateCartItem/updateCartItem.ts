@@ -15,7 +15,7 @@ export const updateCartItem = async ({
          {
             headers: {
                "X-Guest-Cart-ID":
-                  localStorage.getItem("ghibli_guest_cart_id") || "",
+                  localStorage.getItem("ghibli_guest_cart_id") || null,
             },
          },
       );

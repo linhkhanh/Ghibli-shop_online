@@ -33,8 +33,8 @@ const BackDrop = () => {
          }}
       >
          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={4}
+            direction="column"
+            spacing={2}
             sx={{
                position: "absolute",
                bottom: 32,
@@ -48,53 +48,87 @@ const BackDrop = () => {
                pointerEvents: showInfo ? "auto" : "none",
             }}
          >
-            <Box
+            <Typography
+               variant="h4"
+               color="#fffde7"
+               fontWeight={900}
                sx={{
-                  bgcolor: "rgba(255,255,255,0.85)",
+                  textShadow:
+                     "0 4px 24px #000, 0 2px 8px #a5d6a7, 0 0px 2px #fff",
+                  letterSpacing: 2,
+                  borderRadius: 3,
                   px: 4,
                   py: 2,
-                  borderRadius: 3,
-                  boxShadow: 2,
-                  minWidth: 220,
+                  background:
+                     "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)",
+                  border: "2px solid #ffe082",
+                  boxShadow: 6,
+                  mb: 1,
+                  fontFamily: "Montserrat, Arial, sans-serif",
                   textAlign: "center",
-                  display: "flex",
-                  flexDirection: "column",
+                  maxWidth: { xs: "90%", sm: "70%" },
+               }}
+            >
+               Discover fancy and cute merchandise - Specially designed for
+               Ghibli fans
+            </Typography>
+            <Stack
+               direction={{ xs: "column", sm: "row" }}
+               spacing={4}
+               sx={{
+                  width: "100%",
+                  justifyContent: "center",
                   alignItems: "center",
                }}
             >
-               <LocalShippingIcon
-                  color="primary"
-                  sx={{ fontSize: 36, mb: 1 }}
-               />
-               <Typography variant="h6" color="primary" fontWeight={700}>
-                  Free shipping
-               </Typography>
-               <Typography variant="body2" color="text.secondary">
-                  For orders over $50
-               </Typography>
-            </Box>
-            <Box
-               sx={{
-                  bgcolor: "rgba(255,255,255,0.85)",
-                  px: 4,
-                  py: 2,
-                  borderRadius: 3,
-                  boxShadow: 2,
-                  minWidth: 220,
-                  textAlign: "center",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-               }}
-            >
-               <ReplayIcon color="primary" sx={{ fontSize: 36, mb: 1 }} />
-               <Typography variant="h6" color="primary" fontWeight={700}>
-                  30-Day Return
-               </Typography>
-               <Typography variant="body2" color="text.secondary">
-                  Return within 30 days for a full refund
-               </Typography>
-            </Box>
+               <Box
+                  sx={{
+                     bgcolor: "rgba(255,255,255,0.85)",
+                     px: 4,
+                     py: 2,
+                     borderRadius: 3,
+                     boxShadow: 2,
+                     minWidth: 220,
+                     textAlign: "center",
+                     display: "flex",
+                     flexDirection: "column",
+                     alignItems: "center",
+                  }}
+               >
+                  <LocalShippingIcon
+                     color="primary"
+                     sx={{ fontSize: 36, mb: 1 }}
+                  />
+                  <Typography variant="h6" color="primary" fontWeight={700}>
+                     Free shipping
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                     For orders over $50
+                  </Typography>
+               </Box>
+               <Box
+                  sx={{
+                     bgcolor: "rgba(255,255,255,0.85)",
+                     px: 4,
+                     py: 2,
+                     borderRadius: 3,
+                     boxShadow: 2,
+                     minWidth: 220,
+                     textAlign: "center",
+                     display: "flex",
+                     flexDirection: "column",
+                     alignItems: "center",
+                  }}
+               >
+                  <ReplayIcon color="primary" sx={{ fontSize: 36, mb: 1 }} />
+                  <Typography variant="h6" color="primary" fontWeight={700}>
+                     30-Day Return
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                     Return within 30 days for a full refund
+                  </Typography>
+               </Box>
+            </Stack>
          </Stack>
       </Box>
    );

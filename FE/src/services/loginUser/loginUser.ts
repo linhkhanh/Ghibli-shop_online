@@ -21,7 +21,7 @@ export const loginUser = async (payload: LoginPayload) => {
          { email, password },
          {
             headers: {
-               "X-Guest-Cart-ID": guestCartId || "",
+               "X-Guest-Cart-ID": guestCartId ? guestCartId : null,
             },
          },
       );
