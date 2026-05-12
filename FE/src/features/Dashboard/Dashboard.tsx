@@ -238,11 +238,17 @@ const Dashboard = () => {
                            fontWeight={700}
                            color="success.dark"
                         >
-                           Total : $
-                           {(
-                              orderRevenue.completedRevenue +
-                              orderRevenue.pendingRevenue
-                           ).toFixed(2)}
+                           {/* limit length of revenue display */}
+                           {(() => {
+                              const totalRevenue =
+                                 orderRevenue.completedRevenue +
+                                 orderRevenue.pendingRevenue;
+                              const maxDisplay = 9999999.99;
+                              if (totalRevenue > maxDisplay) {
+                                 return `Total : $${maxDisplay.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}...`;
+                              }
+                              return `Total : $${totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                           })()}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                            Completed: $
