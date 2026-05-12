@@ -21,7 +21,9 @@ export const addCart = async (payload: AddCartPayload) => {
 
       if (!guestCartId) {
          // Note: use x-guest-cart-id instead of X-Guest-Cart-ID because axios converts header keys to lowercase
-         const guestCartIdFromResponse = response.headers["x-guest-cart-id"];
+         const guestCartIdFromResponse =
+            response.headers["x-guest-cart-id"] ||
+            response.headers["X-Guest-Cart-ID"];
          localStorage.setItem("ghibli_guest_cart_id", guestCartIdFromResponse);
       }
       return {
