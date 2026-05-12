@@ -67,6 +67,12 @@ const BackDrop = () => {
                   fontFamily: "Montserrat, Arial, sans-serif",
                   textAlign: "center",
                   maxWidth: { xs: "90%", sm: "70%" },
+                  transition: "border-color 0.3s",
+                  cursor: "pointer",
+                  "&:hover": {
+                     borderColor: "#1976d2",
+                     boxShadow: "0 10px 20px rgba(0,0,0,0.9)",
+                  },
                }}
             >
                Discover fancy and cute merchandise - Specially designed for
