@@ -10,6 +10,7 @@ const NavMenu = () => {
          <MoviesListButton />
          <ButtonLink key="Products" name="Products" path="/products" />
          <ButtonLink key="Contact Us" name="Contact Us" path="/contact" />
+         <ButtonLink key="About Us" name="About Us" path="/about-us" />
          {user?.role === "admin" && (
             <ButtonLink key="Dashboard" name="Dashboard" path="/dashboard" />
          )}

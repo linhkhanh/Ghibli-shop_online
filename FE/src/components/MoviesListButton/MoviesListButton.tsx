@@ -2,15 +2,15 @@ import { type MouseEvent, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-
-import StyledLink from "../StyledLink/StyledLink";
 import useGetMovies from "../../hooks/useGetMovies/useGetMovies";
 import type { MovieCategory } from "../../utils/dataType";
+import { useNavigate } from "react-router-dom";
 
 export default function MoviesListButton() {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const { getListMovies } = useGetMovies();
    const [moviesList, setMoviesList] = useState<MovieCategory[]>([]);
+   const navigate = useNavigate();
 
    const open = Boolean(anchorEl);
    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -56,10 +56,14 @@ export default function MoviesListButton() {
             }}
          >
             {moviesList.map((movie) => (
-               <MenuItem key={movie.id} onClick={handleClose}>
-                  <StyledLink path={"products-by-movie/" + movie.id}>
-                     {movie.title}
-                  </StyledLink>
+               <MenuItem
+                  key={movie.id}
+                  onClick={() => {
+                     handleClose();
+                     navigate("products-by-movie/" + movie.id);
+                  }}
+               >
+                  {movie.title}
                </MenuItem>
             ))}
          </Menu>
