@@ -49,7 +49,7 @@ const BackDrop = () => {
             }}
          >
             <Typography
-               variant="h4"
+               variant="h6"
                color="#fffde7"
                fontWeight={900}
                sx={{
@@ -61,7 +61,6 @@ const BackDrop = () => {
                   py: 2,
                   background:
                      "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)",
-                  border: "2px solid #ffe082",
                   boxShadow: 6,
                   mb: 1,
                   fontFamily: "Montserrat, Arial, sans-serif",
@@ -70,8 +69,9 @@ const BackDrop = () => {
                   transition: "border-color 0.3s",
                   cursor: "pointer",
                   "&:hover": {
-                     borderColor: "#1976d2",
                      boxShadow: "0 10px 20px rgba(0,0,0,0.9)",
+                     backgroundColor: "rgba(255,255,255, 0.85)",
+                     color: "rgb(25, 118, 210)",
                   },
                }}
             >
