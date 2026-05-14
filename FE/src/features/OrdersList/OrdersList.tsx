@@ -57,24 +57,49 @@ const OrdersList = () => {
          ) : orders.length === 0 ? (
             <Typography variant="body1">No orders found.</Typography>
          ) : (
-            <TableContainer component={Paper} sx={{ mt: 3, boxShadow: 2 }}>
-               <Table>
+            <TableContainer
+               component={Paper}
+               sx={{ mt: 3, boxShadow: 2, maxHeight: 440 }}
+            >
+               <Table stickyHeader>
                   <TableHead>
-                     <TableRow sx={{ backgroundColor: "#f5f5f5" }}>
-                        <TableCell sx={{ fontWeight: 700 }}>
+                     <TableRow
+                        sx={{
+                           backgroundColor: "#f5f5f5",
+                           position: "sticky",
+                           top: 0,
+                           zIndex: 1,
+                        }}
+                     >
+                        <TableCell
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
                            Order Date
                         </TableCell>
-                        <TableCell sx={{ fontWeight: 700 }}>Order ID</TableCell>
-                        <TableCell sx={{ fontWeight: 700 }}>
+                        <TableCell
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
+                           Order ID
+                        </TableCell>
+                        <TableCell
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
                            Order Status
                         </TableCell>
-                        <TableCell sx={{ fontWeight: 700 }}>
+                        <TableCell
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
                            Payment Method
                         </TableCell>
-                        <TableCell sx={{ fontWeight: 700 }}>
+                        <TableCell
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
                            Payment Status
                         </TableCell>
-                        <TableCell align="right" sx={{ fontWeight: 700 }}>
+                        <TableCell
+                           align="right"
+                           sx={{ fontWeight: 700, backgroundColor: "#f5f5f5" }}
+                        >
                            Amount
                         </TableCell>
                      </TableRow>
