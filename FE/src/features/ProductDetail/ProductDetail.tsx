@@ -81,7 +81,7 @@ const ProductDetail = () => {
          <Grid container spacing={4}>
             <Grid size={8}>
                <Paper
-                  elevation={3}
+                  elevation={1}
                   sx={{
                      borderRadius: 3,
                      overflow: "hidden",

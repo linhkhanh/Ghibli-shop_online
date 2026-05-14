@@ -57,7 +57,7 @@ export default function ProductCard(props: ProductCardProps) {
             maxWidth: 280,
             scrollSnapAlign: "start",
             borderRadius: 3,
-            boxShadow: 3,
+            boxShadow: 1,
             flexShrink: 0,
          }}
       >
