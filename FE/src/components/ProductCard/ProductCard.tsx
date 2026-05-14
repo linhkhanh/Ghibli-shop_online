@@ -14,6 +14,7 @@ import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 import useAddCart from "../../hooks/useAddCart/useAddCart";
+import ConfirmDeleteProductModal from "../ConfirmDeleteProductModal/COnfirmDeleteProductModal";
 
 interface ProductCardProps {
    productDetail: ProductItem;
@@ -31,9 +32,11 @@ export default function ProductCard(props: ProductCardProps) {
    } = productDetail;
    const { user } = useAuthentication();
 
-   const [open, setOpen] = useState(false);
-   const handleEdit = () => setOpen(true);
-   const handleClose = () => setOpen(false);
+   const [openUpSert, setOpenUpSert] = useState<boolean>(false);
+   const [openDelete, setOpenDelete] = useState<boolean>(false);
+   const handleEdit = () => setOpenUpSert(true);
+   const handleClose = () => setOpenUpSert(false);
+
    const { deleteProductById } = useDeleteProduct();
    const { addToCart, loading: addToCartLoading } = useAddCart();
 
@@ -139,7 +142,7 @@ export default function ProductCard(props: ProductCardProps) {
                            variant="outlined"
                            color="error"
                            startIcon={<DeleteIcon />}
-                           onClick={handleDelete}
+                           onClick={() => setOpenDelete(true)}
                         >
                            Delete
                         </Button>
@@ -158,10 +161,18 @@ export default function ProductCard(props: ProductCardProps) {
             </Box>
          </CardContent>
          <ProductUpsertModal
-            open={open}
+            open={openUpSert}
             handleClose={handleClose}
             title="Edit Product"
             defaultValues={productDetail}
+         />
+         <ConfirmDeleteProductModal
+            open={openDelete}
+            onCancel={() => setOpenDelete(false)}
+            onConfirm={async () => {
+               setOpenDelete(false);
+               await handleDelete();
+            }}
          />
       </Card>
    );
