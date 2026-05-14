@@ -20,6 +20,7 @@ import ProductUpsertModal from "../../components/ProductUpsertModal/ProductUpser
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 import type { ProductItem } from "../../utils/dataType";
 import useAddCart from "../../hooks/useAddCart/useAddCart";
+import ConfirmDeleteProductModal from "../../components/ConfirmDeleteProductModal/ConfirmDeleteProductModal";
 
 const ProductDetail = () => {
    const { productId } = useParams();
@@ -39,14 +40,15 @@ const ProductDetail = () => {
    const navigate = useNavigate();
    const [tabIndex, setTabIndex] = useState(0);
 
-   const [open, setOpen] = useState(false);
+   const [openUpsert, setOpenUpsert] = useState(false);
+   const [openDelete, setOpenDelete] = useState(false);
    const [loading, setLoading] = useState<boolean>(false);
 
    const { deleteProductById } = useDeleteProduct();
    const { addToCart, loading: addToCartLoading } = useAddCart();
 
-   const handleOpen = () => setOpen(true);
-   const handleClose = () => setOpen(false);
+   const handleOpen = () => setOpenUpsert(true);
+   const handleClose = () => setOpenUpsert(false);
 
    const handleTabChange = (event: SyntheticEvent, newValue: number) => {
       setTabIndex(newValue);
@@ -246,7 +248,7 @@ const ProductDetail = () => {
                            variant="outlined"
                            color="error"
                            startIcon={<DeleteIcon />}
-                           onClick={handleDelete}
+                           onClick={() => setOpenDelete(true)}
                            sx={{ ml: 1 }}
                         >
                            Delete
@@ -262,10 +264,19 @@ const ProductDetail = () => {
          <OtherMovies />
 
          <ProductUpsertModal
-            open={open}
+            open={openUpsert}
             handleClose={handleClose}
             title="Edit Product"
             defaultValues={productInfo}
+         />
+
+         <ConfirmDeleteProductModal
+            open={openDelete}
+            onCancel={() => setOpenDelete(false)}
+            onConfirm={async () => {
+               setOpenDelete(false);
+               await handleDelete();
+            }}
          />
       </Box>
    );

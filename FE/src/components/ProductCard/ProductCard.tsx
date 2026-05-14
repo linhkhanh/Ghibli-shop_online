@@ -14,7 +14,7 @@ import ProductUpsertModal from "../ProductUpsertModal/ProductUpsertModal";
 import { useState } from "react";
 import useDeleteProduct from "../../hooks/useDeleteProduct/useDeleteProduct";
 import useAddCart from "../../hooks/useAddCart/useAddCart";
-import ConfirmDeleteProductModal from "../ConfirmDeleteProductModal/COnfirmDeleteProductModal";
+import ConfirmDeleteProductModal from "../ConfirmDeleteProductModal/ConfirmDeleteProductModal";
 
 interface ProductCardProps {
    productDetail: ProductItem;
