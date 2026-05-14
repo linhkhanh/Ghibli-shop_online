@@ -32,9 +32,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function OrderDetail() {
-   const orderId = useParams();
+   const { orderId } = useParams();
    const { orderItems, loading, orderInfo } = useOrderDetail(
-      orderId ? parseInt(orderId.orderId || "0") : 0,
+      orderId ? parseInt(orderId || "0") : 0,
    );
 
    const chipColor = (status: string) => {
@@ -86,7 +86,7 @@ export default function OrderDetail() {
                align="center"
                mb={3}
             >
-               Order ID: <b>{orderId.orderId}</b>
+               Order ID: <b>{orderId}</b>
             </Typography>
             {loading ? (
                <Typography variant="body1" align="center">

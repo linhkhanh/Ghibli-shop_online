@@ -4,7 +4,7 @@ import useProductsByMovie from "../../hooks/useProductsByMovie/useProductsByMovi
 import { useParams } from "react-router-dom";
 
 const ProductsByMovie = () => {
-   const movieId = useParams().movieId;
+   const { movieId } = useParams();
 
    const { products, lastPage, loading, setPage, page } = useProductsByMovie({
       movieId: Number(movieId),

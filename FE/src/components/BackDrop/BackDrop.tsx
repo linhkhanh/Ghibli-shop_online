@@ -62,7 +62,6 @@ const BackDrop = () => {
                   background:
                      "linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)",
                   boxShadow: 6,
-                  mb: 1,
                   fontFamily: "Montserrat, Arial, sans-serif",
                   textAlign: "center",
                   maxWidth: { xs: "90%", sm: "70%" },
@@ -91,7 +90,7 @@ const BackDrop = () => {
                   sx={{
                      bgcolor: "rgba(255,255,255,0.85)",
                      px: 4,
-                     py: 2,
+                     p: 2,
                      borderRadius: 3,
                      boxShadow: 2,
                      minWidth: 220,
