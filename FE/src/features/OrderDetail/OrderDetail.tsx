@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import useOrderDetail from "../../hooks/useOrderDetail/useOrderDetail";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import { useParams } from "react-router-dom";
 
@@ -89,9 +89,11 @@ export default function OrderDetail() {
                Order ID: <b>{orderId}</b>
             </Typography>
             {loading ? (
-               <Typography variant="body1" align="center">
-                  Loading order details...
-               </Typography>
+               <CircularProgress
+                  size={48}
+                  sx={{ display: "block", mx: "auto", mt: 4 }}
+                  aria-label="Loading Order Details"
+               />
             ) : orderItems.length === 0 ? (
                <Typography variant="body1" align="center">
                   No items found for this order.

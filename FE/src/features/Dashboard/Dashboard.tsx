@@ -1,4 +1,12 @@
-import { Box, Typography, Paper, Grid, Avatar, Tooltip } from "@mui/material";
+import {
+   Box,
+   Typography,
+   Paper,
+   Grid,
+   Avatar,
+   Tooltip,
+   CircularProgress,
+} from "@mui/material";
 import { BarChart, PieChart } from "@mui/x-charts";
 import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
 import useDashboard from "../../hooks/useDashboard/useDashboard";
@@ -18,16 +26,11 @@ const Dashboard = () => {
 
    if (loading) {
       return (
-         <Box
-            sx={{
-               display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-               height: "100vh",
-            }}
-         >
-            <Typography variant="h6">Loading...</Typography>
-         </Box>
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Dashboard"
+         />
       );
    }
 

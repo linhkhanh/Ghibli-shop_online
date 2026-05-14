@@ -10,6 +10,7 @@ import {
    TableRow,
    TextField,
    Typography,
+   CircularProgress,
 } from "@mui/material";
 import useCartDetail from "../../hooks/useCartDetail/useCartDetail";
 import StyledLink from "../../components/StyledLink/StyledLink";
@@ -59,9 +60,11 @@ const CartTable = () => {
    if (loading) {
       return (
          <Box sx={{ maxWidth: 1000, mx: "auto", mt: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
-               Loading cart details...
-            </Typography>
+            <CircularProgress
+               size={48}
+               sx={{ display: "block", mx: "auto", mt: 4 }}
+               aria-label="Loading Product Detail"
+            />
          </Box>
       );
    }

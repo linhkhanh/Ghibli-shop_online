@@ -15,6 +15,7 @@ import {
    MenuItem,
    FormControl,
    Chip,
+   CircularProgress,
 } from "@mui/material";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import useAdminOrdersList from "../../hooks/useAdminOrdersList/useAdminOrdersList";
@@ -99,7 +100,11 @@ const AdminOrdersList = () => {
             </FormControl>
          </Box>
          {loading ? (
-            <Typography variant="body1">Loading orders...</Typography>
+            <CircularProgress
+               size={48}
+               sx={{ display: "block", mx: "auto", mt: 4 }}
+               aria-label="Loading Orders List"
+            />
          ) : filteredOrders.length === 0 ? (
             <Typography variant="body1">No orders found.</Typography>
          ) : (

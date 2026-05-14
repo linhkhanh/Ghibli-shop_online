@@ -7,6 +7,7 @@ import {
    Tab,
    Paper,
    Grid,
+   CircularProgress,
 } from "@mui/material";
 import OtherMovies from "../../components/OtherMovies/OtherMovies";
 import useProductDetail from "../../hooks/useProductDetail/useProductDetail";
@@ -75,7 +76,14 @@ const ProductDetail = () => {
       fetchProduct();
    }, [productId]);
 
-   if (loading) return <p>Loading product details...</p>;
+   if (loading)
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Product Detail"
+         />
+      );
    return (
       <Box component="main" sx={{ p: 4, maxWidth: 1000, mx: "auto" }}>
          <Grid container spacing={4}>

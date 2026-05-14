@@ -1,4 +1,11 @@
-import { Box, Typography, Pagination, Stack, Button } from "@mui/material";
+import {
+   Box,
+   Typography,
+   Pagination,
+   Stack,
+   Button,
+   CircularProgress,
+} from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useProductsList from "../../hooks/useProductsList/useProductsList";
 import type { ProductItem } from "../../utils/dataType";
@@ -33,7 +40,14 @@ const ProductsList = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
    };
 
-   if (loading) return <p>Loading Ghibli treasures...</p>;
+   if (loading)
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Products List"
+         />
+      );
    if (productsList.length === 0)
       return (
          <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>

@@ -1,4 +1,10 @@
-import { Box, Pagination, Stack, Typography } from "@mui/material";
+import {
+   Box,
+   CircularProgress,
+   Pagination,
+   Stack,
+   Typography,
+} from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import useProductsByMovie from "../../hooks/useProductsByMovie/useProductsByMovie";
 import { useParams } from "react-router-dom";
@@ -15,7 +21,14 @@ const ProductsByMovie = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
    };
 
-   if (loading) return <p>Loading Ghibli treasures...</p>;
+   if (loading)
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Products By Movie"
+         />
+      );
    return (
       <Box sx={{ p: 4, maxWidth: 1200, mx: "auto" }}>
          <Box

@@ -1,6 +1,7 @@
 import {
    Box,
    Chip,
+   CircularProgress,
    Paper,
    Table,
    TableBody,
@@ -48,7 +49,11 @@ const OrdersList = () => {
             Order List
          </Typography>
          {loading ? (
-            <Typography variant="body1">Loading orders...</Typography>
+            <CircularProgress
+               size={48}
+               sx={{ display: "block", mx: "auto", mt: 4 }}
+               aria-label="Loading Orders List"
+            />
          ) : orders.length === 0 ? (
             <Typography variant="body1">No orders found.</Typography>
          ) : (

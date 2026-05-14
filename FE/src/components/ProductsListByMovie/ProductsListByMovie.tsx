@@ -1,4 +1,10 @@
-import { Box, Typography, Grid, Divider } from "@mui/material";
+import {
+   Box,
+   Typography,
+   Grid,
+   Divider,
+   CircularProgress,
+} from "@mui/material";
 import ProductsCarousell from "../ProductsCarousell/ProductCarousell";
 import useProductsByMovie from "../../hooks/useProductsByMovie/useProductsByMovie";
 
@@ -8,7 +14,14 @@ interface ProductsListByMovieProps {
 const ProductsListByMovie = ({ movieId }: ProductsListByMovieProps) => {
    const { products, loading } = useProductsByMovie({ movieId, limit: 6 });
 
-   if (loading) return <p>Loading products...</p>;
+   if (loading)
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Products"
+         />
+      );
    return (
       <Box pt={10} pl={20} pr={20}>
          <Typography

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import ProductsCarousell from "../ProductsCarousell/ProductCarousell";
 import useProductsByMovie from "../../hooks/useProductsByMovie/useProductsByMovie";
 
@@ -15,13 +15,11 @@ const RelatedProducts = (props: RelatedProductsProps) => {
             Related Products
          </Typography>
          {loading ? (
-            <Typography
-               variant="body1"
-               color="text.secondary"
-               textAlign="center"
-            >
-               Loading related products...
-            </Typography>
+            <CircularProgress
+               size={48}
+               sx={{ display: "block", mx: "auto", mt: 4 }}
+               aria-label="Loading Related Products"
+            />
          ) : (
             <ProductsCarousell productsListByMovie={products} />
          )}

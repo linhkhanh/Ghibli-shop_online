@@ -1,4 +1,10 @@
-import { Box, Pagination, Stack, Typography } from "@mui/material";
+import {
+   Box,
+   CircularProgress,
+   Pagination,
+   Stack,
+   Typography,
+} from "@mui/material";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useSearchParams } from "react-router-dom";
 import useSearchByKeyword from "../../hooks/useSearchByKeyword/useSearchByKeyword";
@@ -15,7 +21,14 @@ const SearchedProductsList = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
    };
 
-   if (loading) return <p>Loading search results...</p>;
+   if (loading)
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Search Results"
+         />
+      );
 
    return (
       <Box sx={{ maxWidth: 1200, mx: "auto", py: 4 }}>
