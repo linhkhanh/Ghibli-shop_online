@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import BackDrop from "../../components/BackDrop/BackDrop";
 import ProductsListByMovie from "../../components/ProductsListByMovie/ProductsListByMovie";
+import BackDropCarousel from "../../components/BackDropCarousel/BackDropCarousel";
 
 const LandingPage = () => {
    return (
       <div className="animate-fadeIn">
-         <BackDrop />
+         <BackDropCarousel />
          <Box sx={{ display: "flex", justifyContent: "center", pt: 3 }}>
             <Typography
                variant="h4"
