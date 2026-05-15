@@ -52,6 +52,15 @@ export default function OrderDetail() {
       }
    };
 
+   if (loading) {
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Order Details"
+         />
+      );
+   }
    return (
       <Box
          minHeight="80vh"
@@ -88,13 +97,7 @@ export default function OrderDetail() {
             >
                Order ID: <b>{orderId}</b>
             </Typography>
-            {loading ? (
-               <CircularProgress
-                  size={48}
-                  sx={{ display: "block", mx: "auto", mt: 4 }}
-                  aria-label="Loading Order Details"
-               />
-            ) : orderItems.length === 0 ? (
+            {orderItems.length === 0 ? (
                <Typography variant="body1" align="center">
                   No items found for this order.
                </Typography>
@@ -116,7 +119,7 @@ export default function OrderDetail() {
                               Name
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.name || "-"}
+                              {orderInfo.name || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -124,7 +127,7 @@ export default function OrderDetail() {
                               Email
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.email || "-"}
+                              {orderInfo.email || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -132,7 +135,7 @@ export default function OrderDetail() {
                               Phone
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.phone || "-"}
+                              {orderInfo.phone || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -140,7 +143,24 @@ export default function OrderDetail() {
                               Shipping Address
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.shippingAddress || "-"}
+                              {orderInfo.shippingAddress || "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Order Date
+                           </Typography>
+                           <Typography variant="body1">
+                              {new Date(orderInfo.createdAt).toLocaleString() ||
+                                 "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Payment Method
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo.paymentMethod || "-"}
                            </Typography>
                         </Box>
                      </Box>
