@@ -3,22 +3,25 @@ import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import StyledLink from "../StyledLink/StyledLink";
+import KiKi_film from "../../assets/imgs/Kiki_film.jpg";
+import Totoro_film from "../../assets/imgs/Totoro_film.jpg";
+import Moving_castle from "../../assets/imgs/Moving_castle.webp";
 
 const images = [
    {
-      url: "https://images6.alphacoders.com/135/thumb-350-1354046.webp",
-      title: "My Neighbor Totoro",
-      width: "30%",
-      movieId: 1,
-   },
-   {
-      url: "https://wallup.net/wp-content/uploads/2016/05/14/40836-Studio_Ghibli-My_Neighbor_Totoro-Totoro.jpg",
+      url: KiKi_film,
       title: "Kiki's Delivery Service",
-      width: "40%",
+      width: "30%",
       movieId: 4,
    },
    {
-      url: "https://i.guim.co.uk/img/media/18e0b02b77238d312812c835c23144cc63baa86a/0_0_923_554/master/923.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=c640a0f676e4a724c16e15624f4686a0",
+      url: Totoro_film,
+      title: "My Neighbor Totoro",
+      width: "40%",
+      movieId: 1,
+   },
+   {
+      url: Moving_castle,
       title: "Howl's Moving Castle",
       width: "30%",
       movieId: 3,
