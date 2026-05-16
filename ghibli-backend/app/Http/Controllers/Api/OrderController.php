@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
-use App\Models\OrderItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
@@ -139,4 +139,12 @@ class OrderController extends Controller
             ], 422);
         }
     }
+
+    public function downloadInvoice($id)
+{
+    $order = Order::with(['user', 'items.product'])->findOrFail($id);
+    $pdf = Pdf::loadView('pdf.invoice', compact('order'));
+    $pdf->setPaper('a4', 'portrait');
+    return $pdf->download("MyGhibli_Invoice_Order_{$order->id}.pdf");
+}
 }

@@ -7,9 +7,19 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import useOrderDetail from "../../hooks/useOrderDetail/useOrderDetail";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+   Box,
+   CircularProgress,
+   Typography,
+   IconButton,
+   Tooltip,
+} from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import StyledLink from "../../components/StyledLink/StyledLink";
 import { useParams } from "react-router-dom";
+import { useAuthentication } from "../../hooks/useAuthentication/useAuthentication";
+import { exportOrder } from "../../services/exportOrder/exportOrder";
+import { useSnackbar } from "../../hooks/useSnackBar/useSnackBar";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
    [`&.${tableCellClasses.head}`]: {
@@ -33,9 +43,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function OrderDetail() {
    const { orderId } = useParams();
-   const { orderItems, loading, orderInfo } = useOrderDetail(
-      orderId ? parseInt(orderId || "0") : 0,
-   );
+   const formattedOrderId: number = orderId ? parseInt(orderId || "0") : 0;
+   const { orderItems, loading, orderInfo } = useOrderDetail(formattedOrderId);
+   const { user } = useAuthentication();
+   const { showSnackbar } = useSnackbar();
 
    const chipColor = (status: string) => {
       switch (status) {
@@ -52,6 +63,29 @@ export default function OrderDetail() {
       }
    };
 
+   const handleDownloadInvoice = async () => {
+      try {
+         await exportOrder(formattedOrderId);
+         showSnackbar("Invoice downloaded successfully!", "success");
+      } catch (error) {
+         showSnackbar(
+            error instanceof Error
+               ? error.message
+               : "Failed to download invoice",
+            "error",
+         );
+      }
+   };
+
+   if (loading) {
+      return (
+         <CircularProgress
+            size={48}
+            sx={{ display: "block", mx: "auto", mt: 4 }}
+            aria-label="Loading Order Details"
+         />
+      );
+   }
    return (
       <Box
          minHeight="80vh"
@@ -71,15 +105,35 @@ export default function OrderDetail() {
                maxWidth: 900,
             }}
          >
-            <Typography
-               variant="h5"
-               fontWeight="bold"
-               gutterBottom
-               color="primary.main"
-               align="center"
+            <Box
+               display="flex"
+               alignItems="center"
+               justifyContent="flex-start"
+               mb={2}
             >
-               Order Details
-            </Typography>
+               <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  gutterBottom
+                  color="primary.main"
+                  align="center"
+                  sx={{ flex: 1 }}
+                  pl={10}
+               >
+                  Order Details
+               </Typography>
+               {user && user.role === "admin" && (
+                  <Tooltip title="Download Invoice">
+                     <IconButton
+                        color="primary"
+                        sx={{ ml: 2 }}
+                        onClick={handleDownloadInvoice}
+                     >
+                        <DownloadIcon />
+                     </IconButton>
+                  </Tooltip>
+               )}
+            </Box>
             <Typography
                variant="subtitle1"
                color="text.secondary"
@@ -88,13 +142,7 @@ export default function OrderDetail() {
             >
                Order ID: <b>{orderId}</b>
             </Typography>
-            {loading ? (
-               <CircularProgress
-                  size={48}
-                  sx={{ display: "block", mx: "auto", mt: 4 }}
-                  aria-label="Loading Order Details"
-               />
-            ) : orderItems.length === 0 ? (
+            {orderItems.length === 0 ? (
                <Typography variant="body1" align="center">
                   No items found for this order.
                </Typography>
@@ -116,7 +164,7 @@ export default function OrderDetail() {
                               Name
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.name || "-"}
+                              {orderInfo.name || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -124,7 +172,7 @@ export default function OrderDetail() {
                               Email
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.email || "-"}
+                              {orderInfo.email || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -132,7 +180,7 @@ export default function OrderDetail() {
                               Phone
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.phone || "-"}
+                              {orderInfo.phone || "-"}
                            </Typography>
                         </Box>
                         <Box>
@@ -140,7 +188,24 @@ export default function OrderDetail() {
                               Shipping Address
                            </Typography>
                            <Typography variant="body1">
-                              {orderInfo?.shippingAddress || "-"}
+                              {orderInfo.shippingAddress || "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Order Date
+                           </Typography>
+                           <Typography variant="body1">
+                              {new Date(orderInfo.createdAt).toLocaleString() ||
+                                 "-"}
+                           </Typography>
+                        </Box>
+                        <Box>
+                           <Typography variant="body2" color="text.secondary">
+                              Payment Method
+                           </Typography>
+                           <Typography variant="body1">
+                              {orderInfo.paymentMethod || "-"}
                            </Typography>
                         </Box>
                      </Box>
