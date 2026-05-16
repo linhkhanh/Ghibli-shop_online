@@ -9,7 +9,7 @@ export const exportOrder = async (orderId: number) => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `order_${orderId}_invoice.pdf`);
+      link.setAttribute("download", `myghibli_order_${orderId}_invoice.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
