@@ -77,6 +77,8 @@ export default function OrderDetail() {
       }
    };
 
+   const isAdmin = user && user.role === "admin";
+
    if (loading) {
       return (
          <CircularProgress
@@ -118,11 +120,11 @@ export default function OrderDetail() {
                   color="primary.main"
                   align="center"
                   sx={{ flex: 1 }}
-                  pl={10}
+                  pl={isAdmin ? 10 : 0}
                >
                   Order Details
                </Typography>
-               {user && user.role === "admin" && (
+               {isAdmin && (
                   <Tooltip title="Download Invoice">
                      <IconButton
                         color="primary"
