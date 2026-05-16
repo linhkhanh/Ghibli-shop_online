@@ -56,5 +56,6 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/low-stock-count', [AnalyticsController::class, 'getLowStockCount']);
     Route::get('/top-sellers', [AnalyticsController::class, 'getTopSellers']);
     Route::get('/order-status-distribution', [AnalyticsController::class, 'getOrderStatusDistribution']);
+    Route::get('/orders/invoice/{id}', [OrderController::class, 'downloadInvoice']);
 });
 
