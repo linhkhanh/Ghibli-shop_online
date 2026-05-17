@@ -49,10 +49,10 @@
     </table>
 
     <div class="total-section">
-        <p>Subtotal: ${{ number_format($order->total_amount - $order->delivery_fee, 2) }}</p>
+        <p>Subtotal: ${{ number_format($order->total_amount, 2) }}</p>
         <p>Delivery Fee: ${{ number_format($order->delivery_fee, 2) }}</p>
         <hr>
-        <h3>Grand Total: ${{ number_format($order->total_amount, 2) }}</h3>
+        <h3>Grand Total: ${{ number_format($order->total_amount + $order->delivery_fee, 2) }}</h3>
         
         @if($order->payment_status === 'paid')
             <div class="paid-stamp">PAID</div>

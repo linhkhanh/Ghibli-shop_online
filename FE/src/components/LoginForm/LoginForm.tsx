@@ -65,7 +65,11 @@ const LoginForm = (props: LoginFormProps) => {
          </Typography>
          <Stack spacing={3}>
             <TextField
-               label="Email"
+               label={
+                  <span>
+                     Email <span>*</span>
+                  </span>
+               }
                type="email"
                sx={{
                   width: "320px",
@@ -81,7 +85,11 @@ const LoginForm = (props: LoginFormProps) => {
                helperText={errors.email?.message}
             />
             <TextField
-               label="Password"
+               label={
+                  <span>
+                     Password <span>*</span>
+                  </span>
+               }
                type="password"
                sx={{
                   width: "320px",

@@ -247,14 +247,22 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
             <Grid size={8}>
                <Stack spacing={3}>
                   <TextField
-                     label="Product Title"
+                     label={
+                        <span>
+                           Product Title <span>*</span>
+                        </span>
+                     }
                      fullWidth
                      {...register("title", { required: "Title is required" })}
                      error={!!errors.title}
                      helperText={errors.title?.message}
                   />
                   <TextField
-                     label="Description"
+                     label={
+                        <span>
+                           Description <span>*</span>
+                        </span>
+                     }
                      fullWidth
                      multiline
                      minRows={3}
@@ -267,7 +275,11 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                   <Box>
                      <Box display="flex" gap={2}>
                         <TextField
-                           label="Price"
+                           label={
+                              <span>
+                                 Price <span>*</span>
+                              </span>
+                           }
                            type="number"
                            sx={{ flex: 1 }}
                            inputProps={{ min: 0, step: 0.01 }}
@@ -282,7 +294,11 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                            helperText={errors.price?.message}
                         />
                         <TextField
-                           label="Stock"
+                           label={
+                              <span>
+                                 Stock <span>*</span>
+                              </span>
+                           }
                            type="number"
                            sx={{ flex: 1 }}
                            inputProps={{ min: 0, step: 1 }}
@@ -324,7 +340,9 @@ const ProductUpsertForm = (props: ProductUpsertFormProps) => {
                            sx={{ flex: 1 }}
                         >
                            <InputLabel id="movie-category-label">
-                              Movie Category
+                              <span>
+                                 Movie Category <span>*</span>
+                              </span>
                            </InputLabel>
                            <Controller
                               name="movieId"

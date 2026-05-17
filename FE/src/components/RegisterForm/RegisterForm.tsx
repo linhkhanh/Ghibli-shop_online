@@ -50,7 +50,11 @@ const RegisterForm = (props: RegisterFormProps) => {
          </Typography>
          <Stack spacing={3}>
             <TextField
-               label="Name"
+               label={
+                  <span>
+                     Name <span>*</span>
+                  </span>
+               }
                sx={{ width: 320 }}
                {...register("name", {
                   required: "Name is required",
@@ -63,7 +67,11 @@ const RegisterForm = (props: RegisterFormProps) => {
                helperText={errors.name?.message}
             />
             <TextField
-               label="Email"
+               label={
+                  <span>
+                     Email <span>*</span>
+                  </span>
+               }
                type="email"
                sx={{ width: 320 }}
                {...register("email", {
@@ -77,7 +85,11 @@ const RegisterForm = (props: RegisterFormProps) => {
                helperText={errors.email?.message}
             />
             <TextField
-               label="Password"
+               label={
+                  <span>
+                     Password <span>*</span>
+                  </span>
+               }
                type="password"
                sx={{ width: 320 }}
                {...register("password", {
@@ -91,7 +103,11 @@ const RegisterForm = (props: RegisterFormProps) => {
                helperText={errors.password?.message}
             />
             <TextField
-               label="Confirm Password"
+               label={
+                  <span>
+                     Confirm Password <span>*</span>
+                  </span>
+               }
                type="password"
                sx={{ width: 320 }}
                {...register("confirmedPassword", {

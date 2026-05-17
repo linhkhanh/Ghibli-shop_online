@@ -86,7 +86,11 @@ const CheckoutForm = () => {
             rules={{ required: "Name is required" }}
             render={({ field }) => (
                <TextField
-                  label="Name"
+                  label={
+                     <span>
+                        Name <span>*</span>
+                     </span>
+                  }
                   {...field}
                   error={!!errors.name}
                   helperText={errors.name?.message}
@@ -107,7 +111,11 @@ const CheckoutForm = () => {
             }}
             render={({ field }) => (
                <TextField
-                  label="Email"
+                  label={
+                     <span>
+                        Email <span>*</span>
+                     </span>
+                  }
                   type="email"
                   {...field}
                   error={!!errors.email}
@@ -129,7 +137,11 @@ const CheckoutForm = () => {
             }}
             render={({ field }) => (
                <TextField
-                  label="Phone"
+                  label={
+                     <span>
+                        Phone <span>*</span>
+                     </span>
+                  }
                   type="tel"
                   {...field}
                   error={!!errors.phone}
@@ -145,7 +157,11 @@ const CheckoutForm = () => {
             rules={{ required: "Shipping address is required" }}
             render={({ field }) => (
                <TextField
-                  label="Shipping Address"
+                  label={
+                     <span>
+                        Shipping Address <span>*</span>
+                     </span>
+                  }
                   {...field}
                   error={!!errors.shippingAddress}
                   helperText={errors.shippingAddress?.message}
@@ -162,7 +178,11 @@ const CheckoutForm = () => {
             rules={{ required: "Payment method is required" }}
             render={({ field }) => (
                <FormControl fullWidth error={!!errors.paymentMethod}>
-                  <InputLabel>Payment Method</InputLabel>
+                  <InputLabel>
+                     <span>
+                        Payment Method <span>*</span>
+                     </span>
+                  </InputLabel>
                   <Select {...field} label="Payment Method">
                      <MenuItem value="cash">Cash</MenuItem>
                   </Select>

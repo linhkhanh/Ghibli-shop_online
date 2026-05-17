@@ -53,7 +53,11 @@ const AccountUpsertForm = () => {
                render={({ field }) => (
                   <TextField
                      {...field}
-                     label="Name"
+                     label={
+                        <span>
+                           Name <span>*</span>
+                        </span>
+                     }
                      fullWidth
                      margin="normal"
                      error={!!errors.name}
@@ -74,7 +78,11 @@ const AccountUpsertForm = () => {
                render={({ field }) => (
                   <TextField
                      {...field}
-                     label="Email"
+                     label={
+                        <span>
+                           Email <span>*</span>
+                        </span>
+                     }
                      type="email"
                      fullWidth
                      margin="normal"

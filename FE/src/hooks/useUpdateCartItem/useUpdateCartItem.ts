@@ -48,7 +48,7 @@ const useUpdateCartItem = () => {
          if (error instanceof Error) {
             if (error.message == "Request failed with status code 422") {
                return showSnackbar(
-                  `Failed to update cart item: Quantity exceeds available stock`,
+                  `Sorry, you cannot add more than available stock for this item.`,
                   "error",
                );
             }
