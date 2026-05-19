@@ -22,7 +22,7 @@ class AuthController extends Controller
             'email' => 'required|string|email:rfc,dns|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|max:20|min:6',
         ], [
             'email.email' => 'The email format is invalid.',
             'email.unique' => 'The email has already been taken.',
@@ -128,7 +128,7 @@ class AuthController extends Controller
                     Rule::unique('users')->ignore($user->id),
                 ],
                 'address' => 'nullable|string|max:255',
-                'phone' => 'nullable|string|max:20',
+                'phone' => 'nullable|string|min:6|max:20',
 
             ], [
                 'email.regex' => 'The email format is invalid.',

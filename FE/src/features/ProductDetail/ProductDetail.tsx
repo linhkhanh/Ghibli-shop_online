@@ -64,6 +64,8 @@ const ProductDetail = () => {
       navigate("/products");
    };
 
+   const isAdmin = user?.role === "admin";
+
    useEffect(() => {
       const fetchProduct = async () => {
          setLoading(true);
@@ -232,7 +234,7 @@ const ProductDetail = () => {
                         )}
                      </Box>
                   </Box>
-                  {!(user?.role == "admin") ? (
+                  {!isAdmin ? (
                      <Button
                         variant="contained"
                         startIcon={<AddShoppingCartIcon />}

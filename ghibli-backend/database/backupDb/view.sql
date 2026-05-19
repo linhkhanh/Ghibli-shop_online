@@ -41,21 +41,5 @@ FROM products p
 JOIN order_items oi ON p.id = oi.product_id
 JOIN orders o ON oi.order_id = o.id
 WHERE o.payment_status = 'paid' -- We only count items that were actually paid for
-AND o.deleted_at IS NULL
-GROUP BY p.id, p.title, p.stock
-ORDER BY total_units_sold DESC;
-
-
-CREATE VIEW view_top_selling_products AS
-SELECT 
-    p.id AS product_id,
-    p.title AS product_name,
-    SUM(oi.quantity) AS total_units_sold,
-    SUM(oi.quantity * oi.price) AS total_revenue,
-    p.stock AS current_inventory_level
-FROM products p
-JOIN order_items oi ON p.id = oi.product_id
-JOIN orders o ON oi.order_id = o.id
-WHERE o.payment_status = 'paid' -- We only count items that were actually paid for
 GROUP BY p.id, p.title, p.stock
 ORDER BY total_units_sold DESC;
