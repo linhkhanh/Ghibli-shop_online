@@ -25,13 +25,17 @@ const uploadImage = async ({
       };
 
    loading = true;
+
+   const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+   const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
    const formData = new FormData();
    formData.append("file", imageFile);
-   formData.append("upload_preset", "Ghibli_preset");
+   formData.append("upload_preset", uploadPreset);
 
    try {
       const res = await axios.post(
-         "https://api.cloudinary.com/v1_1/dt5rqi1l9/image/upload",
+         `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
          formData,
       );
       uploadedUrl = res.data.secure_url;

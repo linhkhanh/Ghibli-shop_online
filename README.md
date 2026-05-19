@@ -21,6 +21,7 @@ Welcome to **Ghibli Shop Online**! This is a modern e-commerce web application i
 - **React Hook Form** for form management and validation
 - **React Hooks** for state and effect management
 - **React Router** for client-side routing
+- **Material UI** for creating consistent and nice UI
 
 ### Backend
 
@@ -85,6 +86,8 @@ If your frontend (React) needs to connect to the backend API, you can create a `
 
 ```env
 VITE_API_URL=http://localhost/api
+VITE_CLOUDINARY_CLOUD_NAME={your cloudinary name}
+VITE_CLOUDINARY_UPLOAD_PRESET={your upload preset}
 ```
 
 Update the value to match your backend URL as needed.
