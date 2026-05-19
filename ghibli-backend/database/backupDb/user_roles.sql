@@ -25,6 +25,10 @@ GRANT ALL PRIVILEGES ON ghibli_backend.payments TO 'admin';
 GRANT SELECT ON ghibli_backend.price_logs TO 'admin';
 GRANT SELECT ON ghibli_backend.audit_logs TO 'admin';
 
+-- Grant permission on view
+GRANT SELECT ON ghibli_backend.view_order_summary TO 'admin';
+GRANT SELECT ON ghibli_backend.view_top_selling_products TO 'admin';
+GRANT SELECT ON ghibli_backend.view_product_catalog TO 'admin';
 
 -- "marketing"
 
@@ -37,6 +41,12 @@ GRANT SELECT ON ghibli_backend.cart_items TO 'marketing';
 GRANT SELECT ON ghibli_backend.users TO 'marketing';
 GRANT SELECT ON ghibli_backend.movies TO 'marketing';
 GRANT SELECT ON ghibli_backend.wishlists TO 'marketing';
+
+
+-- Grant view
+GRANT SELECT ON ghibli_backend.view_order_summary TO 'marketing';
+GRANT SELECT ON ghibli_backend.view_top_selling_products TO 'marketing';
+GRANT SELECT ON ghibli_backend.view_product_catalog TO 'marketing';
 
 
 CREATE USER 'super_admin'@'%' IDENTIFIED BY 'strong_password_123';

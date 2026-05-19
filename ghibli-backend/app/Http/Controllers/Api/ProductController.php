@@ -6,7 +6,8 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Order;
+use App\Models\OrderItem;
 class ProductController extends Controller
 {
     public function index(Request $request)
@@ -69,7 +70,6 @@ class ProductController extends Controller
 
         try {
             return DB::transaction(function () use ($validated, $user) {
-                // 2. Create the Product (Only columns that actually exist in your table)
                 $product = Product::create([
                     'title'       => $validated['title'],
                     'description' => $validated['description'],
@@ -116,7 +116,7 @@ class ProductController extends Controller
             ], 404);
         }
 
-        // 4. (Optional) Check if stock is 0 for non-admins
+        // 4. Check if stock is 0 for non-admins
         if ($product->stock <= 0) {
             $user = auth('sanctum')->user();
             if (!$user || $user->role !== 'admin') {
@@ -214,8 +214,39 @@ class ProductController extends Controller
         }
 
         try {
-            return DB::transaction(function () use ($product, $user) {
+            return DB::transaction(function () use ($product, $user, $id) {
                 DB::statement("SET @current_user_id = ?", [$user->id]);
+                $pendingOrders = Order::where('status', 'pending')
+                    ->whereHas('items', function ($query) use ($id) {
+                        $query->where('product_id', $id);
+                    })->get();
+
+                foreach ($pendingOrders as $order) {
+                    // Remove the specific product line item from this order
+                    OrderItem::where('order_id', $order->id)
+                        ->where('product_id', $id)
+                        ->delete();
+
+                    // 4. Recalculate the order totals
+                    // Refresh the items relationship to exclude the deleted item
+                    $remainingItems = $order->items()->get();
+
+                    if ($remainingItems->isEmpty()) {
+                        // If no items are left in the order, cancel or delete the order entirely
+                        $order->delete(); 
+                    } else {
+                        // Calculate new total from remaining items
+                        $newSubtotal = $remainingItems->sum(function ($item) {
+                            return $item->quantity * $item->price;
+                        });
+
+                        // Update the order with the new total amount
+                        $order->update([
+                            'total_amount' => $newSubtotal,
+                            'delivery_fee' => $newSubtotal < 50 ? 20 : 0 // Assuming delivery fee is waived for recalculated orders
+                        ]);
+                    }
+                }
                 // 1. Soft delete all associated images
                 $product->images()->delete();
                 // 2. Soft delete the product itself
