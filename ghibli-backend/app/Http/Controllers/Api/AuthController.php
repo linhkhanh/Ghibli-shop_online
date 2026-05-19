@@ -19,10 +19,13 @@ class AuthController extends Controller
         // 1. Validation
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:20',
+        ], [
+            'email.email' => 'The email format is invalid.',
+            'email.unique' => 'The email has already been taken.',
         ]);
 
         if ($validator->fails()) {
@@ -121,11 +124,16 @@ class AuthController extends Controller
                     'required',
                     'email',
                     'max:255',
+                    'regex:/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/',
                     Rule::unique('users')->ignore($user->id),
                 ],
                 'address' => 'nullable|string|max:255',
                 'phone' => 'nullable|string|max:20',
 
+            ], [
+                'email.regex' => 'The email format is invalid.',
+                'email.unique' => 'The email has already been taken.',
+                'email.required' => 'The email field is required.',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);

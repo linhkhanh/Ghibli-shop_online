@@ -17,7 +17,10 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `users_email_unique` (`email`)
+  UNIQUE KEY `users_email_unique` (`email`),
+  CONSTRAINT `chk_users_email_format` CHECK (regexp_like(`email`,_utf8mb4'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,}$')),
+  CONSTRAINT `chk_users_phone_length` CHECK ((length(`phone`) >= 6)),
+  CONSTRAINT `chk_users_role_value` CHECK ((`role` in (_utf8mb4'user',_utf8mb4'admin')))
 )
 
 -- Movies table

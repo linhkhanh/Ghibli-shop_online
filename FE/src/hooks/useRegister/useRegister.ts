@@ -24,8 +24,9 @@ const useRegister = () => {
          updateUser(response.user);
          window.location.reload();
       } catch (error: Error | unknown) {
+         console.log("Registration error:", error);
          showSnackbar(
-            `${error instanceof Error ? error.message : ""}`,
+            `${error instanceof Error ? "Cannot register user. Email may be invalid or already taken." : ""}`,
             "error",
          );
       }
